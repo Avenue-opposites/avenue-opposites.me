@@ -54,6 +54,7 @@ module.exports = {
 			'error',
 			'never'
 		],
-		'@typescript-eslint/triple-slash-reference': 'off'	
+		'@typescript-eslint/triple-slash-reference': 'off',
+		'no-mixed-spaces-and-tabs': 'off',
 	}
 }
