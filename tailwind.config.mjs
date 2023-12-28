@@ -73,5 +73,5 @@ export default {
 		prefix: 'daisy-',
 		themeRoot: ':root'
 	},
-	darkMode: 'class',
+	darkMode: ['class', '[data-theme="dark"]'],
 }
