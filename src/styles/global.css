@@ -21,6 +21,10 @@
 	body {
 		font-family: 'Atkinson', sans-serif;
 	}
+
+	:where(a) {
+		@apply transition-colors;
+	}
 	/* View Transition */
 	/* ::view-transition-image-pair(root) {
 		isolation: auto;
