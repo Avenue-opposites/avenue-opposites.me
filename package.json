@@ -38,6 +38,11 @@
     "husky": "^8.0.3"
   },
   "homepage": "https://github.com/Avenue-opposites",
+  "socialLinks": {
+    "twitter": "https://twitter.com/wojishidao",
+    "github": "https://github.com/Avenue-opposites",
+    "bilibili": "https://space.bilibili.com/424653177?spm_id_from=333.1007.0.0"
+  },
   "author": {
     "name": "Avenue Opposites",
     "url": "https://avenue-opposites.me",
