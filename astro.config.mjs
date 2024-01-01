@@ -14,6 +14,14 @@ export default defineConfig({
 			applyBaseStyles: false
 		}), 
 	],
+	markdown: {
+		shikiConfig: {
+			theme: 'one-dark-pro',
+			langs: ['javascript', 'typescript', 'html', 'css', 'json', 'jsx', 'tsx'],
+			wrap: true
+		},
+		syntaxHighlight: 'shiki'
+	},
 	server: {
 		host: '0.0.0.0'
 	}
