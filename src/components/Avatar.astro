@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { Image } from 'astro:assets'
+
+interface Props extends HTMLAttributes<'div'> {
+  name: string;
+  src?: string;
+  alt?: string;
+}
+
+const { src, name, alt, ...props } = Astro.props;
+---
+
+<div class:list={['daisy-avatar items-center gap-x-2 not-prose text-accent sm:text-xl', { 'daisy-placeholder': !src }]} {...props}>
+	<div class="w-6 h-6 sm:w-10 sm:h-10 rounded-full ring-1 ring-accent ring-offset-1 ring-offset-base-100">
+		{
+			src ?
+				(
+		      <Image width={64} height={64} src={src} alt={alt || name} />
+				) :
+				(
+					<div class="flex-center bg-neutral text-neutral-content w-full h-full">
+						<span>{name[0]}</span>
+					</div>
+				)
+		}
+	</div>
+	<slot>{name}</slot>
+</div>

@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getContentStatus } from '~/shared'
+import { mapAsync } from '~/utils'
+import FormattedDate from '~/components/FormattedDate.astro'
+
+const notes = await getCollection('notes')
+
+await mapAsync(notes, async note => {
+	const { birthtime } = await getContentStatus('notes', note.id)
+
+	// 修改发布时间为文件创建时间
+	note.data.publishDate = birthtime
+})
+
+// 按照发布时间排序
+notes.sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+---
+
+<BaseLayout>
+	<main class="w-full">
+		<section class="w-3/4 mx-auto">
+			<ul class="mt-6">
+				{
+					notes.map(note => (
+						<li>
+							<a
+								class="block space-y-2 p-2 sm:p-4 sm:space-y-4 rounded-lg shadow-md hover:shadow-secondary border sm:border-2 hover:border-primary"
+								href={`/notes/${note.slug}`}
+							>
+								<div class="flex items-center justify-between">
+									<h1 class="text-xl font-bold sm:text-3xl">
+                    # {note.data.title}
+									</h1>
+									<p class="text-neutral text-xs sm:text-sm">
+										<FormattedDate date={note.data.publishDate} />
+									</p>
+								</div>
+								<p class="text-sm sm:text-base">{note.data.description}</p>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</section>
+	</main>
+</BaseLayout>

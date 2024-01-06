@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import Icon from 'astro-icon'
+
+interface Props extends HTMLAttributes<'a'> {
+  icon: string;
+	size?: number;
+}
+
+const { icon, size = 24, ...props } = Astro.props
+---
+
+<a class="hover:text-primary" target="_blank" {...props}>
+	<slot name="icon">
+		<Icon class="fill-current" size={size} name={icon} />
+	</slot>
+</a>
