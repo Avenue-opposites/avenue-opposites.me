@@ -1,5 +1,5 @@
 ---
-import '~/styles/global.css'
+import '../styles/global.css'
 
 interface Props {
 	title: string;
@@ -44,26 +44,3 @@ const imageUrl = new URL(image, Astro.url)
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={imageUrl} />
-
-<!-- 主题切换必须的脚本 -->
-<script is:inline>
-// 该脚本是内联中页面中的,不会被打包
-// 从本地存储中获取主题
-const theme = localStorage.getItem('theme')
-const docEl = document.documentElement
-// 如果没有主题,则设置为系统默认主题,否则为本地存储的主题
-if (!theme) {
-	const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-	docEl.setAttribute('data-theme',  systemTheme)
-} else {
-	docEl.setAttribute(
-		'data-theme',
-		theme
-	)
-}
-</script>
-<script>
-import { themeChange } from 'theme-change'
-// 主题切换
-themeChange()
-</script>

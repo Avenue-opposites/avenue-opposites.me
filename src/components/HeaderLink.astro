@@ -1,24 +1,24 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
-import Icon from 'astro-icon'
-interface Props extends HTMLAttributes<'a'> {
-  icon?: string;
-}
 
-const { href, icon, class: className, ...props } = Astro.props
+type Props = HTMLAttributes<'a'>;
+
+const { href, class: className, ...props } = Astro.props
 
 const { pathname } = Astro.url
-// 支持/home 或者 /home/
 const isActive = href === pathname || href === pathname.replace(/\/$/, '');
 ---
 
-<a href={href} class:list={[className, { 'text-primary daisy-link': isActive }, 'flex transition-all items-center hover:text-primary']} {...props}>
-	<span class="sm:hidden">
-		<slot name="icon">
-			{icon && <Icon name={icon} class="fill-current" size={24} />}
-		</slot>
-	</span>
-	<span class="hidden sm:block">
-		<slot />
-	</span>
+<a href={href} class:list={[className, { active: isActive }]} {...props}>
+	<slot />
 </a>
+<style>
+	a {
+		display: inline-block;
+		text-decoration: none;
+	}
+	a.active {
+		font-weight: bolder;
+		text-decoration: underline;
+	}
+</style>
