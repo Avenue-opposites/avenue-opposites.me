@@ -4,6 +4,7 @@ import { defineCollection, reference, z } from 'astro:content'
 const notesModel = z.object({
 	title: z.string(),
 	description: z.string(),
+	duration: z.string(),
 	publishDate: z.coerce.date(),
 	updatedDate: z.coerce.date().optional(),
 	heroImage: z.string().optional(),
