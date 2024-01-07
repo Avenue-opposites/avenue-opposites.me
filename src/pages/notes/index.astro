@@ -1,18 +1,9 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { getContentStatus } from '~/shared'
-import { mapAsync } from '~/utils'
 import FormattedDate from '~/components/FormattedDate.astro'
 
 const notes = await getCollection('notes')
-
-await mapAsync(notes, async note => {
-	const { birthtime } = await getContentStatus('notes', note.id)
-
-	// 修改发布时间为文件创建时间
-	note.data.publishDate = birthtime
-})
 
 // 按照发布时间排序
 notes.sort(
