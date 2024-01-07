@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '~/components/FormattedDate.astro'
+
+type Props = HTMLAttributes<'a'> & CollectionEntry<'notes'>['data']
+
+const { title, description, publishDate, duration, ...props } = Astro.props
+---
+
+<a
+	class="daisy-card daisy-card-bordered space-y-2 p-2 sm:p-4 sm:space-y-4 shadow-md hover:shadow-secondary border sm:border-2 hover:border-primary"
+	{...props}
+>
+	<div class="flex items-center justify-between">
+		<h1 class="daisy-card-title text-xl font-bold sm:text-3xl">
+    # {title}
+		</h1>
+		<p class="text-neutral text-xs sm:text-sm">
+			<FormattedDate date={publishDate} />
+    · {duration}
+		</p>
+	</div>
+	<p class="text-sm sm:text-base">{description}</p>
+</a>

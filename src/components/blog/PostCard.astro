@@ -5,7 +5,7 @@ import FormattedDate from '../FormattedDate.astro'
 
 type Props = HTMLAttributes<'a'> & CollectionEntry<'notes'>['data']
 
-const { title, description, publishDate, heroImage, ...props } = Astro.props;
+const { title, description, publishDate, heroImage, duration,...props } = Astro.props;
 ---
 
 <a
@@ -23,7 +23,8 @@ const { title, description, publishDate, heroImage, ...props } = Astro.props;
 	<div class="daisy-card-body">
 		<h1 class="mt-2 daisy-card-title sm:text-3xl">{title}</h1>
 		<p class="text-neutral text-sm">
-      发布于<FormattedDate date={publishDate} />
+			<FormattedDate date={publishDate} />
+			· {duration}
 		</p>
 		<p class="sm:text-lg">{description}</p>
 	</div>
