@@ -3,6 +3,7 @@ import type { BundledHighlighterOptions, BundledLanguage, BundledTheme } from 's
 import { getHighlighter, bundledLanguages } from 'shikiji'
 import { visit } from 'unist-util-visit'
 import { transformerTwoSlash, rendererRich } from 'shikiji-twoslash'
+import { transformerNotationDiff } from 'shikiji-transformers'
 
 interface CodeNode extends Node {
 	value: string;
@@ -57,6 +58,8 @@ export default function remarkShikiji(options: Options) {
 						// 只有mete中包含twoslash才会触发
 						explicitTrigger: true,
 					}),
+					// 使用[!code ++]和[!code --]来标记添加和删除的行。
+					transformerNotationDiff(),
 				],
 				meta: {
 					// 用于twoslash解析
