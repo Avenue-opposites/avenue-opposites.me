@@ -210,7 +210,7 @@ html[data-theme="dark"] .twoslash {
 }
 
 
-/* code diff 样式 */
+/* 代码 diff 样式 */
 .has-diff {
 	--diff-add-bg: #04ff0034;
 	--diff-remove-bg: #ff000030;
@@ -222,6 +222,10 @@ html[data-theme="dark"] .twoslash {
 
 .has-diff .diff {
 	position: relative;
+}
+
+.has-diff .diff,
+.has-highlighted .highlighted {
 	display: inline-block;
 	width: 120%;
 	padding-left: 24px;
@@ -248,7 +252,8 @@ html[data-theme="dark"] .twoslash {
 	opacity: 0.7;
 }
 
-.has-diff .diff span {
+.has-diff .diff span,
+.has-highlighted .highlighted span {
 	background-color: transparent !important;
 }
 
@@ -260,6 +265,39 @@ html[data-theme="dark"] .twoslash {
 	background-color: var(--diff-remove-bg) !important;
 }
 
+/* 代码行高亮样式 */
+.has-highlighted {
+	--highlight-bg: #8988881f;
+	--highlight-warning-bg: #fff70032;
+	--highlight-error-bg: var(--diff-remove-bg);
+}
+
+.has-highlighted .highlighted {
+	background-color: var(--highlight-bg) !important;
+}
+
+/* 代码行警告 */
+.has-highlighted .warning {
+	background-color: var(--highlight-warning-bg) !important;
+}
+
+/* 代码行错误 */
+.has-highlighted .error {
+	background-color: var(--highlight-error-bg) !important;
+}
+
+/* 代码行聚焦 */
+.has-focused .line {
+	opacity: 0.8;
+	transition: all 500ms ease;
+	filter: blur(0.1rem);
+}
+
+.has-focused:hover .line,
+.has-focused .focused {
+	opacity: 1;
+	filter: none;
+}
 
 @layer base {
 	body {

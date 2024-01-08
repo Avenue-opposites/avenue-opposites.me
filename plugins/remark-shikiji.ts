@@ -3,7 +3,12 @@ import type { BundledHighlighterOptions, BundledLanguage, BundledTheme } from 's
 import { getHighlighter, bundledLanguages } from 'shikiji'
 import { visit } from 'unist-util-visit'
 import { transformerTwoSlash, rendererRich } from 'shikiji-twoslash'
-import { transformerNotationDiff } from 'shikiji-transformers'
+import { 
+	transformerNotationDiff, 
+	transformerNotationHighlight,
+	transformerNotationFocus,
+	transformerNotationErrorLevel
+} from 'shikiji-transformers'
 
 interface CodeNode extends Node {
 	value: string;
@@ -60,6 +65,12 @@ export default function remarkShikiji(options: Options) {
 					}),
 					// 使用[!code ++]和[!code --]来标记添加和删除的行。
 					transformerNotationDiff(),
+					// 使用[!code highlight]来标记代码行高亮
+					transformerNotationHighlight(),
+					// 使用[!code focus]来标记焦点代码
+					transformerNotationFocus(),
+					// 使用[!code warning]和[!code error]来标记警告代码和错误代码
+					transformerNotationErrorLevel(),
 				],
 				meta: {
 					// 用于twoslash解析
