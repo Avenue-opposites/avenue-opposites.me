@@ -1,12 +1,18 @@
 import type { Node } from 'unist'
-import type { 
+import type {
 	BundledHighlighterOptions, 
 	BundledLanguage, 
 	BundledTheme, 
 	ShikijiTransformer 
 } from 'shikiji' 
-import { getHighlighter, bundledLanguages, bundledThemes } from 'shikiji'
+import { 
+	getHighlighter, 
+	bundledLanguages, 
+	bundledThemes, 
+	addClassToHast 
+} from 'shikiji'
 import { visit } from 'unist-util-visit'
+import type { Element } from 'hast'
 
 interface CodeNode extends Node {
 	value: string;
@@ -55,7 +61,16 @@ export default function remarkShikiji(options: Options = {} as any) {
 				...themeOptions,
 				defaultColor: false,
 				lang,
-				transformers,
+				transformers: [
+					...transformers,
+					{
+						token(hast: Element) {
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							addClassToHast(hast as any, 'highlight-transparent')
+							return hast
+						}
+					}
+				],
 				meta: {
 					// 用于twoslash解析
 					__raw: node.meta // 'twoslash',

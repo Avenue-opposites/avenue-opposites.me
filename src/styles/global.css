@@ -44,7 +44,7 @@ html[data-theme="dark"] .shiki span {
 	--twoslash-border-color: #8888;
   --twoslash-jsdoc-color: #888;
   --twoslash-underline-color: currentColor;
-	--twoslash-popup-bg: #f8f8f8;
+	--twoslash-popup-bg: var(--shiki-light-bg);
   --twoslash-popup-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
   --twoslash-matched-color: inherit;
   --twoslash-unmatched-color: #888;
@@ -69,7 +69,7 @@ html[data-theme="dark"] .shiki span {
 
 html[data-theme="dark"] .twoslash {
   --twoslash-cursor-color: #848383;
-	--twoslash-popup-bg: #121212;
+	--twoslash-popup-bg: var(--shiki-dark-bg);
 }
 
 .twoslash svg {
@@ -81,18 +81,27 @@ html[data-theme="dark"] .twoslash {
 	border-color: var(--twoslash-underline-color);
 }
 
-.twoslash-hover {
+.twoslash .twoslash-hover {
 	position: relative;
+	background-color: transparent !important;
 	transition: border-color var(--twoslash-transition-duration) ease-in-out;
 	border-bottom: 1px dotted transparent;
 }
 
-.twoslash-hover:hover .twoslash-popup-info {
+.twoslash-hover:hover .twoslash-popup-info,
+.twoslash .twoslash-query-presisted .twoslash-popup-info {
 	visibility: visible;
 	opacity: 1;
 }
 
+.twoslash .twoslash-query-presisted .twoslash-popup-info {
+	transform: translateY(0.5rem);
+	z-index: 10;
+}
+
 .twoslash .twoslash-popup-info {
+	z-index: 50;
+	transform: translateY(0.125rem);
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity var(--twoslash-transition-duration) ease-in-out;
@@ -100,13 +109,23 @@ html[data-theme="dark"] .twoslash {
 	top: 100%;
 	left: 0;
 	box-shadow: var(--twoslash-popup-shadow);
+	background-color: var(--twoslash-popup-bg) !important;
 	padding: calc(var(--twoslash-popup-info-padding) / 2) var(--twoslash-popup-info-padding);
 	border-radius: var(--twoslash-popup-info-border-radius);
 	border: 1px solid var(--twoslash-border-color);
 }
 
-.twoslash .twoslash-popup-info {
-	z-index: 50;
+.twoslash .twoslash-popup-arrow {
+	position: absolute;
+	left: 20px;
+	top: -3px;
+	width: 4px;
+	height: 4px;
+	border: 1px solid var(--twoslash-border-color);
+	border-right: none;
+	border-bottom: none;
+	background-color: var(--twoslash-popup-bg);
+	transform: rotate(45deg);
 }
 
 /* jsdoc注释 */
@@ -135,6 +154,7 @@ html[data-theme="dark"] .twoslash {
 	padding: 0;
 	list-style: none;
 	position: absolute;
+	z-index: 10;
 	top: 100%;
 	left: 0;
 	width: 240px;
@@ -227,9 +247,9 @@ html[data-theme="dark"] .twoslash {
 .has-diff .diff,
 .has-highlighted .highlighted {
 	display: inline-block;
-	width: 120%;
+	width: calc(100% + 48px);
 	padding-left: 24px;
-	margin-left: -24px;
+	margin: 0 -24px;
 }
 
 .has-diff .add::before,
@@ -248,13 +268,13 @@ html[data-theme="dark"] .twoslash {
 	color: var(--diff-remove-symbol-color);
 }
 
-.has-diff .diff {
+/* .has-diff .diff {
 	opacity: 0.7;
-}
+} */
 
-.has-diff .diff span,
-.has-highlighted .highlighted span {
-	background-color: transparent !important;
+.has-diff .diff .highlight-transparent,
+.has-highlighted .highlighted .highlight-transparent {
+	background-color: transparent;
 }
 
 .has-diff .add {
