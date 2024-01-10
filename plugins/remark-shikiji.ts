@@ -13,16 +13,6 @@ import {
 } from 'shikiji'
 import { visit } from 'unist-util-visit'
 
-declare module 'shikiji' {
-	interface ShikijiTransformerContextMeta {
-		lineHighlight?: ({
-			lineNumber: number,
-			start: number,
-			end: number
-		})[];
-	}
-}
-
 interface CodeNode extends Node {
 	value: string;
 	meta?: string;
