@@ -21,7 +21,7 @@ authors: Avenue-opposites
 
 ## 多行文本溢出显示省略号
 
-```css
+```css ml [$${4-6}]
 .multi-ellipsis {
   overflow: hidden; /* 设置溢出隐藏 */
   text-overflow: ellipsis;  /* 设置文本溢出显示省略号   */
