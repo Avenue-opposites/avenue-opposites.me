@@ -200,6 +200,7 @@ html[data-theme="dark"] .twoslash {
 
 /* 代码行元信息 */
 .twoslash .twoslash-meta-line {
+	margin-top: 0.25rem;
 	padding: 0.5rem;
 	border-left-width: 0.25rem;
 	border-left-style: solid;
@@ -229,6 +230,11 @@ html[data-theme="dark"] .twoslash {
 	border-left-color: var(--twoslash-tag-annotate-color);
 }
 
+/* ts报错指向token使用波浪线 */
+.twoslash .twoslash-error {
+	background-size: cover;
+	background: url(/images/wave.svg) repeat-x bottom left;
+}
 
 /* 代码 diff 样式 */
 .has-diff {
@@ -289,7 +295,7 @@ html[data-theme="dark"] .twoslash {
 .has-highlighted {
 	--highlight-bg: #8988881f;
 	--highlight-warning-bg: #fff70032;
-	--highlight-error-bg: var(--diff-remove-bg);
+	--highlight-error-bg: #ff000032;
 }
 
 .has-highlighted .highlighted {
