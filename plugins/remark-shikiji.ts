@@ -12,7 +12,6 @@ import {
 	addClassToHast 
 } from 'shikiji'
 import { visit } from 'unist-util-visit'
-import type { Element } from 'hast'
 
 declare module 'shikiji' {
 	interface ShikijiTransformerContextMeta {
@@ -74,56 +73,8 @@ export default function remarkShikiji(options: Options = {} as any) {
 				transformers: [
 					...transformers,
 					{
-						preprocess(code, options) {
-							const __raw = options.meta?.__raw
-							const match = __raw?.match(/{(?<lines>(.*))}/)
-							const lines = match?.groups?.lines
-
-							if(lines) {				
-								// eslint-disable-next-line @typescript-eslint/no-explicit-any
-								this.meta.lineHighlight = lines.split(',').map(line => {
-									const [s, d] = line.split('-')
-									const start = parseInt(s)
-									const end = d ? parseInt(d) : start
-									const lineNumber = (start === end) ? 1 : (end - start + 1)
-
-									return {
-										lineNumber,
-										start,
-										end
-									}
-								})
-							}
-							return code
-						},
-						pre(hast: Element) {
-							if(!this.meta.lineHighlight?.length)
-								return
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							addClassToHast(hast as any, 'has-highlighted')
-							return hast
-						},
-						line(hast: Element, line) {
-							const lines = this.meta.lineHighlight
-														
-							if(hast.tagName !== 'span' || hast.type !== 'element') 
-								return
-
-							if(lines) {
-								for(const { start, end } of lines) {
-									if(start <= line && end >= line) {
-										// eslint-disable-next-line @typescript-eslint/no-explicit-any
-										addClassToHast(hast as any, 'highlighted')
-									}
-								}
-							}
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							addClassToHast(hast as any, 'highlight-transparent')
-							return hast
-						},
-						token(hast: Element) {
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							addClassToHast(hast as any, 'highlight-transparent')
+						token(hast) {
+							addClassToHast(hast, 'highlight-transparent')
 							return hast
 						}
 					}
@@ -139,5 +90,3 @@ export default function remarkShikiji(options: Options = {} as any) {
 		})
 	}
 }
-
-// const a = /[([\d+|])]/
