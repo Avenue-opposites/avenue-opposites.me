@@ -23,6 +23,9 @@ dependencies:
   '@commitlint/types':
     specifier: ^18.4.3
     version: 18.4.3
+  '@types/hast':
+    specifier: ^3.0.3
+    version: 3.0.3
   '@types/unist':
     specifier: ^3.0.2
     version: 3.0.2
