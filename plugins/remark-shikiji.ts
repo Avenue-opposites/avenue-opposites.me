@@ -12,7 +12,16 @@ import {
 	addClassToHast 
 } from 'shikiji'
 import { visit } from 'unist-util-visit'
-import type { Element } from 'hast'
+
+declare module 'shikiji' {
+	interface ShikijiTransformerContextMeta {
+		lineHighlight?: ({
+			lineNumber: number,
+			start: number,
+			end: number
+		})[];
+	}
+}
 
 interface CodeNode extends Node {
 	value: string;
@@ -55,7 +64,7 @@ export default function remarkShikiji(options: Options = {} as any) {
 			}
 			
 			const themeOptions = Object.values(themes).length ? { themes } : { theme }
-
+			
 			// 将代码转换为html语法高亮文本
 			const html = highlighter.codeToHtml(node.value, {
 				...themeOptions,
@@ -64,9 +73,8 @@ export default function remarkShikiji(options: Options = {} as any) {
 				transformers: [
 					...transformers,
 					{
-						token(hast: Element) {
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							addClassToHast(hast as any, 'highlight-transparent')
+						token(hast) {
+							addClassToHast(hast, 'highlight-transparent')
 							return hast
 						}
 					}
