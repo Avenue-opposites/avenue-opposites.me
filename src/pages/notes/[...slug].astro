@@ -1,26 +1,14 @@
 ---
 import NoteLayout from '~/layouts/NoteLayout.astro'
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { mapAsync } from '~/utils'
-import { getContentStatus } from '~/shared'
 
 export async function getStaticPaths() {
 	const notes = await getCollection('notes')
 
-	return mapAsync(
-		notes,
-		async note => {
-			const { birthtime } = await getContentStatus('notes', note.id)
-
-			// 修改发布时间为文件创建时间
-			note.data.publishDate = birthtime
-
-			return {
-				params: { slug: note.slug },
-				props: note,
-			}
-		}
-	)
+	return notes.map(note => ({
+		params: { slug: note.slug },
+		props: note,
+	}))
 }
 
 type Props = CollectionEntry<'notes'>

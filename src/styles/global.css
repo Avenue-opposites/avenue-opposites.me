@@ -44,7 +44,7 @@ html[data-theme="dark"] .shiki span {
 	--twoslash-border-color: #8888;
   --twoslash-jsdoc-color: #888;
   --twoslash-underline-color: currentColor;
-	--twoslash-popup-bg: #f8f8f8;
+	--twoslash-popup-bg: var(--shiki-light-bg);
   --twoslash-popup-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
   --twoslash-matched-color: inherit;
   --twoslash-unmatched-color: #888;
@@ -69,7 +69,7 @@ html[data-theme="dark"] .shiki span {
 
 html[data-theme="dark"] .twoslash {
   --twoslash-cursor-color: #848383;
-	--twoslash-popup-bg: #121212;
+	--twoslash-popup-bg: var(--shiki-dark-bg);
 }
 
 .twoslash svg {
@@ -81,18 +81,27 @@ html[data-theme="dark"] .twoslash {
 	border-color: var(--twoslash-underline-color);
 }
 
-.twoslash-hover {
+.twoslash .twoslash-hover {
 	position: relative;
+	background-color: transparent !important;
 	transition: border-color var(--twoslash-transition-duration) ease-in-out;
 	border-bottom: 1px dotted transparent;
 }
 
-.twoslash-hover:hover .twoslash-popup-info {
+.twoslash-hover:hover .twoslash-popup-info,
+.twoslash .twoslash-query-presisted .twoslash-popup-info {
 	visibility: visible;
 	opacity: 1;
 }
 
+.twoslash .twoslash-query-presisted .twoslash-popup-info {
+	transform: translateY(0.5rem);
+	z-index: 10;
+}
+
 .twoslash .twoslash-popup-info {
+	z-index: 50;
+	transform: translateY(0.125rem);
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity var(--twoslash-transition-duration) ease-in-out;
@@ -100,13 +109,23 @@ html[data-theme="dark"] .twoslash {
 	top: 100%;
 	left: 0;
 	box-shadow: var(--twoslash-popup-shadow);
+	background-color: var(--twoslash-popup-bg) !important;
 	padding: calc(var(--twoslash-popup-info-padding) / 2) var(--twoslash-popup-info-padding);
 	border-radius: var(--twoslash-popup-info-border-radius);
 	border: 1px solid var(--twoslash-border-color);
 }
 
-.twoslash .twoslash-popup-info {
-	z-index: 50;
+.twoslash .twoslash-popup-arrow {
+	position: absolute;
+	left: 20px;
+	top: -3px;
+	width: 4px;
+	height: 4px;
+	border: 1px solid var(--twoslash-border-color);
+	border-right: none;
+	border-bottom: none;
+	background-color: var(--twoslash-popup-bg);
+	transform: rotate(45deg);
 }
 
 /* jsdoc注释 */
@@ -135,6 +154,7 @@ html[data-theme="dark"] .twoslash {
 	padding: 0;
 	list-style: none;
 	position: absolute;
+	z-index: 10;
 	top: 100%;
 	left: 0;
 	width: 240px;
@@ -210,6 +230,95 @@ html[data-theme="dark"] .twoslash {
 }
 
 
+/* 代码 diff 样式 */
+.has-diff {
+	--diff-add-bg: #04ff0034;
+	--diff-remove-bg: #ff000030;
+	--diff-add-symbol: '+';
+	--diff-remove-symbol: '-';
+	--diff-add-symbol-color: #04ff00;
+	--diff-remove-symbol-color: #ff0000;
+}
+
+.has-diff .diff {
+	position: relative;
+}
+
+.has-diff .diff,
+.has-highlighted .highlighted {
+	display: inline-block;
+	width: calc(100% + 48px);
+	padding-left: 24px;
+	margin: 0 -24px;
+}
+
+.has-diff .add::before,
+.has-diff .remove::before {
+	position: absolute;
+ 	left: 0.5rem;
+}
+
+.has-diff .add::before {
+ content: var(--diff-add-symbol);
+ color: var(--diff-add-symbol-color);
+}
+
+.has-diff .remove::before {
+	content: var(--diff-remove-symbol);
+	color: var(--diff-remove-symbol-color);
+}
+
+/* .has-diff .diff {
+	opacity: 0.7;
+} */
+
+.has-diff .diff .highlight-transparent,
+.has-highlighted .highlighted .highlight-transparent {
+	background-color: transparent;
+}
+
+.has-diff .add {
+	background-color: var(--diff-add-bg) !important;
+}
+
+.has-diff .remove {
+	background-color: var(--diff-remove-bg) !important;
+}
+
+/* 代码行高亮样式 */
+.has-highlighted {
+	--highlight-bg: #8988881f;
+	--highlight-warning-bg: #fff70032;
+	--highlight-error-bg: var(--diff-remove-bg);
+}
+
+.has-highlighted .highlighted {
+	background-color: var(--highlight-bg) !important;
+}
+
+/* 代码行警告 */
+.has-highlighted .warning {
+	background-color: var(--highlight-warning-bg) !important;
+}
+
+/* 代码行错误 */
+.has-highlighted .error {
+	background-color: var(--highlight-error-bg) !important;
+}
+
+/* 代码行聚焦 */
+.has-focused .line {
+	opacity: 0.8;
+	transition: all 500ms ease;
+	filter: blur(0.1rem);
+}
+
+.has-focused:hover .line,
+.has-focused .focused {
+	opacity: 1;
+	filter: none;
+}
+
 @layer base {
 	body {
 		font-family: 'Atkinson', sans-serif;
@@ -217,6 +326,14 @@ html[data-theme="dark"] .twoslash {
 
 	:where(a) {
 		@apply transition-colors;
+	}
+
+	pre {
+		@apply px-0 !important;
+	}
+
+	code {
+		@apply block w-full px-6 !important;
 	}
 	
 	/* View Transition */

@@ -1,8 +1,18 @@
 import type { Node } from 'unist'
-import type { BundledHighlighterOptions, BundledLanguage, BundledTheme } from 'shikiji' 
-import { getHighlighter, bundledLanguages } from 'shikiji'
+import type {
+	BundledHighlighterOptions, 
+	BundledLanguage, 
+	BundledTheme, 
+	ShikijiTransformer 
+} from 'shikiji' 
+import { 
+	getHighlighter, 
+	bundledLanguages, 
+	bundledThemes, 
+	addClassToHast 
+} from 'shikiji'
 import { visit } from 'unist-util-visit'
-import { transformerTwoSlash, rendererRich } from 'shikiji-twoslash'
+import type { Element } from 'hast'
 
 interface CodeNode extends Node {
 	value: string;
@@ -12,30 +22,28 @@ interface CodeNode extends Node {
 
 export type Options = BundledHighlighterOptions<BundledLanguage, BundledTheme> & {
 	theme: BundledTheme,
+	highlighter?: Awaited<ReturnType<typeof getHighlighter>>,
+	transformers?: ShikijiTransformer[],
 }
 
+const bundledTheme = Object.keys(bundledThemes)
 const bundledLanguage = Object.keys(bundledLanguages)
+const defaultHighlighter = await getHighlighter({
+	themes: bundledTheme,
+	langs: bundledLanguage,
+})
 
-export default function remarkShikiji(options: Options) {	
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function remarkShikiji(options: Options = {} as any) {	
 	const {
-		theme = 'github-dark',
-		themes: _themes = {},
-		langs = [],
-		...otherOptions
-	} = options
-	let highlighter: Awaited<ReturnType<typeof getHighlighter>>
-	let loadedLangs: string[]
-	const themes: string[] = Object.keys(_themes).length ? Object.values(_themes) : [theme]
-	const themeOptions = Object.values(_themes).length ? { themes: _themes } : { theme } 
-		
-	return async (tree: Node) => {	
-		highlighter ??= await getHighlighter({ 
-			themes,
-			langs: langs.length ? langs : Object.keys(bundledLanguage), 
-			...otherOptions,
-		})
-		
-		loadedLangs ??= highlighter.getLoadedLanguages()
+		theme = 'vitesse-dark',
+		themes = {},
+		highlighter = defaultHighlighter,
+		transformers = [],
+	} = options	
+
+	return (tree: Node) => {	
+		const loadedLangs = highlighter.getLoadedLanguages()
 		// 遍历所有code类型节点
 		visit(tree, 'code', (node: CodeNode) => {
 			let lang = node?.lang || 'plaintext'
@@ -45,6 +53,8 @@ export default function remarkShikiji(options: Options) {
 				console.warn(`[remark-shikiji] ${lang} is not exist.`)
 				lang = 'plaintext'
 			}
+			
+			const themeOptions = Object.values(themes).length ? { themes } : { theme }
 
 			// 将代码转换为html语法高亮文本
 			const html = highlighter.codeToHtml(node.value, {
@@ -52,11 +62,14 @@ export default function remarkShikiji(options: Options) {
 				defaultColor: false,
 				lang,
 				transformers: [
-					transformerTwoSlash({
-						renderer: rendererRich(),
-						// 只有mete中包含twoslash才会触发
-						explicitTrigger: true,
-					}),
+					...transformers,
+					{
+						token(hast: Element) {
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							addClassToHast(hast as any, 'highlight-transparent')
+							return hast
+						}
+					}
 				],
 				meta: {
 					// 用于twoslash解析
