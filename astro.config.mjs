@@ -10,6 +10,7 @@ import {
 	transformerNotationErrorLevel
 } from 'shikiji-transformers'
 import RemarkShikiji from './plugins/remark-shikiji'
+import { transformerMultipleLine } from './plugins/shikiji-multiple-line'
 
 // https://astro.build/config
 export default defineConfig({
@@ -45,6 +46,9 @@ export default defineConfig({
 						transformerNotationFocus(),
 						// 使用[!code warning]和[!code error]来标记警告代码和错误代码
 						transformerNotationErrorLevel(),
+						transformerMultipleLine({
+							meteFlag: 'ml'
+						}),
 					],
 				}
 			],
