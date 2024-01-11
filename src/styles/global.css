@@ -39,6 +39,17 @@ html[data-theme="dark"] .shiki span {
 	text-decoration: var(--shiki-dark-text-decoration) ;
 }
 
+.shiki > code {
+	display: block;
+	width: 100%;
+	padding: 0 24px;
+}
+
+.shiki {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
 /* twoslash 代码块样式 */
 .twoslash {
 	--twoslash-border-color: #8888;
@@ -332,14 +343,6 @@ html[data-theme="dark"] .twoslash {
 
 	:where(a) {
 		@apply transition-colors;
-	}
-
-	pre {
-		@apply px-0 !important;
-	}
-
-	code {
-		@apply block w-full px-6 !important;
 	}
 	
 	/* View Transition */
