@@ -1,0 +1,138 @@
+---
+import type { MarkdownHeading } from 'astro'
+import { Icon } from 'astro-icon'
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const depthClass = [
+	'font-bold', // 1
+	'font-medium text-sm xl:font-bold xl:text-base', // 2
+	'pl-2 text-xs xl:pl-4 xl:text-sm', // 3
+	'pl-3 text-xs xl:pl-6 xl:text-sm', // 4
+	'pl-4 text-xs xl:pl-8', // 5
+	'pl-5 text-xs xl:pl-10', // 6
+]
+
+const { headings } = Astro.props
+---
+
+<div class="hidden pl-4 lg:flex items-center fixed w-56 h-[10vh] bg-base-100 xl:w-64 z-50 top-0 left-0">
+	<button id="menu-btn">
+		<Icon name="menu" class="w-6 h-6 xl:w-8 xl:h-8 stroke-neutral transition-colors hover:stroke-current" />
+	</button>
+</div>
+<nav id="toc" class="w-56 xl:w-64 h-[90vh] pl-8 py-4 not-prose hidden fixed z-50 bg-base-100 bottom-0 left-0 lg:flex transition-transform -translate-x-full flex-col">
+	<ul class="flex-1 space-y-2 overflow-y-auto">
+		{
+			headings.map(heading => (
+				<li class:list={['text-neutral', depthClass[heading.depth - 1]]} >
+					<a
+						class="border-b border-transparent hover:border-accent hover:text-accent"
+						href={`#${heading.slug}`}
+						data-slug={heading.slug}
+					>
+						{heading.text}
+					</a>
+				</li>
+			))
+		} 
+	</ul>
+</nav>
+
+<!-- 处理标题高亮 -->
+<script>
+import { debounce } from '~/utils'
+
+const toc = document.getElementById('toc')
+// 标题元素
+const headings = [...document.querySelectorAll('*[data-anchor]')]
+// 高亮类名
+const activeClass = ['text-accent', 'border-accent']
+const handleDebounce = debounce(handleScroll, 300)
+let isLG = matchMedia('(min-width: 1024px)').matches
+let currentHeading: Element | null = null
+
+handleToc()
+
+function handleToc() {
+	if(!headings.length)
+		return
+
+	window.addEventListener('scroll', handleDebounce)
+	window.addEventListener('resize', () => {
+		isLG = matchMedia('(min-width: 1024px)').matches
+	})
+}
+
+function handleScroll() {
+	if(!isLG)
+		return
+
+	const lower = 0
+	// 阅读视口的范围(屏幕高度的上半)
+	const upper = innerHeight / 2
+	// 每个标题的的边界信息
+	const rects = headings.map(heading => heading.getBoundingClientRect())
+
+	for(let i = 0; i < headings.length; i++) {
+		const heading = headings[i]
+		const rect = rects[i]
+		const slug = heading.getAttribute('id')!
+		// 如果在屏幕的从上开始的2分之一范围内就高亮
+		if(rect.top > lower && rect.bottom < upper) {
+			// 如果同时存在上一条高亮的标题和当前的标题,高亮上一条的
+			if(rects[i-1] && rects[i-1].top > lower) {
+				highlight(toc!, headings[i-1].getAttribute('id')!)
+			}else {
+				highlight(toc!, slug)
+			}
+
+		// 如果下一条标题还没有出现就高亮当前的
+		}else if(rect.top < lower && rects[i+1].top > upper) {
+			highlight(toc!, slug)
+		}
+	}
+}
+
+// 高亮
+function highlight(toc: Element, slug: string) {
+	const el = toc.querySelector(`a[data-slug="${slug}"]`)
+
+	currentHeading?.classList.remove(...activeClass)
+	currentHeading = el
+	if(currentHeading && !inView(currentHeading)) {
+		currentHeading.scrollIntoView({ block: 'center', behavior: 'smooth' })
+	}
+	currentHeading?.classList.add(...activeClass)
+}
+
+// 判断一个元素是否在视口范围内
+function inView(el: Element): boolean {
+	const rect = el.getBoundingClientRect()
+	return rect.top > 0 && rect.bottom < window.innerHeight
+}
+</script>
+
+<!-- 处理菜单 -->
+<script>
+	const menuBtn = document.getElementById('menu-btn')
+	const toc = document.getElementById('toc')
+	// 默认关闭
+	let isOpen = false
+	setMenu(isOpen)
+
+	menuBtn?.addEventListener('click', () => {
+		isOpen = !isOpen
+		setMenu(isOpen)
+	})
+
+	function setMenu(state: boolean) {
+		if(state) {
+			toc?.classList.remove('-translate-x-full')
+		}else {
+			toc?.classList.add('-translate-x-full')
+		}
+	}
+</script>

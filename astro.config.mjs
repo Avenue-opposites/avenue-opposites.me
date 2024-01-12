@@ -9,7 +9,8 @@ import {
 	transformerNotationFocus,
 	transformerNotationErrorLevel
 } from 'shikiji-transformers'
-import RemarkShikiji from './plugins/remark-shikiji'
+import remarkShikiji from './plugins/remark-shikiji'
+import rehypeToc from './plugins/rehype-toc'
 import { transformerMultipleLine } from './plugins/shikiji-multiple-line'
 
 // https://astro.build/config
@@ -26,7 +27,7 @@ export default defineConfig({
 	markdown: {
 		remarkPlugins: [
 			[
-				RemarkShikiji, {
+				remarkShikiji, {
 					themes: {
 						light: 'vitesse-light',
 						dark: 'vitesse-dark',
@@ -53,6 +54,7 @@ export default defineConfig({
 				}
 			],
 		],
+		rehypePlugins: [rehypeToc]
 	},
 	server: {
 		host: '0.0.0.0'

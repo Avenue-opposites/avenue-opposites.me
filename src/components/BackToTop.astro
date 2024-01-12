@@ -1,0 +1,15 @@
+---
+import Icon from 'astro-icon'
+---
+
+<div id="back-to-top" class="fixed bottom-4 right-4 p-2 hover:bg-base-200 transition-colors rounded-full">
+	<Icon class="w-6 h-6 fill-current rotate-180" name="arrow" />
+</div>
+
+<script>
+  const backToTop = document.getElementById('back-to-top')!
+
+  backToTop.addEventListener('click', () => {
+  	window.scrollTo({ top: 0, behavior: 'auto' })
+  })
+</script>

@@ -15,9 +15,9 @@ type Props = CollectionEntry<'notes'>
 
 const notes = Astro.props
 
-const { Content } = await notes.render()
+const { Content, headings } = await notes.render()
 ---
 
-<NoteLayout {...notes.data}>
+<NoteLayout headings={headings} {...notes.data}>
 	<Content />
 </NoteLayout>

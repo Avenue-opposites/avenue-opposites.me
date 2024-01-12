@@ -8,6 +8,7 @@ const notesModel = z.object({
 	publishDate: z.coerce.date(),
 	updatedDate: z.coerce.date().optional(),
 	heroImage: z.string().optional(),
+	toc: z.boolean().optional().default(false),
 })
 
 const notesCollection = defineCollection({

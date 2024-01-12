@@ -26,6 +26,9 @@ dependencies:
   '@types/hast':
     specifier: ^3.0.3
     version: 3.0.3
+  '@types/mdast':
+    specifier: ^4.0.3
+    version: 4.0.3
   '@types/unist':
     specifier: ^3.0.2
     version: 3.0.2
