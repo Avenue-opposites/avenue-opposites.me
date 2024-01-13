@@ -2,14 +2,26 @@
 import Icon from 'astro-icon'
 ---
 
-<div id="back-to-top" class="fixed bottom-4 right-4 p-2 hover:bg-base-200 transition-colors rounded-full">
+<div id="back-to-top" class="opacity-0 invisible fixed bottom-4 right-4 p-2 hover:bg-base-200 transition-all rounded-full">
 	<Icon class="w-6 h-6 fill-current rotate-180" name="arrow" />
 </div>
 
 <script>
-  const backToTop = document.getElementById('back-to-top')!
+import { debounce } from '~/utils'
+const range = innerHeight / 3
+const showClass =['opacity-0', 'invisible']
+const backToTop = document.getElementById('back-to-top')
+backToTop?.addEventListener('click', () => {
+ 	window.scrollTo({ top: 0, behavior: 'auto' })
+})
 
-  backToTop.addEventListener('click', () => {
-  	window.scrollTo({ top: 0, behavior: 'auto' })
-  })
+window.addEventListener('scroll', debounce(() => {	
+	if(!backToTop) return
+
+	if(scrollY >= range) {
+ 		backToTop.classList.remove(...showClass)
+	}else {
+ 	  backToTop.classList.add(...showClass)
+	}
+}, 300))
 </script>

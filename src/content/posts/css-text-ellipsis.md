@@ -24,7 +24,7 @@ authors: Avenue-opposites
 ```css ml [$${4-6}]
 .multi-ellipsis {
   overflow: hidden; /* 设置溢出隐藏 */
-  text-overflow: ellipsis;  /* 设置文本溢出显示省略号   */
+  text-overflow: ellipsis;  /* 设置文本溢出显示省略号 */
   display: -webkit-box; /* 设置为弹性盒子 */
   -webkit-line-clamp: 2; /* 行数 */
   -webkit-box-orient: vertical; /* 设置为垂直方向 */
