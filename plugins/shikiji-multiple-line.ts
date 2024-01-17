@@ -104,11 +104,11 @@ export function transformerMultipleLine(options: TransformerMultipleLineOptions 
 
 			const multipleLines = raw.split(separator).reduce<MultipleLine[]>((current, rule) => {
 				const type = rule.match(typeRegex)?.groups?.type.trim()
-        
-				if(type && includedTypes.includes(type)) {  
-					const regex = new RegExp(`${isIncludeEscapeChar(type) ? handleEscapeChar(type) : type}{(?<scope>(.*))}`)
-					const scope = rule.match(regex)?.groups?.scope
 
+				if(type && includedTypes.includes(type)) {  
+					const regex = new RegExp(`${isIncludeEscapeChar(type) ? handleEscapeChar(type) : type}\\s*{(?<scope>(.*))}`)
+					const scope = rule.match(regex)?.groups?.scope
+					
 					if(scope) {
 						scope.split(',').forEach(interval => {
 							const [s, e] = interval.split('-')
