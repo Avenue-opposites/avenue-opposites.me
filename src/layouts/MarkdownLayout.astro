@@ -1,0 +1,19 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import type { Props as BaseLayoutProps } from './BaseLayout.astro'
+import Prose from '~/components/typography/Prose.astro'
+
+interface Frontmatter extends BaseLayoutProps {}
+
+interface Props {
+  frontmatter: Frontmatter;
+}
+
+const { frontmatter: { title, description } } = Astro.props
+---
+
+<BaseLayout title={title} description={description}>
+	<Prose>
+		<slot />
+	</Prose>
+</BaseLayout>

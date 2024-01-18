@@ -6,6 +6,7 @@ import Avatar from '~/components/Avatar.astro'
 import type { MarkdownHeading } from 'astro'
 import Toc from '~/components/Toc.astro'
 import BackToTop from '~/components/BackToTop.astro'
+import Prose from '~/components/typography/Prose.astro'
 
 type Props = CollectionEntry<'posts'>['data'] & {
 	headings: MarkdownHeading[];
@@ -27,7 +28,7 @@ const author = await getEntry('authors', authors.id)
 <BaseLayout title={title} description={description}>
 	<main class="relative w-full">
 		{toc && <Toc headings={headings} />}
-		<article class="p-4 lg:p-0 mx-auto prose prose-sm sm:mt-8 sm:prose-lg dark:prose-invert">
+		<Prose>
 			<h1 class="mb-2 text-primary">{title}</h1>
 			<div class="flex items-end flex-col text-neutral">
 				<div class="flex w-full gap-x-2 items-center justify-between">
@@ -49,7 +50,7 @@ const author = await getEntry('authors', authors.id)
 				}
 			</div>
 			<slot />
-		</article>
+		</Prose>
 	</main>
 	<BackToTop />
 </BaseLayout>
