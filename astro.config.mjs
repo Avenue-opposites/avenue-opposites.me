@@ -32,7 +32,7 @@ export default defineConfig({
 						light: 'vitesse-light',
 						dark: 'vitesse-dark',
 					},
-					langs:  ['js', 'ts', 'html', 'css', 'json', 'jsx', 'tsx'],
+					langs:  ['js', 'ts', 'html', 'css', 'json', 'jsx', 'tsx', 'kotlin'],
 					transformers: [
 						transformerTwoSlash({
 							renderer: rendererRich(),
