@@ -7,6 +7,7 @@ updatedDate: 2023-01-08
 heroImage: /images/blog-placeholder-3.jpg
 authors: Avenue-opposites
 toc: true
+tags: [JavaScript]
 ---
 
 ## 前言

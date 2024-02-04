@@ -6,6 +6,7 @@ publishDate: 2022-07-15
 updatedDate: 2023-01-08
 heroImage: /images/blog-placeholder-2.jpg
 authors: Avenue-opposites
+tags: [CSS, Text Overflow]
 ---
 
 ## 单行文本溢出显示省略号
