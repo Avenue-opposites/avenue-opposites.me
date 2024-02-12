@@ -1,3 +1,4 @@
+import plugin from 'tailwindcss/plugin'
 import forms from '@tailwindcss/forms'
 import typography from '@tailwindcss/typography'
 import daisyui from 'daisyui'
@@ -14,7 +15,21 @@ export default {
 			strategy: 'base'
 		}),
 		typography(),
-		daisyui
+		daisyui,
+		plugin(({ matchUtilities }) => {
+			matchUtilities({
+				// 支持多行省略号
+				'multi-ellipsis': value => {
+					return {
+						'overflow': 'hidden',
+						'text-overflow': 'ellipsis',
+						'display': '-webkit-box',
+						'-webkit-box-orient': 'vertical',
+						'-webkit-line-clamp': value
+					}
+				}
+			})
+		})
 	],
 	daisyui: {
 		themes: [
