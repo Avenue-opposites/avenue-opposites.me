@@ -22,7 +22,7 @@ const { title, description, publishDate, duration, tags, lang, ...props } = Astr
     · {duration}
 		</p>
 	</div>
-	<p class="text-sm sm:text-base">{description}</p>
+	<p class="text-sm sm:text-base multi-ellipsis-[3]">{description}</p>
 	{
 		tags &&
 		<div class="flex gap-2">

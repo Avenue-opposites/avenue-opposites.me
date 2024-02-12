@@ -29,7 +29,7 @@ const { title, description, publishDate, heroImage, duration, tags, lang, ...pro
 			<FormattedDate date={publishDate} />
 			· {duration}
 		</p>
-		<p class="sm:text-lg">{description}</p>
+		<p class="sm:text-lg multi-ellipsis-[3]">{description}</p>
 		{
 			tags &&
 			<div class="flex gap-2">
