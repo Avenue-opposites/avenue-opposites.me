@@ -5,7 +5,7 @@ import FormattedDate from '../FormattedDate.astro'
 
 type Props = HTMLAttributes<'a'> & CollectionEntry<'notes'>['data']
 
-const { title, description, publishDate, heroImage, duration, tags, ...props } = Astro.props;
+const { title, description, publishDate, heroImage, duration, tags, lang, ...props } = Astro.props;
 ---
 
 <a
@@ -21,7 +21,10 @@ const { title, description, publishDate, heroImage, duration, tags, ...props } =
     )
 	}
 	<div class="daisy-card-body">
-		<h1 class="mt-2 daisy-card-title sm:text-3xl">{title}</h1>
+		<h1 class="mt-2 daisy-card-title sm:text-3xl">
+			{title}
+			{lang === 'zh' && <span class="daisy-badge items-stretch daisy-badge-neutral">中文</span>}
+		</h1>
 		<p class="text-neutral text-sm">
 			<FormattedDate date={publishDate} />
 			· {duration}
@@ -30,7 +33,7 @@ const { title, description, publishDate, heroImage, duration, tags, ...props } =
 		{
 			tags &&
 			<div class="flex gap-2">
-				{tags.map((tag) => <span class="daisy-badge daisy-badge-outline daisy-badge-primary">{tag}</span>)}
+				{tags.map((tag) => <span class="daisy-badge items-stretch daisy-badge-outline daisy-badge-primary">{tag}</span>)}
 			</div>
 		}
 	</div>
