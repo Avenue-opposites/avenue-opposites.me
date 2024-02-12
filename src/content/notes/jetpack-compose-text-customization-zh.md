@@ -5,6 +5,7 @@ publishDate: 2023-01-18
 duration: 3分钟
 authors: Avenue-opposites
 tags: [Jetpack Compose, Text Customization]
+lang: zh
 ---
 
 ## 介绍
