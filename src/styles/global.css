@@ -41,7 +41,7 @@ html[data-theme="dark"] .shiki span {
 
 .shiki > code {
 	display: block;
-	width: 100%;
+	width: fit-content;
 	padding: 0 24px;
 }
 
@@ -352,6 +352,7 @@ html[data-theme="dark"] .twoslash {
 	/* 修改浏览器默认滚动条样式 */
 	::-webkit-scrollbar {
 		width: 0.25rem;
+		height: 0.25rem;
 	}
 
 	::-webkit-scrollbar-track {
