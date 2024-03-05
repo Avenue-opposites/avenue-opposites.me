@@ -3,30 +3,59 @@ import type { HTMLAttributes } from 'astro/types'
 import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '~/components/FormattedDate.astro'
 
-type Props = HTMLAttributes<'a'> & CollectionEntry<'notes'>['data']
+type Props = HTMLAttributes<'a'> & CollectionEntry<'notes'>['data'];
 
-const { title, description, publishDate, duration, tags, lang, ...props } = Astro.props
+const {
+	title,
+	description,
+	publishDate,
+	duration,
+	heroImage,
+	tags,
+	lang,
+	...props
+} = Astro.props;
 ---
 
 <a
-	class="daisy-card daisy-card-bordered space-y-2 p-2 sm:p-4 sm:space-y-4 shadow-md hover:shadow-secondary border sm:border-2 hover:border-primary"
+	class="daisy-card daisy-card-bordered overflow-hidden space-y-2 sm:space-y-4 shadow-md hover:shadow-secondary border sm:border-2 hover:border-primary"
 	{...props}
 >
-	<div class="flex items-center justify-between">
-		<h1 class="daisy-card-title text-xl font-bold sm:text-3xl">
-    # {title}
-			{lang === 'zh' && <span class="daisy-badge items-stretch daisy-badge-neutral">中文</span>}
+	{
+		heroImage && (
+			<figure>
+				<img class="s-full object-cover daisy-image-full" src={heroImage} alt="" />
+			</figure>
+		)
+	}
+	<div
+		class="space-y-2 p-4"
+	>
+		<h1 class="daisy-card-title flex-wrap lg:text-2xl">
+      # {title}
+			{
+				lang === 'zh' && (
+					<span class="daisy-badge items-stretch daisy-badge-neutral">
+            中文
+					</span>
+				)
+			}
 		</h1>
 		<p class="text-neutral text-xs sm:text-sm">
 			<FormattedDate date={publishDate} />
-    · {duration}
+      · {duration}
 		</p>
+		<p class="text-sm sm:text-base multi-ellipsis-[3]">{description}</p>
+		{
+			tags && (
+				<div class="flex flex-wrap gap-2">
+					{tags.map(tag => (
+						<span class="daisy-badge items-stretch daisy-badge-outline daisy-badge-secondary">
+							{tag}
+						</span>
+					))}
+				</div>
+			)
+		}
 	</div>
-	<p class="text-sm sm:text-base multi-ellipsis-[3]">{description}</p>
-	{
-		tags &&
-		<div class="flex gap-2">
-			{tags.map((tag) => <span class="daisy-badge daisy-badge-outline daisy-badge-secondary">{tag}</span>)}
-		</div>
-	}
 </a>

@@ -21,7 +21,7 @@ const { title, description, publishDate, heroImage, duration, tags, lang, ...pro
     )
 	}
 	<div class="daisy-card-body">
-		<h1 class="mt-2 daisy-card-title sm:text-3xl">
+		<h1 class="mt-2 daisy-card-title flex-wrap lg:text-2xl">
 			{title}
 			{lang === 'zh' && <span class="daisy-badge items-stretch daisy-badge-neutral">中文</span>}
 		</h1>
@@ -32,7 +32,7 @@ const { title, description, publishDate, heroImage, duration, tags, lang, ...pro
 		<p class="sm:text-lg multi-ellipsis-[3]">{description}</p>
 		{
 			tags &&
-			<div class="flex gap-2">
+			<div class="flex flex-wrap gap-2">
 				{tags.map((tag) => <span class="daisy-badge items-stretch daisy-badge-outline daisy-badge-primary">{tag}</span>)}
 			</div>
 		}
