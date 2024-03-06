@@ -7,7 +7,8 @@ import {
 	transformerNotationDiff, 
 	transformerNotationHighlight,
 	transformerNotationFocus,
-	transformerNotationErrorLevel
+	transformerNotationErrorLevel,
+	transformerMetaWordHighlight
 } from '@shikijs/transformers'
 import remarkShiki from './plugins/remark-shiki'
 import rehypeToc from './plugins/rehype-toc'
@@ -51,6 +52,8 @@ export default defineConfig({
 						transformerMultipleLine({
 							meteFlag: 'ml'
 						}),
+						// 在meta中使用/word/来标记高亮单词
+						transformerMetaWordHighlight(),
 					],
 				}
 			],
