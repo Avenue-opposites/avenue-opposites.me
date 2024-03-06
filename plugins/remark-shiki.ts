@@ -3,14 +3,14 @@ import type {
 	BundledHighlighterOptions, 
 	BundledLanguage, 
 	BundledTheme, 
-	ShikijiTransformer 
-} from 'shikiji' 
+	ShikiTransformer,
+} from 'shiki' 
 import { 
 	getHighlighter, 
 	bundledLanguages, 
 	bundledThemes, 
 	addClassToHast 
-} from 'shikiji'
+} from 'shiki'
 import { visit } from 'unist-util-visit'
 
 interface CodeNode extends Node {
@@ -22,7 +22,7 @@ interface CodeNode extends Node {
 export type Options = BundledHighlighterOptions<BundledLanguage, BundledTheme> & {
 	theme: BundledTheme,
 	highlighter?: Awaited<ReturnType<typeof getHighlighter>>,
-	transformers?: ShikijiTransformer[],
+	transformers?: ShikiTransformer[],
 }
 
 const bundledTheme = Object.keys(bundledThemes)
@@ -63,7 +63,7 @@ export default function remarkShikiji(options: Options = {} as any) {
 				transformers: [
 					...transformers,
 					{
-						token(hast) {
+						span(hast) {
 							addClassToHast(hast, 'highlight-transparent')
 							return hast
 						}

@@ -1,8 +1,8 @@
-import { type ShikijiTransformer } from 'shikiji'
-import { addClassToHast } from 'shikiji'
+import type { ShikiTransformer } from 'shiki'
+import { addClassToHast } from 'shiki'
 
-declare module 'shikiji' {
-	interface ShikijiTransformerContextMeta {
+declare module 'shiki' {
+	interface ShikiTransformerContextMeta {
     /**
      * @description 包含的类型
      * @default []
@@ -78,7 +78,7 @@ const defaultMetaMap: MetaMap = {
 const escapeCharactersRegex = /[-[\]{}()*+?.,\\^$|#\s]/g
 const typeRegex = /(?<type>(.*)){/
 
-export function transformerMultipleLine(options: TransformerMultipleLineOptions = {} as TransformerMultipleLineOptions): ShikijiTransformer {
+export function transformerMultipleLine(options: TransformerMultipleLineOptions = {} as TransformerMultipleLineOptions): ShikiTransformer {
 	const { 
 		metaMap = defaultMetaMap,
 		separator = '|',
