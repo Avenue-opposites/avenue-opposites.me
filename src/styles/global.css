@@ -17,7 +17,7 @@
 	font-display: swap;
 }
 
-/* shikiji 代码块浅色主题 */
+/* shiki 代码块浅色主题 */
 html[data-theme="light"] .shiki,
 html[data-theme="light"] .shiki span {
 	color: var(--shiki-light) ;
@@ -28,7 +28,7 @@ html[data-theme="light"] .shiki span {
 	text-decoration: var(--shiki-light-text-decoration) ;
 }
 
-/* shikiji 代码块深色主题 */
+/* shiki 代码块深色主题 */
 html[data-theme="dark"] .shiki,
 html[data-theme="dark"] .shiki span {
 	color: var(--shiki-dark) ;
@@ -42,6 +42,7 @@ html[data-theme="dark"] .shiki span {
 .shiki > code {
 	display: block;
 	width: fit-content;
+	min-width: 100%;
 	padding: 0 24px;
 }
 
