@@ -18,28 +18,28 @@ const depthClass = [
 const { headings } = Astro.props
 ---
 
-<div class="hidden pl-4 lg:flex items-center fixed w-56 h-[10vh] bg-base-100 xl:w-64 z-50 top-0 left-0">
-	<button id="menu-btn">
+<div class="hidden lg:block fixed top-14 left-0 w-48 xl:w-64 h-[100vh-56px]">
+	<button id="menu-btn" class="m-2 xl:m-4">
 		<Icon name="menu" class="w-6 h-6 xl:w-8 xl:h-8 stroke-neutral transition-colors hover:stroke-current" />
 	</button>
+	<nav id="toc" class="w-full h-[calc(100vh-120px)] pl-2 xl:pl-4 py-2 not-prose hidden lg:flex transition-transform -translate-x-full flex-col">
+		<ul class="space-y-2 overflow-y-auto">
+			{
+				headings.map(heading => (
+					<li class:list={['text-neutral', depthClass[heading.depth - 1]]} >
+						<a
+							class="border-b border-transparent hover:border-accent hover:text-accent"
+							href={`#${heading.slug}`}
+							data-slug={heading.slug}
+						>
+							{heading.text}
+						</a>
+					</li>
+				))
+			} 
+		</ul>
+	</nav>
 </div>
-<nav id="toc" class="w-56 xl:w-64 h-[90vh] pl-8 py-4 not-prose hidden fixed z-50 bg-base-100 bottom-0 left-0 lg:flex transition-transform -translate-x-full flex-col">
-	<ul class="flex-1 space-y-2 overflow-y-auto">
-		{
-			headings.map(heading => (
-				<li class:list={['text-neutral', depthClass[heading.depth - 1]]} >
-					<a
-						class="border-b border-transparent hover:border-accent hover:text-accent"
-						href={`#${heading.slug}`}
-						data-slug={heading.slug}
-					>
-						{heading.text}
-					</a>
-				</li>
-			))
-		} 
-	</ul>
-</nav>
 
 <!-- 处理标题高亮 -->
 <script>
