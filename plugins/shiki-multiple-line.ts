@@ -91,7 +91,7 @@ export function transformerMultipleLine(options: TransformerMultipleLineOptions 
 	const enableRegex = new RegExp(`${meteFlag}\\s*${openChar}(?<raw>(.*))${closeChar}`)
 
 	return {
-		name: 'shikiji-transformer:multiple-line',
+		name: 'shiki-transformer:multiple-line',
 		preprocess(code, options) {
 			const __raw = options.meta?.__raw
 			const raw =__raw?.match(enableRegex)?.groups?.raw
