@@ -34,7 +34,7 @@ const {
 		<h1 class="daisy-card-title flex-wrap lg:text-2xl">
       # {title}
 			{
-				lang === 'zh' && (
+				lang.startsWith('zh') && (
 					<span class="daisy-badge items-stretch daisy-badge-neutral">
             中文
 					</span>

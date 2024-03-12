@@ -1,30 +1,25 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import BaseLayout from './BaseLayout.astro'
+import type { Props as Frontmatter } from '~/layouts/BaseLayout.astro'
+import MarkdownLayout from './MarkdownLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import type { MarkdownHeading } from 'astro'
 import Toc from '~/components/Toc.astro'
-import Prose from '~/components/typography/Prose.astro'
-import BackToTop from '~/components/BackToTop.astro'
 
 type Props = CollectionEntry<'notes'>['data'] & {
 	headings: MarkdownHeading[];
 }
 
-const { title, description, publishDate, headings, toc } = Astro.props
+const { title, description, publishDate, headings, toc, lang } = Astro.props
+const frontmatter: Frontmatter = { title, description, lang }
 ---
 
-<BaseLayout title={title} description={description}>
-	<main class="relative w-full">
-		{toc && <Toc headings={headings} />}
-		<Prose>
-			<h1 class="mb-2 text-secondary">{title}</h1>
-			<p class="text-neutral">
+<MarkdownLayout frontmatter={frontmatter}>
+	{toc && <Toc headings={headings} />}
+	<h1 class="mb-2 text-secondary">{title}</h1>
+	<p class="text-neutral">
       发布于
-				<FormattedDate date={publishDate} />
-			</p>
-			<slot />
-		</Prose>
-	</main>
-	<BackToTop />
-</BaseLayout>
+		<FormattedDate date={publishDate} />
+	</p>
+	<slot />
+</MarkdownLayout>

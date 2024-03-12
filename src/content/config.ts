@@ -1,4 +1,5 @@
 import { defineCollection, reference, z } from 'astro:content'
+import { DEFAULT_LANGUAGE } from '~/consts'
 
 // note frontmatter schema
 const notesModel = z.object({
@@ -10,7 +11,7 @@ const notesModel = z.object({
 	heroImage: z.string().optional(),
 	toc: z.boolean().optional().default(false),
 	tags: z.array(z.string()).optional(),
-	lang: z.string().optional().default('en'),
+	lang: z.string().optional().default(DEFAULT_LANGUAGE),
 })
 
 const notesCollection = defineCollection({

@@ -13,3 +13,4 @@ export const SITE_DESCRIPTION = 'Welcome to my website!'
 export const GITHUB_URL = _pkg.socialLinks.github
 export const TWITTER_URL = _pkg.socialLinks.twitter
 export const BILIBILI_URL = _pkg.socialLinks.bilibili
+export const DEFAULT_LANGUAGE = 'en'

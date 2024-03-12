@@ -23,7 +23,7 @@ const { title, description, publishDate, heroImage, duration, tags, lang, ...pro
 	<div class="daisy-card-body">
 		<h1 class="mt-2 daisy-card-title flex-wrap lg:text-2xl">
 			{title}
-			{lang === 'zh' && <span class="daisy-badge items-stretch daisy-badge-neutral">中文</span>}
+			{lang.startsWith('zh') && <span class="daisy-badge items-stretch daisy-badge-neutral">中文</span>}
 		</h1>
 		<p class="text-neutral text-sm">
 			<FormattedDate date={publishDate} />
