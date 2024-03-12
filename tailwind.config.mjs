@@ -1,8 +1,9 @@
-import plugin from 'tailwindcss/plugin'
 import forms from '@tailwindcss/forms'
 import typography from '@tailwindcss/typography'
 import daisyui from 'daisyui'
 import colors from 'tailwindcss/colors'
+import multiLineEllipses from './plugins/tailwindcss/multi-line-ellipses'
+import size from './plugins/tailwindcss/size'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -16,20 +17,8 @@ export default {
 		}),
 		typography(),
 		daisyui,
-		plugin(({ matchUtilities }) => {
-			matchUtilities({
-				// 支持多行省略号
-				'multi-ellipsis': value => {
-					return {
-						'overflow': 'hidden',
-						'text-overflow': 'ellipsis',
-						'display': '-webkit-box',
-						'-webkit-box-orient': 'vertical',
-						'-webkit-line-clamp': value
-					}
-				}
-			})
-		})
+		multiLineEllipses(),
+		size()
 	],
 	daisyui: {
 		themes: [
