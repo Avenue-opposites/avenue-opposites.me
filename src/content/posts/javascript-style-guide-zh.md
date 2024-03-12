@@ -8,7 +8,7 @@ heroImage: /images/blog-placeholder-3.jpg
 authors: Avenue-opposites
 toc: true
 tags: [JavaScript]
-lang: zh
+lang: zh-CN
 ---
 
 ## 前言

@@ -5,7 +5,7 @@ publishDate: 2023-01-17
 duration: 5分钟
 authors: Avenue-opposites
 tags: [Jetpack Compose, State, Recomposition]
-lang: zh
+lang: zh-CN
 ---
 
 ## 什么是Jetpack Compose?

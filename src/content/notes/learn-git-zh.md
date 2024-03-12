@@ -5,7 +5,7 @@ duration: 10分钟
 publishDate: 2023-02-05
 toc: true
 tags: [Git]
-lang: zh
+lang: zh-CN
 ---
 
 ## Git是什么？

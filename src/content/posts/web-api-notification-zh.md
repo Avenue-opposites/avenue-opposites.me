@@ -6,7 +6,7 @@ publishDate: 2022-07-13
 authors: Avenue-opposites
 toc: true
 tags: [Web-API, Notification]
-lang: zh
+lang: zh-CN
 ---
 
 ## 介绍

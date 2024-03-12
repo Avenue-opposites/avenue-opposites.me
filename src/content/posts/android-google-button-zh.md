@@ -6,7 +6,7 @@ duration: 7分钟
 heroImage: /images/blog/google-button-blog.png
 authors: Avenue-opposites
 tags: [Android, Jetpack Compose]
-lang: zh
+lang: zh-CN
 ---
 
 ## 介绍
