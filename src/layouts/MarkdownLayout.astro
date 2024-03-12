@@ -33,6 +33,12 @@ const { frontmatter } = Astro.props
 <script>
 	const back = document.getElementById('back')
 	back?.addEventListener('click', () => {
-		history.back()
+		const { origin, pathname, hash } = location
+		if(hash) {
+			const url = new URL(pathname.split('/').slice(0, -1).join('/'), origin)
+			location.assign(url)
+		}else {
+			history.back()
+		}
 	})
 </script>
