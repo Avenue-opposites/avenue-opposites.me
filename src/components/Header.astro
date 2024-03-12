@@ -1,7 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro'
 import { SITE_TITLE, GITHUB_URL, TWITTER_URL, BILIBILI_URL } from '../consts'
-import Icon from 'astro-icon'
+import { Icon } from 'astro-icon/components'
 import SocialLink from './SocialLink.astro';
 ---
 
@@ -18,16 +18,16 @@ import SocialLink from './SocialLink.astro';
 			<div class="flex space-x-2 text-xl">
 				<HeaderLink title="首页" icon="home" href="/">Home</HeaderLink>
 				<HeaderLink	title="博客" icon="article" href="/blog">Blog</HeaderLink>
-				<HeaderLink	title="项目" icon="mdi:folder" href="/projects">Projects</HeaderLink>
-				<HeaderLink	title="笔记" icon="mdi:notebook-outline" href="/notes">Notes</HeaderLink>
+				<HeaderLink	title="项目" icon="carbon:folder" href="/projects">Projects</HeaderLink>
+				<HeaderLink	title="笔记" icon="carbon:align-box-top-left" href="/notes">Notes</HeaderLink>
 				<HeaderLink	title="关于我" icon="me" href="/about">About</HeaderLink>
 			</div>
 			<!-- 分割线 -->
 			<div class="daisy-divider mx-1 daisy-divider-horizontal daisy-divider-neutral" />
 			<!-- 社交链接 -->
 			<div class="hidden gap-x-2 sm:flex items-center">
-				<SocialLink size={26} title="GitHub" icon="mdi:github" href={GITHUB_URL} />
-				<SocialLink size={26} title="Twitter" icon="mdi:twitter" href={TWITTER_URL} />
+				<SocialLink size={26} title="GitHub" icon="carbon:logo-github" href={GITHUB_URL} />
+				<SocialLink size={28} title="Twitter" icon="carbon:logo-twitter" href={TWITTER_URL} />
 				<SocialLink title="哔哩哔哩" icon="bilibili" href={BILIBILI_URL} />
 			</div>
 			<!-- 分割线 -->
@@ -37,11 +37,13 @@ import SocialLink from './SocialLink.astro';
 				<input class="daisy-swap-indeterminate" type="checkbox" />
 				<Icon
 					name="sun"
+					size={26}
 					data-toggle-theme="dark,light"
 					class="daisy-swap-on fill-current s-full"
 				/>
 				<Icon
 					name="moon"
+					size={26}
 					data-toggle-theme="dark,light"
 					class="daisy-swap-off fill-current"
 				/>

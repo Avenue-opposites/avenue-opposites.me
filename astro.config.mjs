@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
+import icon from 'astro-icon'
 import { transformerTwoslash, rendererRich } from '@shikijs/twoslash'
 import { 
 	transformerNotationDiff, 
@@ -18,12 +19,13 @@ import { transformerMultipleLine } from './plugins/shiki-multiple-line'
 export default defineConfig({
 	site: 'https://avenue-opposites.com',
 	integrations: [
-		mdx(), 
-		sitemap(), 
+		mdx(),
+		sitemap(),
 		tailwind({
 			// 取消自动导入base样式
 			applyBaseStyles: false
-		}), 
+		}),
+		icon()
 	],
 	markdown: {
 		remarkPlugins: [
