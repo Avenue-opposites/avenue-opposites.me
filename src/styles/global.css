@@ -71,8 +71,8 @@
 }
 
 @layer utilities {
-	.s-full {
-		@apply w-full h-full;
+	.svg-markdown {
+		@apply bg-base-300 s-1/2 mx-auto rounded sm:s-96 sm:rounded-md;
 	}
 	.flex-center {
 		@apply flex justify-center items-center;

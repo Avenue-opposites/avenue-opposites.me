@@ -30,7 +30,7 @@ SVG的坐标系是基于`x`和`y`，`x`是水平方向，`y`是垂直方向的�
 
 `viewBox`属性可以用来指定SVG的可见视口。它是以`x`和`y`为左上角的坐标，以`width`和`height`为宽和高。它的默认值是`0 0 100 100`，表示整个SVG图形都可见。
 
-<svg class="bg-base-300 s-1/2 sm:s-96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <circle cx="50" cy="50" r="40" class="fill-primary" fill="currentColor" />
 </svg>
 
@@ -46,7 +46,7 @@ SVG的坐标系是基于`x`和`y`，`x`是水平方向，`y`是垂直方向的�
 
 如果将`viewBox`属性设置为`0 0 50 50`，那么圆心将在右下角，由于视口只有50，圆的半径有40，所以只能看到4分之一的圆。
 
-<svg class="bg-base-300 s-1/2 sm:s-96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
   <circle cx="50" cy="50" r="40" class="fill-primary" fill="currentColor" />
 </svg>
 
@@ -67,7 +67,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 
 `rect`标签可以用来绘制矩形。它有一个`x`和`y`属性，用来指定矩形的左上角的坐标。它还有一个`width`和`height`属性，用来指定矩形的宽和高。
 
-<svg class="bg-base-300 s-1/2 sm:s-96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <rect x="10" y="10" width="50" class="fill-primary" height="50" fill="currentColor" />
 </svg>
 
@@ -86,7 +86,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 
 `circle`标签可以用来绘制圆形。它有一个`cx`和`cy`属性，用来指定圆形的圆心的坐标。它还有一个`r`属性，用来指定圆形的半径。
 
-<svg class="bg-base-300 s-1/2 sm:s-96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <circle cx="35" cy="45" r="25"
   class="fill-primary" fill="currentColor" stroke="white" stroke-width="2" />
 </svg>
@@ -108,7 +108,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 
 `ellipse`标签可以用来绘制椭圆形。它有一个`cx`和`cy`属性，用来指定椭圆形的圆心的坐标。它还有一个`rx`和`ry`属性，用来指定椭圆形的长宽比，或者可以称为x轴和y轴的半径。
 
-<svg class="bg-base-300 s-1/2 sm:s-96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <ellipse cx="50" cy="50" rx="20" ry="40"
   class="fill-primary" fill="currentColor" />
 </svg>
@@ -128,7 +128,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 
 `line`标签可以用来绘制线段。它有一个`x1`和`y1`属性，用来指定线段的起点的坐标。它还有一个`x2`和`y2`属性，用来指定线段的终点的坐标。
 
-<svg class="bg-base-300 s-1/2 sm:s-96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <line x1="10" y1="10" x2="90" y2="90"
   class="stroke-primary" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
 </svg>
@@ -151,7 +151,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 
 `polyline`标签可以用来绘制折线。它有一个`points`属性，用来指定折线的每个点的`x`和`y`坐标，可以用逗号分隔。
 
-<svg class="bg-base-300 s-1/2 sm:s-96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <polyline 
     points="50 10, 30 45, 70 45, 50 90"
     class="stroke-primary fill-sky-900" stroke="currentColor" stroke-linejoin="bevel"
@@ -159,14 +159,13 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
   />
 </svg>
 
-```html /stroke-linejoin="bevel"/ ml [@@ {5-10}]
+```html /stroke-linejoin="bevel"/ ml [@@ {5-9}]
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 100 100"
 >
   <polyline 
     points="50 10, 30 45, 70 45, 50 90"
-    class="stroke-primary fill-sky-900"
     stroke="currentColor" stroke-linejoin="bevel"
     stroke-width="2" stroke-linecap="round"
   />
@@ -182,10 +181,10 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 
 > 它和折线的区别是，它会自动闭合。
 
-<div class="flex gap-x-2 justify-between">
+<div class="flex gap-x-2 sm:gap-x-4 justify-between">
   <div class="flex-auto">
     <h4>闭合的多边形</h4>
-    <svg class="bg-base-300 s-1/2 sm:s-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <svg class="bg-base-300 w-full sm:s-80 rounded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
       <polygon 
         points="50 20, 80 40, 60 70, 40 70, 20 40" fill="currentColor" class="fill-primary" 
       />
@@ -193,7 +192,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
   </div>
   <div class="flex-auto">
     <h4>不闭合的折线</h4>
-    <svg class="bg-base-300 flex-auto s-1/2 sm:s-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <svg class="bg-base-300 w-full sm:s-80 rounded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
       <polyline 
         points="50 20, 80 40, 60 70, 40 70, 20 40" stroke="currentColor" class="stroke-primary" 
       />
