@@ -37,7 +37,7 @@ html[data-theme="dark"] .shiki span {
 /* twoslash 代码块样式 */
 .twoslash {
 	--twoslash-border-color: #8888;
-  --twoslash-jsdoc-color: #888;
+  --twoslash-docs-color: #888;
   --twoslash-underline-color: currentColor;
 	--twoslash-popup-bg: var(--shiki-light-bg);
   --twoslash-popup-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
@@ -57,8 +57,8 @@ html[data-theme="dark"] .shiki span {
   --twoslash-tag-annotate-bg: #1ba67320;
 
 	--twoslash-transition-duration: 0.15s;
-	--twoslash-popup-info-padding: 0.25rem;
-	--twoslash-popup-info-border-radius: 0.25rem;
+	--twoslash-popup-container-padding: 0.5rem;
+	--twoslash-popup-container-border-radius: 0.25rem;
 	--twoslash-completions-hover-bg: #434343;
 }
 
@@ -83,18 +83,18 @@ html[data-theme="dark"] .twoslash {
 	border-bottom: 1px dotted transparent;
 }
 
-.twoslash-hover:hover .twoslash-popup-info,
-.twoslash .twoslash-query-presisted .twoslash-popup-info {
+.twoslash-hover:hover .twoslash-popup-container,
+.twoslash .twoslash-query-presisted .twoslash-popup-container {
 	visibility: visible;
 	opacity: 1;
 }
 
-.twoslash .twoslash-query-presisted .twoslash-popup-info {
+.twoslash .twoslash-query-presisted .twoslash-popup-container {
 	transform: translateY(0.5rem);
 	z-index: 10;
 }
 
-.twoslash .twoslash-popup-info {
+.twoslash .twoslash-popup-container {
 	z-index: 50;
 	transform: translateY(0.125rem);
 	visibility: hidden;
@@ -105,9 +105,13 @@ html[data-theme="dark"] .twoslash {
 	left: 0;
 	box-shadow: var(--twoslash-popup-shadow);
 	background-color: var(--twoslash-popup-bg) !important;
-	padding: calc(var(--twoslash-popup-info-padding) / 2) var(--twoslash-popup-info-padding);
-	border-radius: var(--twoslash-popup-info-border-radius);
+	padding: calc(var(--twoslash-popup-container-padding) / 2) var(--twoslash-popup-container-padding);
+	border-radius: var(--twoslash-popup-container-border-radius);
 	border: 1px solid var(--twoslash-border-color);
+}
+
+.twoslash .twoslash-popup-code {
+	font-size: 1rem;
 }
 
 .twoslash .twoslash-popup-arrow {
@@ -123,17 +127,18 @@ html[data-theme="dark"] .twoslash {
 	transform: rotate(45deg);
 }
 
-/* jsdoc注释 */
-.twoslash .twoslash-popup-jsdoc {
-	font-size: 12px;
-	color: var(--twoslash-jsdoc-color);
+/* docs注释 */
+.twoslash .twoslash-popup-docs {
+	font-size: 0.9rem;
+	border-top: 1px solid var(--twoslash-border-color);
+	color: var(--twoslash-docs-color);
 }
 
-.twoslash .twoslash-completions-list {
+.twoslash .twoslash-completion-cursor {
 	position: relative;
 }
 
-.twoslash .twoslash-completions-list ul::before {
+.twoslash .twoslash-completion-list::before {
 	content: '';
 	position: absolute;
 	top: -1.3rem;
@@ -144,7 +149,7 @@ html[data-theme="dark"] .twoslash {
 }
 
 /* 代码补全列表 */
-.twoslash .twoslash-completions-list ul {
+.twoslash .twoslash-completion-list {
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -155,11 +160,11 @@ html[data-theme="dark"] .twoslash {
 	width: 240px;
 	background-color: var(--twoslash-popup-bg);
 	border: 1px solid var(--twoslash-border-color);
-	border-radius: var(--twoslash-popup-info-border-radius);
+	border-radius: var(--twoslash-popup-container-border-radius);
 	box-shadow: var(--twoslash-popup-shadow);
 }
 
-.twoslash .twoslash-completions-list ul li {
+.twoslash .twoslash-completion-list li {
 	margin: 0;
 	display: flex;
 	gap: 0.25rem;
@@ -167,8 +172,8 @@ html[data-theme="dark"] .twoslash {
 }
 
 /* 代码补全列表项hover */
-.twoslash .twoslash-completions-list ul li:hover,
-.twoslash .twoslash-completions-list ul li:hover span {
+.twoslash .twoslash-completion-list li:hover,
+.twoslash .twoslash-completion-list li:hover span {
 	background-color: var(--twoslash-completions-hover-bg);
 }
 
@@ -180,13 +185,13 @@ html[data-theme="dark"] .twoslash {
 }
 
 /* 代码补全已匹配的字符 */
-.twoslash .twoslash-completions-list .twoslash-completions-matched {
+.twoslash .twoslash-completion-cursor .twoslash-completions-matched {
 	font-weight: bold;
 	color: var(--twoslash-matched-color);
 }
 
 /* 代码补全未匹配的字符 */
-.twoslash .twoslash-completions-list .twoslash-completions-unmatched {
+.twoslash .twoslash-completion-cursor .twoslash-completions-unmatched {
 	color: var(--twoslash-unmatched-color);
 }
 
@@ -227,6 +232,7 @@ html[data-theme="dark"] .twoslash {
 
 /* ts报错指向token使用波浪线 */
 .twoslash .twoslash-error {
+	display: inline-block;
 	background-size: cover;
 	background: url(/images/wave.svg) repeat-x bottom left;
 }
