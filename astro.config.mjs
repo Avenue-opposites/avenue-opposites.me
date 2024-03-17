@@ -28,6 +28,7 @@ export default defineConfig({
 		icon()
 	],
 	markdown: {
+		syntaxHighlight: false,
 		remarkPlugins: [
 			[
 				remarkShiki, {
@@ -35,7 +36,7 @@ export default defineConfig({
 						light: 'vitesse-light',
 						dark: 'vitesse-dark',
 					},
-					langs:  ['js', 'ts', 'html', 'css', 'json', 'jsx', 'tsx', 'kotlin'],
+					langs:  ['js', 'ts', 'html', 'css', 'json', 'jsx', 'tsx', 'kotlin', 'yaml'],
 					transformers: [
 						transformerTwoslash({
 							renderer: rendererRich(),
