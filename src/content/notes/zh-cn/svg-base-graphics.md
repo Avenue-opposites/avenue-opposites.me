@@ -182,17 +182,17 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 > 它和折线的区别是，它会自动闭合。
 
 <div class="flex gap-x-2 sm:gap-x-4 justify-between">
-  <div class="flex-auto">
+  <div class="flex-auto sm:w-80">
     <h4>闭合的多边形</h4>
-    <svg class="bg-base-300 w-full sm:s-80 rounded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <svg class="bg-base-300 w-full rounded sm:rounded-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
       <polygon 
         points="50 20, 80 40, 60 70, 40 70, 20 40" fill="currentColor" class="fill-primary" 
       />
     </svg>
   </div>
-  <div class="flex-auto">
+  <div class="flex-auto sm:w-80">
     <h4>不闭合的折线</h4>
-    <svg class="bg-base-300 w-full sm:s-80 rounded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <svg class="bg-base-300 w-full rounded sm:rounded-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
       <polyline 
         points="50 20, 80 40, 60 70, 40 70, 20 40" stroke="currentColor" class="stroke-primary" 
       />
