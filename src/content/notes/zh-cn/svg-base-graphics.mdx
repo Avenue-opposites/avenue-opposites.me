@@ -7,6 +7,9 @@ toc: true
 tags: [SVG]
 lang: zh-CN
 ---
+import CoordinateSystem from '~/components/SVG/CoordinateSystem.astro'
+import { strokeWidth, viewBox, triggerMode, fillOpacity } from '../svg'
+export const posLineColor = '#f43f5e'
 
 ## 什么是SVG？
 
@@ -28,10 +31,12 @@ SVG的坐标系是基于`x`和`y`，`x`是水平方向，`y`是垂直方向的�
 
 ### viewBox属性
 
-`viewBox`属性可以用来指定SVG的可见视口。它是以`x`和`y`为左上角的坐标，以`width`和`height`为宽和高。它的默认值是`0 0 100 100`，表示整个SVG图形都可见。
+`viewBox`属性可以用来指定SVG的可见视口。它是以`x`和`y`为坐标，以`width`和`height`为宽和高。它的默认值是`0 0 100 100`，表示整个SVG图形都可见。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="40" class="fill-primary" fill="currentColor" />
+  <CoordinateSystem viewBox={viewBox} strokeWidth={strokeWidth} triggerMode={triggerMode} point={{x: 50, y: 50}}>
+    <circle cx="50" cy="50" r="40" fill-opacity={fillOpacity} class="fill-primary" fill="currentColor" />
+  </CoordinateSystem>
 </svg>
 
 ```html /viewBox="0 0 100 100"/
@@ -47,7 +52,9 @@ SVG的坐标系是基于`x`和`y`，`x`是水平方向，`y`是垂直方向的�
 如果将`viewBox`属性设置为`0 0 50 50`，那么圆心将在右下角，由于视口只有50，圆的半径有40，所以只能看到4分之一的圆。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-  <circle cx="50" cy="50" r="40" class="fill-primary" fill="currentColor" />
+  <CoordinateSystem viewBox="0 0 50 50" strokeWidth={strokeWidth} point={{x: 50, y: 50}}>
+    <circle cx="50" cy="50" r="40" class="fill-primary" fill="currentColor" />
+  </CoordinateSystem>
 </svg>
 
 ```html /viewBox="0 0 50 50"/
@@ -68,7 +75,9 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `rect`标签可以用来绘制矩形。它有一个`x`和`y`属性，用来指定矩形的左上角的坐标。它还有一个`width`和`height`属性，用来指定矩形的宽和高。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect x="10" y="10" width="50" class="fill-primary" height="50" fill="currentColor" />
+  <CoordinateSystem viewBox={viewBox} strokeWidth={strokeWidth} triggerMode={triggerMode}>
+    <rect x="10" y="10" width="50" class="fill-primary" height="50" fill="currentColor" />
+  </CoordinateSystem>
 </svg>
 
 ```html /fill="currentColor"/
@@ -87,8 +96,23 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `circle`标签可以用来绘制圆形。它有一个`cx`和`cy`属性，用来指定圆形的圆心的坐标。它还有一个`r`属性，用来指定圆形的半径。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="35" cy="45" r="25"
-  class="fill-primary" fill="currentColor" stroke="white" stroke-width="2" />
+  <CoordinateSystem 
+    viewBox={viewBox} 
+    strokeWidth={strokeWidth}
+    triggerMode={triggerMode}
+    lines={[
+      { x1: 0, y1: 45, x2: 100, y2: 45, strokeWidth, color: posLineColor },
+      { x1: 35, y1: 0, x2: 35, y2: 100, strokeWidth, color: posLineColor },
+    ]}
+    point={{x: 35, y: 45, radius: 1.5 }}
+  >
+    <circle 
+      cx="35" cy="45" r="25"
+      class="fill-primary" fill="currentColor" 
+      stroke="gray" stroke-width="2"
+      fill-opacity={fillOpacity}
+    />
+  </CoordinateSystem>
 </svg>
 
 ```html /stroke="white"/, /stroke-width="5"/ ml [@@{4-7}]
@@ -109,8 +133,27 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `ellipse`标签可以用来绘制椭圆形。它有一个`cx`和`cy`属性，用来指定椭圆形的圆心的坐标。它还有一个`rx`和`ry`属性，用来指定椭圆形的长宽比，或者可以称为x轴和y轴的半径。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <ellipse cx="50" cy="50" rx="20" ry="40"
-  class="fill-primary" fill="currentColor" />
+  <CoordinateSystem 
+    viewBox={viewBox} 
+    strokeWidth={strokeWidth} 
+    triggerMode={triggerMode}
+    lines={[
+      { x1: 30, y1: 50, x2: 50, y2: 50, strokeWidth, color: posLineColor },
+      { x1: 50, y1: 10, x2: 50, y2: 50, strokeWidth, color: posLineColor },
+    ]}
+    points={[
+      { x: 50, y: 50, radius: 1 },
+      { x: 30, y: 50, radius: 1 },
+      { x: 50, y: 10, radius: 1 },
+    ]}
+  >
+    <ellipse cx="50" cy="50" rx="20" ry="40"
+    class="fill-primary" fill-opacity={fillOpacity} fill="currentColor" />
+    <g slot="tooltip">
+      <text class="fill-base-content" x="37.5" y="48" font-size="4">20</text>
+      <text class="fill-base-content" x="52" y="30" font-size="4">40</text>
+    </g>
+  </CoordinateSystem>
 </svg>
 
 ```html ml [@@ {4-7}]
@@ -129,8 +172,19 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `line`标签可以用来绘制线段。它有一个`x1`和`y1`属性，用来指定线段的起点的坐标。它还有一个`x2`和`y2`属性，用来指定线段的终点的坐标。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <line x1="10" y1="10" x2="90" y2="90"
-  class="stroke-primary" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  <CoordinateSystem 
+    viewBox={viewBox} 
+    strokeWidth={strokeWidth} 
+    triggerMode={triggerMode}
+    points={[
+      { x: 10, y: 10, radius: 2 },
+      { x: 90, y: 90, radius: 2 },
+    ]}
+    mergePoints
+  >
+    <line x1="10" y1="10" x2="90" y2="90"
+    class="stroke-primary" stroke-opacity={fillOpacity} stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </CoordinateSystem>
 </svg>
 
 ```html /stroke-linecap="round"/ ml [@@{4-7}]
@@ -152,11 +206,24 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `polyline`标签可以用来绘制折线。它有一个`points`属性，用来指定折线的每个点的`x`和`y`坐标，可以用逗号分隔。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <polyline 
-    points="50 10, 30 45, 70 45, 50 90"
-    class="stroke-primary fill-sky-900" stroke="currentColor" stroke-linejoin="bevel"
-    stroke-width="2" stroke-linecap="round"
-  />
+  <CoordinateSystem 
+    viewBox={viewBox} 
+    strokeWidth={strokeWidth} 
+    triggerMode={triggerMode}
+    points={[
+      { x: 50, y: 10, radius: 1.5 },
+      { x: 30, y: 45, radius: 1.5 },
+      { x: 70, y: 45, radius: 1.5 },
+      { x: 50, y: 90, radius: 1.5 },
+    ]}
+    mergePoints
+  >
+    <polyline 
+      points="50 10, 30 45, 70 45, 50 90"
+      class="stroke-primary fill-sky-900" stroke="currentColor" stroke-linejoin="bevel"
+      stroke-width="2" stroke-linecap="round"
+    />
+  </CoordinateSystem>
 </svg>
 
 ```html /stroke-linejoin="bevel"/ ml [@@ {5-9}]
@@ -185,9 +252,11 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
   <div class="flex-auto sm:w-80">
     <h4>闭合的多边形</h4>
     <svg class="bg-base-300 w-full rounded sm:rounded-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-      <polygon 
-        points="50 20, 80 40, 60 70, 40 70, 20 40" fill="currentColor" class="fill-primary" 
-      />
+      <CoordinateSystem viewBox='0 0 100 100' strokeWidth={0.5} triggerMode={triggerMode}>
+        <polygon 
+          points="50 20, 80 40, 60 70, 40 70, 20 40" fill="currentColor" class="fill-primary" 
+        />
+      </CoordinateSystem>
     </svg>
   </div>
   <div class="flex-auto sm:w-80">
