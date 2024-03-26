@@ -18,11 +18,11 @@ interface Line {
 interface Props {
 	viewBox: string;
 	unit: number;
+	strokeWidth: number;
 	point?: Point;
 	points?: Point[];
 	line?: Line;
 	lines?: Line[];
-	strokeWidth?: number;
 	triggerMode?: 'hover' | 'click' | 'always' | 'responsive';
 	mergePoints?: boolean;
 	mergeLines?: boolean;
@@ -31,7 +31,7 @@ interface Props {
 const {
 	viewBox,
 	unit,
-	strokeWidth = 1,
+	strokeWidth,
 	point,
 	points = [],
 	line,
@@ -43,10 +43,10 @@ const {
 const ps = point ? [point] : points
 const ls = line ? [line] : lines
 const [x, y, width, height] = viewBox.split(' ')
-const pointSize =  strokeWidth * 4
+const pointSize = strokeWidth * 4
 const fontSize = pointSize * 2
-const xAxisNumber = +width / 10
-const yAxisNumber = +height / 10
+const xAxisNumber = +width / unit
+const yAxisNumber = +height / unit
 const getUnitText = (i: number) => (i + 1) * unit
 const xAxis = Array.from({ length: xAxisNumber }, (_, i) => {
 	const disance = i * unit
@@ -54,7 +54,7 @@ const xAxis = Array.from({ length: xAxisNumber }, (_, i) => {
 	return {
 		y1: disance,
 		y2: disance,
-		textX: unitText + 1,
+		textX: unitText + unit / 10,
 		textUnit: unitText,
 	}
 })
@@ -67,7 +67,7 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 		textY: unitText + fontSize,
 		textUnit: unitText,
 	}
-});
+})
 ---
 
 <g data-trigger-mode={triggerMode}>
@@ -120,7 +120,7 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 			r={pointSize}
 			class="fill-base-content"
 			fill="currentColor"></circle>
-		<text x={1} y={4} font-size={fontSize} class="fill-base-content">0</text>
+		<text x={pointSize} y={fontSize} font-size={fontSize} class="fill-base-content">0</text>
 	</g>
 	<slot />
 	<!-- lines -->
