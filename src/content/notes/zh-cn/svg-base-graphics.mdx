@@ -34,7 +34,7 @@ SVG的坐标系是基于`x`和`y`，`x`是水平方向，`y`是垂直方向的�
 `viewBox`属性可以用来指定SVG的可见视口。它是以`x`和`y`为坐标，以`width`和`height`为宽和高。它的默认值是`0 0 100 100`，表示整个SVG图形都可见。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <CoordinateSystem viewBox={viewBox} strokeWidth={strokeWidth} triggerMode={triggerMode} point={{x: 50, y: 50}}>
+  <CoordinateSystem unit={10} viewBox={viewBox} strokeWidth={strokeWidth} triggerMode={triggerMode} point={{x: 50, y: 50}}>
     <circle cx="50" cy="50" r="40" fill-opacity={fillOpacity} class="fill-primary" fill="currentColor" />
   </CoordinateSystem>
 </svg>
@@ -52,7 +52,7 @@ SVG的坐标系是基于`x`和`y`，`x`是水平方向，`y`是垂直方向的�
 如果将`viewBox`属性设置为`0 0 50 50`，那么圆心将在右下角，由于视口只有50，圆的半径有40，所以只能看到4分之一的圆。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-  <CoordinateSystem viewBox="0 0 50 50" strokeWidth={strokeWidth} point={{x: 50, y: 50}}>
+  <CoordinateSystem unit={10} viewBox="0 0 50 50" strokeWidth={strokeWidth} point={{x: 50, y: 50}}>
     <circle cx="50" cy="50" r="40" class="fill-primary" fill="currentColor" />
   </CoordinateSystem>
 </svg>
@@ -75,7 +75,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `rect`标签可以用来绘制矩形。它有一个`x`和`y`属性，用来指定矩形的左上角的坐标。它还有一个`width`和`height`属性，用来指定矩形的宽和高。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <CoordinateSystem viewBox={viewBox} strokeWidth={strokeWidth} triggerMode={triggerMode}>
+  <CoordinateSystem unit={10} viewBox={viewBox} strokeWidth={strokeWidth} triggerMode={triggerMode}>
     <rect x="10" y="10" width="50" class="fill-primary" height="50" fill="currentColor" />
   </CoordinateSystem>
 </svg>
@@ -96,7 +96,8 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `circle`标签可以用来绘制圆形。它有一个`cx`和`cy`属性，用来指定圆形的圆心的坐标。它还有一个`r`属性，用来指定圆形的半径。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <CoordinateSystem 
+  <CoordinateSystem
+    unit={10}
     viewBox={viewBox} 
     strokeWidth={strokeWidth}
     triggerMode={triggerMode}
@@ -133,7 +134,8 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `ellipse`标签可以用来绘制椭圆形。它有一个`cx`和`cy`属性，用来指定椭圆形的圆心的坐标。它还有一个`rx`和`ry`属性，用来指定椭圆形的长宽比，或者可以称为x轴和y轴的半径。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <CoordinateSystem 
+  <CoordinateSystem
+    unit={10} 
     viewBox={viewBox} 
     strokeWidth={strokeWidth} 
     triggerMode={triggerMode}
@@ -172,7 +174,8 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `line`标签可以用来绘制线段。它有一个`x1`和`y1`属性，用来指定线段的起点的坐标。它还有一个`x2`和`y2`属性，用来指定线段的终点的坐标。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <CoordinateSystem 
+  <CoordinateSystem
+    unit={10} 
     viewBox={viewBox} 
     strokeWidth={strokeWidth} 
     triggerMode={triggerMode}
@@ -206,7 +209,8 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
 `polyline`标签可以用来绘制折线。它有一个`points`属性，用来指定折线的每个点的`x`和`y`坐标，可以用逗号分隔。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <CoordinateSystem 
+  <CoordinateSystem
+    unit={10}
     viewBox={viewBox} 
     strokeWidth={strokeWidth} 
     triggerMode={triggerMode}
@@ -252,7 +256,7 @@ SVG中有一些比较常用的图形，比如**圆**、**矩形**、**三角形*
   <div class="flex-auto sm:w-80">
     <h4>闭合的多边形</h4>
     <svg class="bg-base-300 w-full rounded sm:rounded-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-      <CoordinateSystem viewBox='0 0 100 100' strokeWidth={0.5} triggerMode={triggerMode}>
+      <CoordinateSystem unit={10} viewBox='0 0 100 100' strokeWidth={0.5} triggerMode={triggerMode}>
         <polygon 
           points="50 20, 80 40, 60 70, 40 70, 20 40" fill="currentColor" class="fill-primary" 
         />

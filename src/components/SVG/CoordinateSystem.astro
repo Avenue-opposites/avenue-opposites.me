@@ -17,7 +17,7 @@ interface Line {
 
 interface Props {
 	viewBox: string;
-	unit?: number;
+	unit: number;
 	point?: Point;
 	points?: Point[];
 	line?: Line;
@@ -30,7 +30,7 @@ interface Props {
 
 const {
 	viewBox,
-	unit = 10,
+	unit,
 	strokeWidth = 1,
 	point,
 	points = [],
