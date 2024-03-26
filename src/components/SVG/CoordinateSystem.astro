@@ -42,30 +42,30 @@ const {
 } = Astro.props
 const ps = point ? [point] : points
 const ls = line ? [line] : lines
-const [x, y, width, height] = viewBox.split(' ')
+const [x, y, width, height] = viewBox.split(' ').map(s => Number(s))
 const pointSize = strokeWidth * 4
 const fontSize = pointSize * 2
-const xAxisNumber = +width / unit
-const yAxisNumber = +height / unit
+const xAxisNumber = (width - x) / unit
+const yAxisNumber = (height - y) / unit
 const getUnitText = (i: number) => (i + 1) * unit
 const xAxis = Array.from({ length: xAxisNumber }, (_, i) => {
-	const disance = i * unit
+	const disance = i * unit + x
 	const unitText = getUnitText(i)
 	return {
 		y1: disance,
 		y2: disance,
 		textX: unitText + unit / 10,
-		textUnit: unitText,
+		textUnit: unitText !== x && unitText,
 	}
 })
 const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
-	const disance = i * unit
+	const disance = i * unit + y
 	const unitText = getUnitText(i)
 	return {
 		x1: disance,
 		x2: disance,
 		textY: unitText + fontSize,
-		textUnit: unitText,
+		textUnit: unitText !== y && unitText,
 	}
 })
 ---
@@ -84,14 +84,17 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 						stroke="currentColor"
 						stroke-width={strokeWidth}
 					/>
-					<text
-						x={textX}
-						y={fontSize}
-						font-size={fontSize}
-						class="fill-base-content"
-					>
-						{textUnit}
-					</text>
+					{
+						typeof textUnit === 'number' && 
+						<text
+							x={textX}
+							y={fontSize + y}
+							font-size={fontSize}
+							class="fill-base-content"
+						>
+							{textUnit}
+						</text>
+					}
 				</>
 			))
 		}
@@ -107,9 +110,12 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 						stroke="currentColor"
 						stroke-width={strokeWidth}
 					/>
-					<text x={x} y={textY} font-size={fontSize} class="fill-base-content">
-						{textUnit}
-					</text>
+					{
+						typeof textUnit === 'number' && 
+						<text x={x} y={textY} font-size={fontSize} class="fill-base-content">
+							{textUnit}
+						</text>
+					}
 				</>
 			))
 		}
@@ -120,7 +126,7 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 			r={pointSize}
 			class="fill-base-content"
 			fill="currentColor"></circle>
-		<text x={pointSize} y={fontSize} font-size={fontSize} class="fill-base-content">0</text>
+		<text x={x + pointSize} y={y + fontSize} font-size={pointSize} class="fill-base-content">({x},{y})</text>
 	</g>
 	<slot />
 	<!-- lines -->
