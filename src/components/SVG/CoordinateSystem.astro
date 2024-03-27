@@ -214,6 +214,9 @@ function handleCoordinateSystem(g: SVGElement) {
 		window.addEventListener('DOMContentLoaded', responsiveHandler)
 		window.addEventListener('resize', responsiveHandler)
 		break
+	default:
+		show()
+		break
 	}
 
 	function responsiveHandler() {
