@@ -1,0 +1,247 @@
+---
+interface Point {
+	x: number;
+	y: number;
+	color?: string;
+	radius?: number;
+}
+
+interface Line {
+	x1: number;
+	x2: number;
+	y1: number;
+	y2: number;
+	color?: string;
+	strokeWidth?: number;
+}
+
+interface Props {
+	viewBox: string;
+	unit: number;
+	strokeWidth: number;
+	point?: Point;
+	points?: Point[];
+	line?: Line;
+	lines?: Line[];
+	triggerMode?: 'hover' | 'click' | 'always' | 'responsive';
+	mergePoints?: boolean;
+	mergeLines?: boolean;
+}
+
+const {
+	viewBox,
+	unit,
+	strokeWidth,
+	point,
+	points = [],
+	line,
+	lines = [],
+	triggerMode = 'always',
+	mergePoints = false,
+	mergeLines = false,
+} = Astro.props
+const ps = point ? [point] : points
+const ls = line ? [line] : lines
+const [x, y, width, height] = viewBox.split(' ').map(s => Number(s))
+const pointSize = strokeWidth * 4
+const fontSize = pointSize * 2
+const xAxisNumber = (width - x) / unit
+const yAxisNumber = (height - y) / unit
+const getUnitText = (i: number) => (i + 1) * unit
+const xAxis = Array.from({ length: xAxisNumber }, (_, i) => {
+	const disance = i * unit + x
+	const unitText = getUnitText(i)
+	return {
+		y1: disance,
+		y2: disance,
+		textX: unitText + unit / 10,
+		textUnit: unitText !== x && unitText,
+	}
+})
+const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
+	const disance = i * unit + y
+	const unitText = getUnitText(i)
+	return {
+		x1: disance,
+		x2: disance,
+		textY: unitText + fontSize,
+		textUnit: unitText !== y && unitText,
+	}
+})
+---
+
+<g data-trigger-mode={triggerMode}>
+	<g data-axis>
+		<!-- x axis -->
+		{
+			xAxis.map(({ textX, textUnit, ...item }) => (
+				<>
+					<line
+						x1={x}
+						x2={width}
+						{...item}
+						class="xAxis stroke-base-content"
+						stroke="currentColor"
+						stroke-width={strokeWidth}
+					/>
+					{
+						typeof textUnit === 'number' && 
+						<text
+							x={textX}
+							y={fontSize + y}
+							font-size={fontSize}
+							class="fill-base-content"
+						>
+							{textUnit}
+						</text>
+					}
+				</>
+			))
+		}
+		<!-- y axis -->
+		{
+			yAxis.map(({ textY, textUnit, ...item }) => (
+				<>
+					<line
+						y1={y}
+						y2={height}
+						{...item}
+						class="yAxis stroke-base-content"
+						stroke="currentColor"
+						stroke-width={strokeWidth}
+					/>
+					{
+						typeof textUnit === 'number' && 
+						<text x={x} y={textY} font-size={fontSize} class="fill-base-content">
+							{textUnit}
+						</text>
+					}
+				</>
+			))
+		}
+		<!-- origin point -->
+		<circle
+			cx={x}
+			cy={y}
+			r={pointSize}
+			class="fill-base-content"
+			fill="currentColor"></circle>
+		<text x={x + pointSize} y={y + fontSize} font-size={pointSize} class="fill-base-content">({x},{y})</text>
+	</g>
+	<slot />
+	<!-- lines -->
+	<g data-lines data-is-merge={mergeLines}>
+		{
+			ls.map(({ color, strokeWidth: sw, ...other }) => (
+				<line
+					class="stroke-base-content" 
+					style={{ stroke: color }}
+					stroke="currentColor" 
+					stroke-linecap="round"
+					stroke-width={sw || strokeWidth}
+					{...other} 
+				/>
+			))
+		}
+	</g>
+	<!-- points -->
+	<g data-points data-is-merge={mergePoints}>
+		{
+			ps.map(({ x, y, color, radius }) => (
+				<circle
+					cx={x}
+					cy={y}
+					r={radius || pointSize}
+					style={{ fill: color }}
+					fill="currentColor"
+					class="fill-base-content"
+				/>
+			))
+		}
+	</g>
+	<slot name="tooltip" />
+</g>
+
+<script>
+import { gsap } from 'gsap'
+
+const gs = document.querySelectorAll(
+	'g[data-trigger-mode]',
+	// eslint-disable-next-line no-undef
+) as NodeListOf<SVGGElement>
+
+gs.forEach(g => handleCoordinateSystem(g))
+
+function handleCoordinateSystem(svg: SVGElement) {
+	const parent = svg.parentNode
+	if (!parent) return
+	const gAxis = parent.querySelector('g[data-axis]') as SVGGElement
+	const gLines = parent.querySelector('g[data-lines]') as SVGGElement
+	const gPoints = parent.querySelector('g[data-points]') as SVGGElement
+	const { triggerMode } = svg.dataset
+	const animateEls = [...gAxis.children]
+	const show = () => toggleOpacity(true)
+	const hide = () => toggleOpacity(false)
+	const onClick = (() => {
+		let isVisible = false
+		return () => {
+			isVisible = !isVisible
+			isVisible ? show() : hide()
+		}
+	})()
+
+	if('isMerge' in gLines.dataset) {
+		animateEls.push(...gLines.children)
+	}
+
+	if('isMerge' in gPoints.dataset) {
+		animateEls.push(...gPoints.children)
+	}
+
+	switch (triggerMode) {
+	case 'hover':
+		setZero()
+		hoverHandler()
+		break
+	case 'click':
+		setZero()
+		clickHandler()
+		break
+	case 'responsive':
+		window.addEventListener('DOMContentLoaded', responsiveHandler)
+		window.addEventListener('resize', responsiveHandler)
+		break
+	}
+
+	function responsiveHandler() {
+		setZero()
+		// phone click
+		if (!matchMedia('(min-width: 768px)').matches) {
+			clickHandler()
+			parent?.removeEventListener('mouseover', show)
+			parent?.removeEventListener('mouseout', hide)
+		} else {
+			// pc hover
+			hoverHandler()
+			parent?.removeEventListener('click', onClick)
+		}
+	}
+
+	function hoverHandler() {
+		parent?.addEventListener('mouseover', show)
+		parent?.addEventListener('mouseout', hide)
+	}
+
+	function clickHandler() {
+		parent?.addEventListener('click', onClick)
+	}
+
+	function setZero() {
+		gsap.set(animateEls, { opacity: 0 })
+	}
+
+	function toggleOpacity(isShow: boolean) {
+		gsap.to(animateEls, { opacity: isShow ? 1 : 0, duration: 0.3 })
+	}
+}
+</script>

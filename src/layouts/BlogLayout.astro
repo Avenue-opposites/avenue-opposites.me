@@ -1,40 +1,52 @@
 ---
 import { type CollectionEntry, getEntry } from 'astro:content'
-import BaseLayout from './BaseLayout.astro'
+import type { Props as Frontmatter } from '~/layouts/BaseLayout.astro'
+import MarkdownLayout from './MarkdownLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Avatar from '~/components/Avatar.astro'
+import type { MarkdownHeading } from 'astro'
+import Toc from '~/components/Toc.astro'
 
-type Props = CollectionEntry<'posts'>['data']
+type Props = CollectionEntry<'posts'>['data'] & {
+	headings: MarkdownHeading[];
+}
 
-const { title, description, publishDate, updatedDate, authors } = Astro.props
+const { 
+	title, 
+	description, 
+	publishDate, 
+	updatedDate, 
+	authors, 
+	headings,
+	toc,
+	lang
+} = Astro.props
 
 const author = await getEntry('authors', authors.id)
+const frontmatter: Frontmatter = { title, description, lang }
 ---
 
-<BaseLayout title={title} description={description}>
-	<main class="p-4 mx-auto prose prose-sm sm:mt-8 sm:prose-lg dark:prose-invert">
-		<h1 class="mb-2 text-primary">{title}</h1>
-		<div class="flex items-end flex-col text-neutral">
-			<div class="flex w-full gap-x-2 items-center justify-between">
-				<Avatar name={author.data.name} src={author.data.avatar} />
-				<span>
-					发布于
-					<FormattedDate date={publishDate} />
-				</span>
-			</div>
-			{
-				updatedDate !== publishDate && updatedDate &&
-				(
-					<div class="daisy-divider m-0 daisy-divider-vertical" />
-					<span>
-						更新于
-						<FormattedDate date={updatedDate} />
-					</span>
-				)
-			}
+<MarkdownLayout frontmatter={frontmatter}>
+	{toc && <Toc headings={headings} />}
+	<h1 class="mb-2 text-primary">{title}</h1>
+	<div class="flex items-end flex-col text-neutral">
+		<div class="flex w-full gap-x-2 items-center justify-between">
+			<Avatar name={author.data.name} src={author.data.avatar} />
+			<span>
+						发布于
+				<FormattedDate date={publishDate} />
+			</span>
 		</div>
-		<article>
-			<slot />
-		</article>
-	</main>
-</BaseLayout>
+		{
+			updatedDate !== publishDate && updatedDate &&
+					(
+						<div class="daisy-divider m-0 daisy-divider-vertical" />
+						<span>
+							更新于
+							<FormattedDate date={updatedDate} />
+						</span>
+					)
+		}
+	</div>
+	<slot />
+</MarkdownLayout>

@@ -1,8 +1,8 @@
-import { type ShikijiTransformer } from 'shikiji'
-import { addClassToHast } from 'shikiji'
+import type { ShikiTransformer } from 'shiki'
+import { addClassToHast } from 'shiki'
 
-declare module 'shikiji' {
-	interface ShikijiTransformerContextMeta {
+declare module 'shiki' {
+	interface ShikiTransformerContextMeta {
     /**
      * @description 包含的类型
      * @default []
@@ -78,7 +78,7 @@ const defaultMetaMap: MetaMap = {
 const escapeCharactersRegex = /[-[\]{}()*+?.,\\^$|#\s]/g
 const typeRegex = /(?<type>(.*)){/
 
-export function transformerMultipleLine(options: TransformerMultipleLineOptions = {} as TransformerMultipleLineOptions): ShikijiTransformer {
+export function transformerMultipleLine(options: TransformerMultipleLineOptions = {} as TransformerMultipleLineOptions): ShikiTransformer {
 	const { 
 		metaMap = defaultMetaMap,
 		separator = '|',
@@ -91,7 +91,7 @@ export function transformerMultipleLine(options: TransformerMultipleLineOptions 
 	const enableRegex = new RegExp(`${meteFlag}\\s*${openChar}(?<raw>(.*))${closeChar}`)
 
 	return {
-		name: 'shikiji-transformer:multiple-line',
+		name: 'shiki-transformer:multiple-line',
 		preprocess(code, options) {
 			const __raw = options.meta?.__raw
 			const raw =__raw?.match(enableRegex)?.groups?.raw
@@ -104,11 +104,11 @@ export function transformerMultipleLine(options: TransformerMultipleLineOptions 
 
 			const multipleLines = raw.split(separator).reduce<MultipleLine[]>((current, rule) => {
 				const type = rule.match(typeRegex)?.groups?.type.trim()
-        
-				if(type && includedTypes.includes(type)) {  
-					const regex = new RegExp(`${isIncludeEscapeChar(type) ? handleEscapeChar(type) : type}{(?<scope>(.*))}`)
-					const scope = rule.match(regex)?.groups?.scope
 
+				if(type && includedTypes.includes(type)) {  
+					const regex = new RegExp(`${isIncludeEscapeChar(type) ? handleEscapeChar(type) : type}\\s*{(?<scope>(.*))}`)
+					const scope = rule.match(regex)?.groups?.scope
+					
 					if(scope) {
 						scope.split(',').forEach(interval => {
 							const [s, e] = interval.split('-')

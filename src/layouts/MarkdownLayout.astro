@@ -1,0 +1,44 @@
+---
+import '~/styles/markdown.css'
+import BaseLayout from './BaseLayout.astro'
+import type { Props as BaseLayoutProps } from './BaseLayout.astro'
+import Prose from '~/components/typography/Prose.astro'
+import BackToTop from '~/components/BackToTop.astro'
+import { Icon } from 'astro-icon/components'
+
+interface Frontmatter extends BaseLayoutProps {}
+
+interface Props {
+  frontmatter: Frontmatter;
+}
+
+const { frontmatter } = Astro.props
+---
+
+<BaseLayout {...frontmatter}>
+	<main class="relative w-full">
+		<Prose>
+			<slot />
+			<p class="flex gap-2 items-center text-gray-500 -ml-1">
+				<Icon name="corner" class="w-4 h-4 fill-current" />
+				<a id="back" class="not-prose hover:text-primary hover:underline transition-colors cursor-pointer">
+					cd ..
+				</a>
+			</p>
+		</Prose>
+	</main>
+	<BackToTop />
+</BaseLayout>
+
+<script>
+	const back = document.getElementById('back')
+	back?.addEventListener('click', () => {
+		const { origin, pathname, hash } = location
+		if(hash) {
+			const url = new URL(pathname.split('/').slice(0, -1).join('/'), origin)
+			location.assign(url)
+		}else {
+			history.back()
+		}
+	})
+</script>

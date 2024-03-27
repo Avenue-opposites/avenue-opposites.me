@@ -2,38 +2,43 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
-import { transformerTwoSlash, rendererRich } from 'shikiji-twoslash'
+import icon from 'astro-icon'
+import { transformerTwoslash, rendererRich } from '@shikijs/twoslash'
 import { 
 	transformerNotationDiff, 
 	transformerNotationHighlight,
 	transformerNotationFocus,
-	transformerNotationErrorLevel
-} from 'shikiji-transformers'
-import RemarkShikiji from './plugins/remark-shikiji'
-import { transformerMultipleLine } from './plugins/shikiji-multiple-line'
+	transformerNotationErrorLevel,
+	transformerMetaWordHighlight
+} from '@shikijs/transformers'
+import remarkShiki from './plugins/remark-shiki'
+import rehypeToc from './plugins/rehype-toc'
+import { transformerMultipleLine } from './plugins/shiki-multiple-line'
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://avenue-opposites.com',
 	integrations: [
-		mdx(), 
-		sitemap(), 
+		mdx(),
+		sitemap(),
 		tailwind({
 			// 取消自动导入base样式
 			applyBaseStyles: false
-		}), 
+		}),
+		icon()
 	],
 	markdown: {
+		syntaxHighlight: false,
 		remarkPlugins: [
 			[
-				RemarkShikiji, {
+				remarkShiki, {
 					themes: {
 						light: 'vitesse-light',
 						dark: 'vitesse-dark',
 					},
-					langs:  ['js', 'ts', 'html', 'css', 'json', 'jsx', 'tsx'],
+					langs:  ['js', 'ts', 'html', 'css', 'json', 'jsx', 'tsx', 'kotlin', 'yaml'],
 					transformers: [
-						transformerTwoSlash({
+						transformerTwoslash({
 							renderer: rendererRich(),
 							// 只有mete中包含twoslash才会触发
 							explicitTrigger: true,
@@ -46,13 +51,17 @@ export default defineConfig({
 						transformerNotationFocus(),
 						// 使用[!code warning]和[!code error]来标记警告代码和错误代码
 						transformerNotationErrorLevel(),
+						// 使用ml [++ {1, 3-5}|-- {10, 15-20}]来标记多行
 						transformerMultipleLine({
 							meteFlag: 'ml'
 						}),
+						// 在meta中使用/word/来标记高亮单词
+						transformerMetaWordHighlight(),
 					],
 				}
 			],
 		],
+		rehypePlugins: [rehypeToc]
 	},
 	server: {
 		host: '0.0.0.0'

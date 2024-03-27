@@ -45,6 +45,21 @@ const imageUrl = new URL(image, Astro.url)
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={imageUrl} />
 
+<!-- Chrome, Firefox, Safari顶部状态栏 -->
+<meta name="theme-color" content="#f9fafb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#030712" media="(prefers-color-scheme: dark)" />
+
+<!-- Safari -->
+<meta id="theme-color" name="theme-color" />
+<!-- Windows Phone -->
+<meta id="windows-phone" name="msapplication-navbutton-color" />
+
+<!-- iOS Safari -->
+<!-- 是否支持全屏 -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 状态栏颜色 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <!-- 主题切换必须的脚本 -->
 <script is:inline>
 // 该脚本是内联中页面中的,不会被打包

@@ -2,17 +2,19 @@
 import BaseHead from '../components/BaseHead.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
-import { SITE_TITLE, SITE_DESCRIPTION } from '~/consts'
+import { SITE_TITLE, SITE_DESCRIPTION, DEFAULT_LANGUAGE } from '~/consts'
 
-interface Props {
+export interface Props {
   title?: string;
   description?: string;
+	lang?: string;
 }
 
-const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props
+const { title = SITE_TITLE, description = SITE_DESCRIPTION, lang = DEFAULT_LANGUAGE } = Astro.props
 ---
 
-<html lang="zh-CN">
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
 	<head>
 		<BaseHead title={title} description={description} />
 	</head>

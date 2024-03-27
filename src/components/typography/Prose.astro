@@ -1,0 +1,41 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'article'> {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<article class:list={['p-4 lg:p-0 mx-auto prose prose-sm sm:mt-8 sm:prose-lg dark:prose-invert prose-img:rounded', className]} {...props}>
+	<slot />
+	<div id="image-modal" class="fixed flex justify-center opacity-0 invisible transition-opacity items-center inset-0 z-50">
+		<div class="absolute inset-0 bg-black bg-opacity-75 backdrop-blur" />
+		<img id="image-modal-img" class="relative z-10 min-h-fit h-full object-contain" />
+	</div>
+</article>
+
+<script>
+const imageModal = document.getElementById('image-modal')!
+const imageModalImg = document.getElementById('image-modal-img') as HTMLImageElement
+const showClass = ['opacity-0', 'invisible']
+
+window.addEventListener('click', (e) => {
+	const el = e.target as HTMLElement
+	if(el.tagName !== 'IMG') {
+		return
+	}
+	
+	const isShow = imageModal.classList.contains('opacity-0')
+
+	if(isShow) {
+		const { src, alt } = (el as HTMLImageElement)
+
+		imageModal.classList.remove(...showClass)
+		imageModalImg.src = src
+		imageModalImg.alt = alt
+	}else {
+		imageModal.classList.add(...showClass)
+		imageModalImg.src = ''
+	}
+})
+</script>

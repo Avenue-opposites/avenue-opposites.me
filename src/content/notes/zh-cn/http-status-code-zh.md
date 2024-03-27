@@ -1,14 +1,16 @@
 ---
 title: HTTP状态码
-description: 一篇解释HTTP状态码的博客
+description: 一篇学习HTTP状态码的博客
 duration: 3分钟
 publishDate: 2022-11-17
 heroImage: /images/blog-placeholder-1.jpg
+tags: [HTTP, Status]
+lang: zh-CN
 ---
 
 ## 介绍
 
-这篇博客是一个HTTP状态码的解释。HTTP状态码是HTTP协议的一部分，它是用来描述HTTP请求的状态。HTTP状态码的分为5个类型，对应1xx~5xx之间的状态码。
+这篇笔记是一个HTTP状态码的解释。HTTP状态码是HTTP协议的一部分，它是用来描述HTTP请求的状态。HTTP状态码的分为5个类型，对应1xx~5xx之间的状态码。
 
 ### 1xx信息性状态码
 
