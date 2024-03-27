@@ -1,32 +1,18 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
-// import Icon from 'astro-icon'
+import BaseLayout from '~/layouts/BaseLayout.astro'
 ---
 
-<!doctype html>
-<html lang="zh-CN">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>你好</h1>
-			<button class="daisy-btn daisy-btn-outline">Button</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-neutral">Neutral</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-primary">Primary</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-secondary">Secondary</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-accent">Accent</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-ghost">Ghost</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-link">Link</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-info">Info</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-success">Success</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-warning">Warning</button>
-			<button class="daisy-btn daisy-btn-outline daisy-btn-error">Error</button>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout>
+	<main>
+		<div class="daisy-hero min-h-screen">
+			<div class="daisy-hero-content text-center">
+				<div class="max-w-md">
+					<h1 class="text-5xl font-bold">欢迎访问我的主页</h1>
+					<p class="py-6">我是一名前端开发者.</p>
+					<p class="py-6">这是我的个人网站，目前还在建设中.</p>
+					<button class="daisy-btn daisy-btn-primary">Get Started</button>
+				</div>
+			</div>
+		</div>
+	</main>
+</BaseLayout>
