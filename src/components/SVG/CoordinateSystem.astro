@@ -23,6 +23,7 @@ interface Props {
 	points?: Point[];
 	line?: Line;
 	lines?: Line[];
+	opacity?: number;
 	triggerMode?: 'hover' | 'click' | 'always' | 'responsive';
 	mergePoints?: boolean;
 	mergeLines?: boolean;
@@ -35,6 +36,7 @@ const {
 	point,
 	points = [],
 	line,
+	opacity = 0.3,
 	lines = [],
 	triggerMode = 'always',
 	mergePoints = false,
@@ -71,7 +73,8 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 ---
 
 <g data-trigger-mode={triggerMode}>
-	<g data-axis>
+	<!-- axis -->
+	<g data-axis data-opacity={opacity}>
 		<!-- x axis -->
 		{
 			xAxis.map(({ textX, textUnit, ...item }) => (
@@ -172,14 +175,14 @@ const gs = document.querySelectorAll(
 
 gs.forEach(g => handleCoordinateSystem(g))
 
-function handleCoordinateSystem(svg: SVGElement) {
-	const parent = svg.parentNode
+function handleCoordinateSystem(g: SVGElement) {
+	const parent = g.parentNode
 	if (!parent) return
 	const gAxis = parent.querySelector('g[data-axis]') as SVGGElement
 	const gLines = parent.querySelector('g[data-lines]') as SVGGElement
 	const gPoints = parent.querySelector('g[data-points]') as SVGGElement
-	const { triggerMode } = svg.dataset
-	const animateEls = [...gAxis.children]
+	const { triggerMode } = g.dataset
+	const animateEls = [gAxis]
 	const show = () => toggleOpacity(true)
 	const hide = () => toggleOpacity(false)
 	const onClick = (() => {
@@ -191,11 +194,11 @@ function handleCoordinateSystem(svg: SVGElement) {
 	})()
 
 	if('isMerge' in gLines.dataset) {
-		animateEls.push(...gLines.children)
+		animateEls.push(gLines)
 	}
 
 	if('isMerge' in gPoints.dataset) {
-		animateEls.push(...gPoints.children)
+		animateEls.push(gPoints)
 	}
 
 	switch (triggerMode) {
@@ -241,7 +244,10 @@ function handleCoordinateSystem(svg: SVGElement) {
 	}
 
 	function toggleOpacity(isShow: boolean) {
-		gsap.to(animateEls, { opacity: isShow ? 1 : 0, duration: 0.3 })
+		for(const el of animateEls) {
+			const opacity = el.dataset.opacity || 1
+			gsap.to(el, { opacity: isShow ? opacity : 0, duration: 0.3 })
+		}
 	}
 }
 </script>
