@@ -224,8 +224,8 @@ function handleCoordinateSystem(g: SVGElement) {
 		// phone click
 		if (!matchMedia('(min-width: 768px)').matches) {
 			clickHandler()
-			parent?.removeEventListener('mouseover', show)
-			parent?.removeEventListener('mouseout', hide)
+			parent?.removeEventListener('mouseenter', show)
+			parent?.removeEventListener('mouseleave', hide)
 		} else {
 			// pc hover
 			hoverHandler()
@@ -234,8 +234,8 @@ function handleCoordinateSystem(g: SVGElement) {
 	}
 
 	function hoverHandler() {
-		parent?.addEventListener('mouseover', show)
-		parent?.addEventListener('mouseout', hide)
+		parent?.addEventListener('mouseenter', show)
+		parent?.addEventListener('mouseleave', hide)
 	}
 
 	function clickHandler() {
