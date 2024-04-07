@@ -54,8 +54,8 @@ const xAxis = Array.from({ length: xAxisNumber }, (_, i) => {
 	const disance = i * unit + x
 	const unitText = getUnitText(i)
 	return {
-		y1: disance,
-		y2: disance,
+		x1: disance,
+		x2: disance,
 		textX: unitText + unit / 10,
 		textUnit: unitText !== x && unitText,
 	}
@@ -64,8 +64,8 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 	const disance = i * unit + y
 	const unitText = getUnitText(i)
 	return {
-		x1: disance,
-		x2: disance,
+		y1: disance,
+		y2: disance,
 		textY: unitText + fontSize,
 		textUnit: unitText !== y && unitText,
 	}
@@ -80,8 +80,8 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 			xAxis.map(({ textX, textUnit, ...item }) => (
 				<>
 					<line
-						x1={x}
-						x2={width}
+						y1={y}
+						y2={height}
 						{...item}
 						class="xAxis stroke-base-content"
 						stroke="currentColor"
@@ -106,8 +106,8 @@ const yAxis = Array.from({ length: yAxisNumber }, (_, i) => {
 			yAxis.map(({ textY, textUnit, ...item }) => (
 				<>
 					<line
-						y1={y}
-						y2={height}
+						x1={x}
+						x2={width}
 						{...item}
 						class="yAxis stroke-base-content"
 						stroke="currentColor"
