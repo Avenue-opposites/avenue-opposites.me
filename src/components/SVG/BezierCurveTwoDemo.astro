@@ -1,0 +1,65 @@
+---
+import CoordinateSystem from './CoordinateSystem.astro';
+
+
+---
+
+<svg id="bezier-curve-two-demo" class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<CoordinateSystem 
+		viewBox="0 0 100 100" 
+		unit={10} 
+		strokeWidth={0.5}
+		points={[
+			{ x: 20, y: 80, radius: 1.5 },
+			{ x: 50, y: 20, radius: 1.5 },
+			{ x: 80, y: 80, radius: 1.5 },
+		]}
+	>
+		<line x1="20" y1="80" x2="50" y2="20" class="stroke-primary" stroke-width="1" />
+		<line x1="50" y1="20" x2="80" y2="80" class="stroke-primary" stroke-width="1" />
+		<line data-p3-to-p5-line x1="20" y1="80" x2="50" y2="20" class="stroke-secondary" stroke-width="1" />
+		<slot/>
+		<g slot="tooltip">
+			<text x="14" y="85" class="fill-accent" font-size="4">p1</text>
+			<text x="50" y="15" class="fill-accent" font-size="4">p2</text>
+			<text data-p3 x="15" y="75" class="fill-accent" font-size="4">p3</text>
+			<text x="82" y="85" class="fill-accent" font-size="4">p4</text>
+			<text data-p5 x="55" y="20" class="fill-accent" font-size="4">p5</text>
+			<text data-t x="20" y="20" class="fill-primary" font-size="4">t = 0.5</text>
+			<circle data-p3-point cx="20" cy="80" r="1.5" class="fill-base-content" />
+			<circle data-p5-point cx="50" cy="20" r="1.5" class="fill-base-content" />
+		</g>
+	</CoordinateSystem>
+</svg>
+
+<script>
+  import gsap from 'gsap'
+  import { tweenCommonOptions } from './bezier'
+  const demo = document.getElementById('bezier-curve-two-demo')!
+  const p3 = demo.querySelector('text[data-p3]')!
+  const p3Point = demo.querySelector('circle[data-p3-point]')!
+  const p5 = demo.querySelector('text[data-p5]')!
+  const p5Point = demo.querySelector('circle[data-p5-point]')!
+  const p3ToP5Line = demo.querySelector('line[data-p3-to-p5-line]')!
+  // eslint-disable-next-line no-undef
+  const tweens: GSAPTween[] = [
+  	gsap.to(p3, { attr: { x: 45, y: 15 }, ...tweenCommonOptions }),
+  	gsap.to(p5, { attr: { x: 85, y: 80 }, ...tweenCommonOptions }),
+  	gsap.to(p3Point, { attr: { cx: 50, cy: 20 }, ...tweenCommonOptions }),
+  	gsap.to(p5Point, { attr: { cx: 80, cy: 80 }, ...tweenCommonOptions }),
+  	gsap.to(p3ToP5Line, { attr: { x1: 50, y1: 20, x2: 80, y2: 80 }, ...tweenCommonOptions }),
+  ]
+  const timeline = gsap.timeline({
+  	repeat: -1,
+  	yoyo: true,
+  	dealy: 1,
+  	onUpdate(p3) {
+  		gsap.set('#bezier-curve-two-demo text[data-t]', {
+  			text: 't = ' + p3.progress().toFixed(1),
+  		})
+  	},
+  	onUpdateParams: [tweens[2]]
+  })
+
+  timeline.add(tweens)
+</script>
