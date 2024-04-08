@@ -71,13 +71,20 @@
 }
 
 @layer utilities {
-	.svg-markdown {
-		@apply bg-base-300 s-1/2 mx-auto rounded sm:s-96 sm:rounded-md;
+	.transition-stroke-dashoffset {
+		transition-property: stroke-dashoffset;
+		transition-timing-function: linear;
 	}
 	.flex-center {
 		@apply flex justify-center items-center;
 	}
 	.inline-flex-center {
 		@apply inline-flex justify-center items-center;
+	}
+}
+
+@layer components {
+	.svg-markdown {
+		@apply bg-base-300 s-1/2 mx-auto rounded sm:s-96 sm:rounded-md;
 	}
 }
