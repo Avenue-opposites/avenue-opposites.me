@@ -2,7 +2,7 @@
 title: JavaScript Notification API
 description: 一个发送消息通知的API
 duration: 10分钟
-publishDate: 2022-07-13
+publishDate: 2023-07-13
 authors: Avenue-opposites
 toc: true
 tags: [Web-API, Notification]

@@ -2,8 +2,8 @@
 title: JavaScript样式风格指南
 description: 一个JavaScript的代码书写风格指导
 duration: 30分钟
-publishDate: 2022-01-01
-updatedDate: 2023-01-08
+publishDate: 2024-01-01
+updatedDate: 2024-01-08
 heroImage: /images/blog-placeholder-3.jpg
 authors: Avenue-opposites
 toc: true

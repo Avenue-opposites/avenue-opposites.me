@@ -2,7 +2,7 @@
 title: 学习使用Git来管理代码
 description: Git是一个开源的版本控制系统，它可以帮助我们管理代码，同时保证我们的代码是最新的，学习Git可以让我们更好的管理代码。
 duration: 10分钟
-publishDate: 2023-02-05
+publishDate: 2024-02-05
 toc: true
 tags: [Git]
 lang: zh-CN

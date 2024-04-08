@@ -2,8 +2,8 @@
 title: CSS文本溢出显示省略号
 description: 使用CSS属性完成单行文本和多行文本的溢出显示省略号
 duration: 2min
-publishDate: 2022-07-15
-updatedDate: 2023-01-08
+publishDate: 2023-07-15
+updatedDate: 2024-01-08
 heroImage: /images/blog-placeholder-2.jpg
 authors: Avenue-opposites
 tags: [CSS, Text Overflow]
