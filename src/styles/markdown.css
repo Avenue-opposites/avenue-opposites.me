@@ -256,7 +256,7 @@ html[data-theme="dark"] .twoslash {
 	display: inline-block;
 	width: calc(100% + 48px);
 	padding-left: 24px;
-	margin: 0 -24px;
+	margin: 0 0 0 -24px;
 }
 
 .has-diff .add::before,
