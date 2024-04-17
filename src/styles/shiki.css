@@ -1,0 +1,339 @@
+/* shiki 代码块浅色主题 */
+html[data-theme="light"] .shiki,
+html[data-theme="light"] .shiki span {
+	--shiki-highlighted-word: #EEEEEE;
+	color: var(--shiki-light) ;
+	background-color: var(--shiki-light-bg) ;
+	/* Optional, if you also want font styles */
+	font-style: var(--shiki-light-font-style) ;
+	font-weight: var(--shiki-light-font-weight) ;
+	text-decoration: var(--shiki-light-text-decoration) ;
+}
+
+/* shiki 代码块深色主题 */
+html[data-theme="dark"] .shiki,
+html[data-theme="dark"] .shiki span {
+	--shiki-highlighted-word: #222222;
+	color: var(--shiki-dark) ;
+	background-color: var(--shiki-dark-bg) ;
+	/* Optional, if you also want font styles */
+	font-style: var(--shiki-dark-font-style) ;
+	font-weight: var(--shiki-dark-font-weight) ;
+	text-decoration: var(--shiki-dark-text-decoration) ;
+}
+
+.shiki > code {
+	display: block;
+	width: fit-content;
+	min-width: 100%;
+	padding: 0 24px;
+}
+
+.shiki {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+/* twoslash 代码块样式 */
+.twoslash {
+	--twoslash-border-color: #8888;
+  --twoslash-docs-color: #888;
+  --twoslash-underline-color: currentColor;
+	--twoslash-popup-bg: var(--shiki-light-bg);
+  --twoslash-popup-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
+  --twoslash-matched-color: inherit;
+  --twoslash-unmatched-color: #888;
+  --twoslash-cursor-color: #8888;
+	/* 错误 */
+  --twoslash-error-color: #d45656;
+  --twoslash-error-bg: #d4565620;
+	/* 标签 */
+  --twoslash-tag-color: #3772cf;
+  --twoslash-tag-bg: #3772cf20;
+  --twoslash-tag-warn-color: #c37d0d;
+  --twoslash-tag-warn-bg: #c37d0d20;
+	/* 注解 */
+  --twoslash-tag-annotate-color: #1ba673;
+  --twoslash-tag-annotate-bg: #1ba67320;
+
+	--twoslash-transition-duration: 0.15s;
+	--twoslash-popup-container-padding: 0.5rem;
+	--twoslash-popup-container-border-radius: 0.25rem;
+	--twoslash-completions-hover-bg: #434343;
+}
+
+html[data-theme="dark"] .twoslash {
+  --twoslash-cursor-color: #848383;
+	--twoslash-popup-bg: var(--shiki-dark-bg);
+}
+
+.twoslash svg {
+	width: 100%;
+	height: 100%;
+}
+
+.twoslash:hover .twoslash-hover {
+	border-color: var(--twoslash-underline-color);
+}
+
+.twoslash .twoslash-hover {
+	position: relative;
+	background-color: transparent !important;
+	transition: border-color var(--twoslash-transition-duration) ease-in-out;
+	border-bottom: 1px dotted transparent;
+}
+
+.twoslash-hover:hover .twoslash-popup-container,
+.twoslash .twoslash-query-presisted .twoslash-popup-container {
+	visibility: visible;
+	opacity: 1;
+}
+
+.twoslash .twoslash-query-presisted .twoslash-popup-container {
+	transform: translateY(0.5rem);
+	z-index: 10;
+}
+
+.twoslash .twoslash-popup-container {
+	z-index: 50;
+	transform: translateY(0.125rem);
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity var(--twoslash-transition-duration) ease-in-out;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	box-shadow: var(--twoslash-popup-shadow);
+	background-color: var(--twoslash-popup-bg) !important;
+	padding: calc(var(--twoslash-popup-container-padding) / 2) var(--twoslash-popup-container-padding);
+	border-radius: var(--twoslash-popup-container-border-radius);
+	border: 1px solid var(--twoslash-border-color);
+}
+
+.twoslash .twoslash-popup-code {
+	font-size: 1rem;
+}
+
+.twoslash .twoslash-popup-arrow {
+	position: absolute;
+	left: 20px;
+	top: -3px;
+	width: 4px;
+	height: 4px;
+	border: 1px solid var(--twoslash-border-color);
+	border-right: none;
+	border-bottom: none;
+	background-color: var(--twoslash-popup-bg);
+	transform: rotate(45deg);
+}
+
+/* docs注释 */
+.twoslash .twoslash-popup-docs {
+	font-size: 0.9rem;
+	border-top: 1px solid var(--twoslash-border-color);
+	color: var(--twoslash-docs-color);
+}
+
+.twoslash .twoslash-completion-cursor {
+	position: relative;
+}
+
+.twoslash .twoslash-completion-list::before {
+	content: '';
+	position: absolute;
+	top: -1.3rem;
+	left: -2px;
+	width: 2px;
+	height: 1.2rem;
+	background-color: var(--twoslash-cursor-color);
+}
+
+/* 代码补全列表 */
+.twoslash .twoslash-completion-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: absolute;
+	z-index: 10;
+	top: 100%;
+	left: 0;
+	width: 240px;
+	background-color: var(--twoslash-popup-bg);
+	border: 1px solid var(--twoslash-border-color);
+	border-radius: var(--twoslash-popup-container-border-radius);
+	box-shadow: var(--twoslash-popup-shadow);
+}
+
+.twoslash .twoslash-completion-list li {
+	margin: 0;
+	display: flex;
+	gap: 0.25rem;
+	align-items: center;
+}
+
+/* 代码补全列表项hover */
+.twoslash .twoslash-completion-list li:hover,
+.twoslash .twoslash-completion-list li:hover span {
+	background-color: var(--twoslash-completions-hover-bg);
+}
+
+/* 代码补全图标 */
+.twoslash .twoslash-completions-icon {
+	display: block;
+	width: 1rem;
+	height: 1rem;
+}
+
+/* 代码补全已匹配的字符 */
+.twoslash .twoslash-completion-cursor .twoslash-completions-matched {
+	font-weight: bold;
+	color: var(--twoslash-matched-color);
+}
+
+/* 代码补全未匹配的字符 */
+.twoslash .twoslash-completion-cursor .twoslash-completions-unmatched {
+	color: var(--twoslash-unmatched-color);
+}
+
+/* 代码补全方法类型 */
+/* .twoslash .completions-method {} */
+
+/* 代码行元信息 */
+.twoslash .twoslash-meta-line {
+	margin-top: 0.25rem;
+	padding: 0.5rem;
+	border-left-width: 0.25rem;
+	border-left-style: solid;
+}
+/* 错误行 */
+.twoslash .twoslash-error-line {
+	color: var(--twoslash-error-color);
+	background-color: var(--twoslash-error-bg);
+	border-left-color: var(--twoslash-error-color);
+}
+/* 标签行 */
+.twoslash .twoslash-tag-line {
+	color: var(--twoslash-tag-color);
+	background-color: var(--twoslash-tag-bg);
+	border-left-color: var(--twoslash-tag-color);
+}
+/* 警告行 */
+.twoslash .twoslash-tag-warn-line {
+	color: var(--twoslash-tag-warn-color);
+	background-color: var(--twoslash-tag-warn-bg);
+	border-left-color: var(--twoslash-tag-warn-color);
+}
+/* 注解行 */
+.twoslash .twoslash-tag-annotate-line {
+	color: var(--twoslash-tag-annotate-color);
+	background-color: var(--twoslash-tag-annotate-bg);
+	border-left-color: var(--twoslash-tag-annotate-color);
+}
+
+/* ts报错指向token使用波浪线 */
+.twoslash .twoslash-error {
+	display: inline-block;
+	background-size: cover;
+	background: url(/images/wave.svg) repeat-x bottom left;
+}
+
+/* 代码 diff 样式 */
+.has-diff {
+	--diff-add-bg: #04ff0034;
+	--diff-remove-bg: #ff000030;
+	--diff-add-symbol: '+';
+	--diff-remove-symbol: '-';
+	--diff-add-symbol-color: #04ff00;
+	--diff-remove-symbol-color: #ff0000;
+}
+
+.has-diff .diff {
+	position: relative;
+}
+
+.has-diff .diff,
+.has-highlighted .highlighted {
+	display: inline-block;
+	width: calc(100% + 48px);
+	padding-left: 24px;
+	margin: 0 0 0 -24px;
+}
+
+.has-diff .add::before,
+.has-diff .remove::before {
+	position: absolute;
+ 	left: 0.5rem;
+}
+
+.has-diff .add::before {
+ content: var(--diff-add-symbol);
+ color: var(--diff-add-symbol-color);
+}
+
+.has-diff .remove::before {
+	content: var(--diff-remove-symbol);
+	color: var(--diff-remove-symbol-color);
+}
+
+/* .has-diff .diff {
+	opacity: 0.7;
+} */
+
+.has-diff .diff .highlight-transparent,
+.has-highlighted .highlighted .highlight-transparent {
+	background-color: transparent;
+}
+
+.has-diff .add {
+	background-color: var(--diff-add-bg) !important;
+}
+
+.has-diff .remove {
+	background-color: var(--diff-remove-bg) !important;
+}
+
+/* 代码行高亮样式 */
+.has-highlighted {
+	--highlight-bg: #8988881f;
+	--highlight-warning-bg: #fff70032;
+	--highlight-error-bg: #ff000032;
+}
+
+.has-highlighted .highlighted {
+	background-color: var(--highlight-bg) !important;
+}
+
+/* 代码行警告 */
+.has-highlighted .warning {
+	background-color: var(--highlight-warning-bg) !important;
+}
+
+/* 代码行错误 */
+.has-highlighted .error {
+	background-color: var(--highlight-error-bg) !important;
+}
+
+/* 代码行聚焦 */
+.has-focused .line {
+	opacity: 0.8;
+	transition: all 500ms ease;
+	filter: blur(0.1rem);
+}
+
+.has-focused:hover .line,
+.has-focused .focused {
+	opacity: 1;
+	filter: none;
+}
+
+/* 代码关键词高亮 */
+.highlighted-word {
+	padding: 1px 3px;
+	border: 1px solid grey;
+	border-radius: 5px;
+}
+
+.highlighted-word,
+.highlighted-word span {
+	background-color: var(--shiki-highlighted-word) !important;
+}

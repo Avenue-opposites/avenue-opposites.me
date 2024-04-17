@@ -82,9 +82,3 @@
 		@apply inline-flex justify-center items-center;
 	}
 }
-
-@layer components {
-	.svg-markdown {
-		@apply bg-base-300 s-1/2 mx-auto rounded sm:s-96 sm:rounded-md;
-	}
-}
