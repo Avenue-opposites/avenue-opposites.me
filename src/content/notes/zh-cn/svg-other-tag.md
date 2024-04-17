@@ -25,26 +25,28 @@ lang: zh-CN
 
 ## use标签
 
-use标签用来复用其他标签，只要元素定义了id属性，就可以通过`xlink:href`属性来引用。
+use标签用来复用其他标签，只要元素定义了id属性，就可以通过`href`属性来引用。
 可以指定`x`和`y`，也可以指定`width`和`height`属性。
+
+> `xlink:href`已经被废弃，使用`href`代替，详见[MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/xlink:href)。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <line id=l1 x1="10" y1="10" x2="90" y2="10" stroke="#F44336" />
-  <use x="0" y="30" xlink:href="#l1" />
-  <use x="0" y="50" xlink:href="#l1" />
-  <use x="0" y="80" xlink:href="#l1" />
+  <use x="0" y="30" href="#l1" />
+  <use x="0" y="50" href="#l1" />
+  <use x="0" y="80" href="#l1" />
 </svg>
 
 ```html
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <line id=l1 x1="10" y1="10" x2="90" y2="10" stroke="#F44336" />
-  <use x="0" y="30" xlink:href="#l1" />
-  <use x="0" y="50" xlink:href="#l1" />
-  <use x="0" y="80" xlink:href="#l1" />
+  <use x="0" y="30" href="#l1" />
+  <use x="0" y="50" href="#l1" />
+  <use x="0" y="80" href="#l1" />
 </svg>
 ```
 
-> `x`和`y`是相对于引用标签的位置，`xlink:href`是引用标签的id。
+> `x`和`y`是相对于引用标签的位置，`href`是引用标签的id。
 
 ## symbol标签
 
@@ -56,15 +58,15 @@ symbol标签用来创建外部定义的图形，可以在外部定义，也可�
   <symbol viewBox="0 0 24 24" id="material-symbols-4k-outline">
     <path fill="currentColor" d="M13 15h1.5v-2.25L16.25 15h1.825l-2.325-3l2.325-3H16.25l-1.75 2.25V9H13zm-3.5 0H11v-1.5h1V12h-1V9H9.5v3H8V9H6.5v4.5h3zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zM5 5v14z" />
   </symbol>
-  <use x="25" y="25" width="50" height="50" xlink:href="#material-symbols-4k-outline" />
+  <use x="25" y="25" width="50" height="50" href="#material-symbols-4k-outline" />
 </svg>
 
-```html ml [++{2-5}]
+```html ml [++{2-4}]
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <symbol viewBox="0 0 24 24" id="material-symbols-4k-outline">
     <path fill="currentColor" d="M13 15h1.5v-2.25L16.25 15h1.825l-2.325-3l2.325-3H16.25l-1.75 2.25V9H13zm-3.5 0H11v-1.5h1V12h-1V9H9.5v3H8V9H6.5v4.5h3zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zM5 5v14z" />
   </symbol>
-  <use x="25" y="25" width="50" height="50" xlink:href="#material-symbols-4k-outline" />
+  <use x="25" y="25" width="50" height="50" href="#material-symbols-4k-outline" />
 </svg>
 ```
 
