@@ -2,7 +2,8 @@
 title: 在SVG使用裁剪路径
 description: 使用clip-path属性进行裁剪
 publishDate: 2024-04-17
-duration: 3分钟
+updatedDate: 2024-04-18
+duration: 5分钟
 tags: [SVG, clip-path]
 lang: zh-CN
 ---
@@ -139,3 +140,45 @@ import CoordinateSystem from '~/components/SVG/CoordinateSystem.astro'
 ```
 
 </details>
+
+## 裁剪文本
+
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="g1" x="0%" y="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a8ff78" />
+      <stop offset="100%" stop-color="#78ffd6" />
+    </linearGradient>
+    <clipPath id="text-clip">
+      <text 
+        x="50" y="50" text-decoration="underline"
+        font-size="30" font-family="mono"
+        font-weight="bold" text-anchor="middle"
+        dominant-baseline="middle" font-style="italic"
+      >SVG</text>
+    </clipPath>
+  </defs>
+  <rect x="0" y="0" width="100" height="100" fill="url(#g1)" clip-path="url(#text-clip)" />
+</svg>
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="g1" x="0%" y="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a8ff78" />
+      <stop offset="100%" stop-color="#78ffd6" />
+    </linearGradient>
+    <clipPath id="text-clip">
+      <text 
+        x="50" y="50" text-decoration="underline"
+        font-size="30" font-family="mono"
+        font-weight="bold" text-anchor="middle"
+        dominant-baseline="middle" font-style="italic"
+      >
+        SVG
+      </text>
+    </clipPath>
+  </defs>
+  <rect x="0" y="0" width="100" height="100" fill="url(#g1)" clip-path="url(#text-clip)" />
+</svg>
+```
