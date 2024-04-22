@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'div'> {
+  delay?: number | string;
+  stagger?: number;
+}
+
+const { delay = 60, stagger = 1 } = Astro.props
+const style = { 
+	'--delay': `${typeof delay === 'string' ? delay : `${delay}ms`}`, 
+	'--stagger': `${stagger}` 
+}
+---
+
+<div style={style} class="slide-enter">
+	<slot />
+</div>
