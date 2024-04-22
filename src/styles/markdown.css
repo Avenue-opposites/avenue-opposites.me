@@ -6,6 +6,10 @@
   details {
     @apply my-4 transition-all;
   }
+  #markdown svg,
+  #markdown img {
+    @apply animate-slide-out;
+  }
 }
 
 @layer components {

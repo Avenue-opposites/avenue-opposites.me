@@ -63,6 +63,10 @@ export default function remarkShikiji(options: Options = {} as any) {
 				transformers: [
 					...transformers,
 					{
+						pre(hast) {
+							hast.properties.style += ';--delay: ?;--stagger: ?'
+							addClassToHast(hast, '__slide-enter__')
+						},
 						span(hast) {
 							addClassToHast(hast, 'highlight-transparent')
 							return hast

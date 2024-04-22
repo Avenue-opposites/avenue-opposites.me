@@ -71,6 +71,11 @@
 }
 
 @layer utilities {
+	.slide-enter {
+		--initial-delay: 60ms;
+		@apply animate-slide-out;
+		animation-delay: calc(var(--initial-delay) + var(--delay, 60ms) * var(--stagger, 1));
+	}
 	.transition-stroke-dashoffset {
 		transition-property: stroke-dashoffset;
 		transition-timing-function: linear;
