@@ -6,6 +6,7 @@ import FormattedDate from '../components/FormattedDate.astro'
 import Avatar from '~/components/Avatar.astro'
 import type { MarkdownHeading } from 'astro'
 import Toc from '~/components/Toc.astro'
+import SlideEnter from '~/components/SlideEnter.astro'
 
 type Props = CollectionEntry<'posts'>['data'] & {
 	headings: MarkdownHeading[];
@@ -28,17 +29,18 @@ const frontmatter: Frontmatter = { title, description, lang }
 
 <MarkdownLayout frontmatter={frontmatter}>
 	{toc && <Toc headings={headings} />}
-	<h1 class="mb-2 text-primary">{title}</h1>
-	<div class="flex items-end flex-col text-neutral">
-		<div class="flex w-full gap-x-2 items-center justify-between">
-			<Avatar name={author.data.name} src={author.data.avatar} />
-			<span>
+	<SlideEnter>
+		<h1 class="mb-2 text-primary">{title}</h1>
+		<div class="flex items-end flex-col text-neutral">
+			<div class="flex w-full gap-x-2 items-center justify-between">
+				<Avatar name={author.data.name} src={author.data.avatar} />
+				<span>
 						发布于
-				<FormattedDate date={publishDate} />
-			</span>
-		</div>
-		{
-			updatedDate !== publishDate && updatedDate &&
+					<FormattedDate date={publishDate} />
+				</span>
+			</div>
+			{
+				updatedDate !== publishDate && updatedDate &&
 					(
 						<div class="daisy-divider m-0 daisy-divider-vertical" />
 						<span>
@@ -46,7 +48,8 @@ const frontmatter: Frontmatter = { title, description, lang }
 							<FormattedDate date={updatedDate} />
 						</span>
 					)
-		}
-	</div>
+			}
+		</div>
+	</SlideEnter>
 	<slot />
 </MarkdownLayout>

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import NoteCard from '~/components/note/NoteCard.astro'
+import SlideEnter from '~/components/SlideEnter.astro'
 
 const notes = await getCollection('notes')
 
@@ -16,9 +17,11 @@ notes.sort(
 		<section class="w-3/4 mx-auto">
 			<ul class="mt-6 space-y-4">
 				{
-					notes.map(note => (
+					notes.map((note, i) => (
 						<li>
-							<NoteCard href={`/notes/${note.slug}`} {...note.data} />
+							<SlideEnter delay="60ms" stagger={i}>
+								<NoteCard href={`/notes/${note.slug}`} {...note.data} />
+							</SlideEnter>
 						</li>
 					))
 				}

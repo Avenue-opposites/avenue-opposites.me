@@ -5,6 +5,7 @@ import MarkdownLayout from './MarkdownLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import type { MarkdownHeading } from 'astro'
 import Toc from '~/components/Toc.astro'
+import SlideEnter from '~/components/SlideEnter.astro'
 
 type Props = CollectionEntry<'notes'>['data'] & {
 	headings: MarkdownHeading[];
@@ -16,10 +17,12 @@ const frontmatter: Frontmatter = { title, description, lang }
 
 <MarkdownLayout frontmatter={frontmatter}>
 	{toc && <Toc headings={headings} />}
-	<h1 class="mb-2 text-secondary">{title}</h1>
-	<p class="text-neutral">
+	<SlideEnter>
+		<h1 class="mb-2 text-secondary">{title}</h1>
+		<p class="text-neutral">
       发布于
-		<FormattedDate date={publishDate} />
-	</p>
+			<FormattedDate date={publishDate} />
+		</p>
+	</SlideEnter>
 	<slot />
 </MarkdownLayout>

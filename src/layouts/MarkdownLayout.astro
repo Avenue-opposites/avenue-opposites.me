@@ -17,7 +17,7 @@ const { frontmatter } = Astro.props
 ---
 
 <BaseLayout {...frontmatter}>
-	<main class="relative w-full">
+	<main id="markdown" class="relative w-full">
 		<Prose>
 			<slot />
 			<p class="flex gap-2 items-center text-gray-500 -ml-1">
