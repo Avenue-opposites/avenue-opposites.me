@@ -3,6 +3,7 @@ title: SVG-渐变
 description: 学习SVG的渐变
 duration: 10分钟
 publishDate: 2024-04-16
+updatedDate: 2024-04-22
 tags: [SVG, gradient]
 toc: true
 lang: zh-CN
@@ -126,7 +127,7 @@ lang: zh-CN
 ## 径向渐变
 
 使用`radialGradient`标签来创建径向渐变，
-这个标签有两个属性：`cx`和`cy`，用来指定终点圆的圆心坐标，`r`用来指定终点圆的半径，`fx`和`fy`用来指定起点圆的圆心坐标，`fr`用来指定起点圆的半径。如果不指定起始圆，则默认为`cx`和`cy`的值，`fr`默认为0%。
+这个标签有两个属性：`cx`和`cy`，用来指定终点圆的圆心坐标，`r`用来指定终点圆的半径，`fx`和`fy`用来指定起点圆的圆心坐标，`fr`用来指定起点圆的半径。如果不指定起始圆，则默认为`cx`和`cy`的值，`fr`默认为0%，`r`默认为50%。
 
 还有`gradientUnits`指定渐变的坐标单位，`spreadMethod`指定渐变的扩散方式，`gradientTransform`指定渐变的变换，`href`指定渐变的引用。
 
