@@ -12,7 +12,7 @@ const { pathname } = Astro.url
 const isActive = href === pathname || href === pathname.replace(/\/$/, '');
 ---
 
-<a href={href} class:list={[className, { 'text-primary daisy-link': isActive }, 'flex transition-all items-center hover:text-primary']} {...props}>
+<a href={href} class:list={[className, { 'text-primary daisy-link': isActive }, 'header-link flex transition-all items-center hover:text-primary']} {...props}>
 	<span class="sm:hidden">
 		<slot name="icon">
 			{icon && <Icon name={icon} class="fill-current" size={24} />}
@@ -22,3 +22,16 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, '');
 		<slot />
 	</span>
 </a>
+
+<script>
+	const headerLinks = [...document.querySelectorAll('.header-link')]
+	// 如果多次点击同一个链接，只会触发一次
+	headerLinks.forEach(link => {
+		link.addEventListener('click', (e) => {
+			const href = link.getAttribute('href')
+			if (href === location.pathname) {
+				e.preventDefault()
+			}
+		})
+	})
+</script>
