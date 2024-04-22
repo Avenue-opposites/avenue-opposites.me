@@ -2,6 +2,7 @@
 title: SVG-遮罩
 description: 使用mask属性进行遮罩
 publishDate: 2024-04-18
+updatedDate: 2024-04-22
 duration: 5分钟
 tags: [SVG, mask]
 lang: zh-CN
@@ -49,7 +50,7 @@ lang: zh-CN
 
 ## maskUnits
 
-`maskUnits`属性定义了**mask**的坐标系，默认值为`objectBoundingBox`，可以参考[gradientUnits](/notes/zh-cn/svg-gradient#gradientunits%E5%B1%9E%E6%80%A7)。
+`maskUnits`属性定义了**mask**的坐标系，默认值为`objectBoundingBox`，可以参考[gradientUnits](/notes/zh-cn/svg-gradient#gradientunits属性)。
 
 > 通常，如果需要在不同大小的元素上重复使用相同的蒙版效果，则可以选择 objectBoundingBox。而如果需要保持蒙版效果的固定大小和位置，则可以选择 userSpaceOnUse。
 
@@ -102,7 +103,7 @@ lang: zh-CN
 
 ## maskContentUnits
 
-`maskContentUnits`属性定义了**mask**的内容坐标系，默认值为`userSpaceOnUse`，可以参考[gradientUnits](/notes/zh-cn/svg-gradient#gradientunits%E5%B1%9E%E6%80%A7)。
+`maskContentUnits`属性定义了**mask**的内容坐标系，默认值为`userSpaceOnUse`，它的值和`maskUnits`属性一致。
 
 <svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
