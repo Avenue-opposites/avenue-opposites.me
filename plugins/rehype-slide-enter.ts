@@ -47,8 +47,6 @@ export default function rehypeSlideEnter(options: Options = {}) {
 				}
 				
 		    props.style = (style && `${style};`) + `--delay: ${d};--stagger: ${stagger}`
-
-				console.log(child.tagName, props)
 			}
 
 			// 处理pre标签
