@@ -32,15 +32,18 @@ const { frontmatter } = Astro.props
 </BaseLayout>
 
 <script>
-const back = document.getElementById('back')
-const lang = (document.children[0] as HTMLHtmlElement).lang.toLowerCase()	
-back?.addEventListener('click', () => {
-	const { origin, pathname } = location
-	const isEnableI18n = pathname.includes(lang)
-	const url = new URL(pathname.split('/').slice(0, -1).join('/'), origin)
-	if(isEnableI18n) {
-		url.pathname = url.pathname.replace(`/${lang}`, '')
-	}
-	location.assign(url)
+document.addEventListener('astro:page-load', () => {
+	
+	const back = document.getElementById('back')
+	const lang = (document.children[0] as HTMLHtmlElement).lang.toLowerCase()	
+	back?.addEventListener('click', () => {
+		const { origin, pathname } = location
+		const isEnableI18n = pathname.includes(lang)
+		const url = new URL(pathname.split('/').slice(0, -1).join('/'), origin)
+		if(isEnableI18n) {
+			url.pathname = url.pathname.replace(`/${lang}`, '')
+		}
+		location.assign(url)
+	})
 })
 </script>

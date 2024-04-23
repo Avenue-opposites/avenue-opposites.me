@@ -15,27 +15,29 @@ const { class: className, ...props } = Astro.props
 </article>
 
 <script>
-const imageModal = document.getElementById('image-modal')!
-const imageModalImg = document.getElementById('image-modal-img') as HTMLImageElement
-const showClass = ['opacity-0', 'invisible']
+document.addEventListener('astro:page-load', () => {
+	const imageModal = document.getElementById('image-modal')!
+	const imageModalImg = document.getElementById('image-modal-img') as HTMLImageElement
+	const showClass = ['opacity-0', 'invisible']
 
-window.addEventListener('click', (e) => {
-	const el = e.target as HTMLElement
-	if(el.tagName !== 'IMG') {
-		return
-	}
+	window.addEventListener('click', (e) => {
+		const el = e.target as HTMLElement
+		if(el.tagName !== 'IMG') {
+			return
+		}
 	
-	const isShow = imageModal.classList.contains('opacity-0')
+		const isShow = imageModal.classList.contains('opacity-0')
 
-	if(isShow) {
-		const { src, alt } = (el as HTMLImageElement)
+		if(isShow) {
+			const { src, alt } = (el as HTMLImageElement)
 
-		imageModal.classList.remove(...showClass)
-		imageModalImg.src = src
-		imageModalImg.alt = alt
-	}else {
-		imageModal.classList.add(...showClass)
-		imageModalImg.src = ''
-	}
+			imageModal.classList.remove(...showClass)
+			imageModalImg.src = src
+			imageModalImg.alt = alt
+		}else {
+			imageModal.classList.add(...showClass)
+			imageModalImg.src = ''
+		}
+	})
 })
 </script>
