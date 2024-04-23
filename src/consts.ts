@@ -8,7 +8,7 @@ type Pkg = typeof pkg & {
 }
 const _pkg = pkg as Pkg
 // 网站常量配置
-export const SITE_TITLE = 'Avenue Opposites'
+export const SITE_TITLE = 'Avenue-opposites'
 export const SITE_DESCRIPTION = 'Welcome to my website!'
 export const GITHUB_URL = _pkg.socialLinks.github
 export const TWITTER_URL = _pkg.socialLinks.twitter
