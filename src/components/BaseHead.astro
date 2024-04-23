@@ -62,6 +62,7 @@ const imageUrl = new URL(image, Astro.url)
 
 <!-- 主题切换必须的脚本 -->
 <script>
+// 在页面过渡完毕后设置主题
 document.addEventListener('astro:page-load', () => {
 	// 该脚本是内联中页面中的,不会被打包
 	// 从本地存储中获取主题
@@ -84,6 +85,7 @@ import { themeChange } from 'theme-change'
 // 主题切换
 themeChange()
 </script>
+<!-- 页面加载进度条 -->
 <script>
 import NProgress from 'nprogress'
 NProgress.configure({ showSpinner: false })
