@@ -3,23 +3,84 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
-	font-weight: 700;
+	font-family: 'input mono';
+	src: url('/fonts/input-regular.woff2') format('woff2');
+	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
 
+@font-face {
+	font-family: 'input mono bold';
+	src: 
+		url('/fonts/input-bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'input mono italic';
+	src: 
+		url('/fonts/input-italic.woff2') format('woff2');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'input mono bold italic';
+	src: 
+		url('/fonts/input-bold-italic.woff2') format('woff2');
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'cascadia mono';
+	src: url('/fonts/CascadiaMono.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'cascadia mono italic';
+	src: url('/fonts/CascadiaMonoItalic.woff2') format('woff2');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'cascadia mono bold';
+	src: url('/fonts/CascadiaMonoPL.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'cascadia mono bold italic';
+	src: url('/fonts/CascadiaMonoPLItalic.woff2') format('woff2');
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'caveat';
+	src: url('/fonts/Caveat-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+
 @layer base {
 	body {
-		font-family: 'Atkinson', sans-serif;
+		@apply font-cascadia-mono;
 	}
 
 	:where(a) {

@@ -10,6 +10,17 @@ export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
 		extend: {
+			fontFamily: {
+				'input-mono': ['input mono', 'system-ui', 'monospace', 'sans-serif'],
+				'input-mono-italic': ['input mono italic', 'system-ui', 'monospace', 'sans-serif'],
+				'input-mono-bold': ['input mono bold', 'system-ui', 'monospace', 'sans-serif'],
+				'input-mono-bold-italic': ['input mono bold italic', 'system-ui', 'monospace', 'sans-serif'],
+				'cascadia-mono': ['cascadia mono', 'system-ui', 'monospace', 'sans-serif'],
+				'cascadia-mono-italic': ['cascadia mono italic', 'system-ui', 'monospace', 'sans-serif'],
+				'cascadia-mono-bold': ['cascadia mono bold', 'system-ui', 'monospace', 'sans-serif'],
+				'cascadia-mono-bold-italic': ['cascadia mono bold italic', 'system-ui', 'monospace', 'sans-serif'],
+				'caveat': ['caveat', 'system-ui', 'monospace', 'sans-serif']
+			},
 			animation: {
 				'slide-in': 'slide-enter 1s ease both',
 				'slide-out': 'slide-out 1s ease both'

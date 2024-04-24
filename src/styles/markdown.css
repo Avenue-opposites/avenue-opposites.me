@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-  details {
+  #markdown code {
+    @apply font-input-mono-bold;
+  }
+  #markdown details {
     @apply my-4 transition-all;
   }
 }

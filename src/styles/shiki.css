@@ -1,3 +1,8 @@
+.shiki,
+.shiki span {
+	font-family: 'input mono', system-ui, sans-serif;
+}
+
 /* shiki 代码块浅色主题 */
 html[data-theme="light"] .shiki,
 html[data-theme="light"] .shiki span {
