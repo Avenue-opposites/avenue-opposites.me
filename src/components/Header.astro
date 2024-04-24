@@ -1,53 +1,7 @@
 ---
-import HeaderLink from './HeaderLink.astro'
-import { SITE_TITLE, GITHUB_URL, TWITTER_URL, BILIBILI_URL } from '../consts'
-import { Icon } from 'astro-icon/components'
-import SocialLink from './SocialLink.astro';
+import TheNav from './TheNav.astro'
 ---
 
-<header>
-	<nav class="daisy-navbar">
-		<!-- Logo -->
-		<div class="flex-1">
-			<h2 class="font-bold text-md hover:text-accent md:text-2xl">
-				<a href="/">{SITE_TITLE}</a>
-			</h2>
-		</div>
-		<div class="flex-none flex items-center">
-			<!-- 导航链接 -->
-			<div class="flex space-x-2 text-xl">
-				<HeaderLink title="首页" icon="home" href="/">Home</HeaderLink>
-				<HeaderLink	title="博客" icon="article" href="/blog">Blog</HeaderLink>
-				<HeaderLink	title="项目" icon="carbon:folder" href="/projects">Projects</HeaderLink>
-				<HeaderLink	title="笔记" icon="carbon:align-box-top-left" href="/notes">Notes</HeaderLink>
-				<HeaderLink	title="关于我" icon="me" href="/about">About</HeaderLink>
-			</div>
-			<!-- 分割线 -->
-			<div class="daisy-divider mx-1 daisy-divider-horizontal daisy-divider-neutral" />
-			<!-- 社交链接 -->
-			<div class="hidden gap-x-2 sm:flex items-center">
-				<SocialLink size={26} title="GitHub" icon="carbon:logo-github" href={GITHUB_URL} />
-				<SocialLink size={28} title="Twitter" icon="carbon:logo-twitter" href={TWITTER_URL} />
-				<SocialLink title="哔哩哔哩" icon="bilibili" href={BILIBILI_URL} />
-			</div>
-			<!-- 分割线 -->
-			<div class="hidden sm:flex daisy-divider mx-1 daisy-divider-horizontal daisy-divider-neutral" />
-			<!-- 主题切换swap -->
-			<label class="hover:text-primary transition-colors flex-none daisy-swap daisy-swap-rotate w-6 h-6">
-				<input class="daisy-swap-indeterminate" type="checkbox" />
-				<Icon
-					name="sun"
-					size={26}
-					data-toggle-theme="dark,light"
-					class="daisy-swap-on fill-current s-full"
-				/>
-				<Icon
-					name="moon"
-					size={26}
-					data-toggle-theme="dark,light"
-					class="daisy-swap-off fill-current"
-				/>
-			</label>
-		</div>
-	</nav>
+<header class="sticky top-0 z-10">
+	<TheNav />
 </header>
