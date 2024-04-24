@@ -24,6 +24,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, '');
 </a>
 
 <script>
+document.addEventListener('astro:page-load', () => {
 	const headerLinks = [...document.querySelectorAll('.header-link')]
 	// 如果多次点击同一个链接，只会触发一次
 	headerLinks.forEach(link => {
@@ -34,4 +35,5 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, '');
 			}
 		})
 	})
+})
 </script>
