@@ -93,21 +93,19 @@
 
 	/* 修改浏览器默认滚动条样式 */
 	::-webkit-scrollbar {
-		width: 0.25rem;
-		height: 0.25rem;
+		@apply s-1;
 	}
 
 	::-webkit-scrollbar-track {
-		background: transparent;
+		@apply bg-transparent;
 	}
 
 	::-webkit-scrollbar-thumb {
-		border-radius: 0.5rem;
-		background-color: oklch(var(--b2));
+		@apply rounded-lg bg-base-200;
 	}
 	
 	::-webkit-scrollbar-thumb:hover {
-		background-color: oklch(var(--b3));
+		@apply bg-base-300;
 	}
 	
 	/* View Transition */
