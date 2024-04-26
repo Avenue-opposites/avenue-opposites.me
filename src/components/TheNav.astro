@@ -56,15 +56,13 @@ import { debounce } from '~/utils'
 
 gsap.registerPlugin(ScrollTrigger)
 
-document.addEventListener('astro:page-load', () => {
-	const onUpdate = debounce((self) => {
-		gsap.set('#nav-mask', { 'backdrop-filter': `opacity(${(self as ScrollTrigger).progress.toFixed(2)})` })
-	}, 300)
-	ScrollTrigger.create({
-		trigger: document.documentElement,
-		start: 'top top',
-		end: 'bottom bottom',
-		onUpdate,
-	})
+const onUpdate = debounce((self) => {
+	gsap.set('#nav-mask', { 'backdrop-filter': `opacity(${(self as ScrollTrigger).progress.toFixed(2)})` })
+}, 300)
+ScrollTrigger.create({
+	trigger: document.documentElement,
+	start: 'top top',
+	end: 'bottom bottom',
+	onUpdate,
 })
 </script>
