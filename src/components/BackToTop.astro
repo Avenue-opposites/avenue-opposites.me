@@ -8,22 +8,20 @@ import { Icon } from 'astro-icon/components'
 
 <script>
 import { debounce } from '~/utils'
-document.addEventListener('astro:page-load', () => {
-	const range = innerHeight / 3
-	const showClass =['opacity-0', 'invisible']
-	const backToTop = document.getElementById('back-to-top')
-	backToTop?.addEventListener('click', () => {
+const range = innerHeight / 3
+const showClass =['opacity-0', 'invisible']
+const backToTop = document.getElementById('back-to-top')
+backToTop?.addEventListener('click', () => {
  	window.scrollTo({ top: 0, behavior: 'auto' })
-	})
-
-	window.addEventListener('scroll', debounce(() => {
-		if(!backToTop) return
-
-		if(scrollY >= range) {
- 		backToTop.classList.remove(...showClass)
-		}else {
- 	  backToTop.classList.add(...showClass)
-		}
-	}, 300))
 })
+
+window.addEventListener('scroll', debounce(() => {	
+	if(!backToTop) return
+
+	if(scrollY >= range) {
+ 		backToTop.classList.remove(...showClass)
+	}else {
+ 	  backToTop.classList.add(...showClass)
+	}
+}, 300))
 </script>
