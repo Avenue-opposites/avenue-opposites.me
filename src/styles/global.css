@@ -93,37 +93,23 @@
 
 	/* 修改浏览器默认滚动条样式 */
 	::-webkit-scrollbar {
-		@apply s-1;
+		width: 0.25rem;
+		height: 0.25rem;
 	}
 
 	::-webkit-scrollbar-track {
-		@apply bg-transparent;
+		background: transparent;
 	}
 
 	::-webkit-scrollbar-thumb {
-		@apply bg-base-200 rounded-lg;
+		border-radius: 0.5rem;
+		background-color: oklch(var(--b2));
 	}
 	
 	::-webkit-scrollbar-thumb:hover {
-		@apply bg-base-300
-	}
-
-	/* 修改浏览器进度条默认样式 */
-	::-webkit-progress-bar {
-		@apply bg-base-300;
+		background-color: oklch(var(--b3));
 	}
 	
-	::-webkit-progress-value {
-		@apply bg-primary;
-	}
-
-	#nprogress {
-		@apply pointer-events-none;
-	}
-	
-	#nprogress .bar {
-		@apply fixed z-[1031] w-full h-0.5 left-0 top-0 bg-primary;
-	}
 	/* View Transition */
 	/* ::view-transition-image-pair(root) {
 		isolation: auto;

@@ -63,32 +63,24 @@ const imageUrl = new URL(image, Astro.url)
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <!-- 主题切换必须的脚本 -->
-<script>
-document.addEventListener('astro:page-load', () => {
-	// 该脚本是内联中页面中的,不会被打包
-	// 从本地存储中获取主题
-	const theme = localStorage.getItem('theme')
-	const docEl = document.documentElement
-	// 如果没有主题,则设置为系统默认主题,否则为本地存储的主题
-	if (!theme) {
-		const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-		docEl.setAttribute('data-theme',  systemTheme)
-	} else {
-		docEl.setAttribute(
-			'data-theme',
-			theme
-		)
-	}
-})
+<script is:inline>
+// 该脚本是内联中页面中的,不会被打包
+// 从本地存储中获取主题
+const theme = localStorage.getItem('theme')
+const docEl = document.documentElement
+// 如果没有主题,则设置为系统默认主题,否则为本地存储的主题
+if (!theme) {
+	const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+	docEl.setAttribute('data-theme',  systemTheme)
+} else {
+	docEl.setAttribute(
+		'data-theme',
+		theme
+	)
+}
 </script>
 <script>
 import { themeChange } from 'theme-change'
 // 主题切换
 themeChange()
-</script>
-<script>
-import NProgress from 'nprogress'
-NProgress.configure({ showSpinner: false })
-document.addEventListener('astro:before-preparation', () => NProgress.start())
-document.addEventListener('astro:page-load', () => NProgress.done())
 </script>
