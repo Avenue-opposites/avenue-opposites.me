@@ -1,0 +1,35 @@
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<rect x="10" y="35" width="30" height="30" class="fill-primary">
+		<animateTransform
+			id="accumulate-demo-animate-translate"
+			attributeType="XML"
+			attributeName="transform"
+			type="translate"
+			begin="btn_accumulate.click"
+			by="25 0"
+			dur="1s"
+			repeatCount="2"
+			fill="freeze"
+			restart="whenNotActive"
+		/>
+	</rect>
+</svg>
+<form class="flex-center flex-col sm:flex-row mt-4 gap-4">
+	<label for="accumulate">
+		accumulate：
+		<select class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded" name="accumulate">
+			<option selected value="none">none</option>
+			<option value="sum">sum</option>
+		</select>
+	</label>
+	<button id="btn_accumulate" class="daisy-btn" type="button">开始动画</button>
+</form>
+
+<script>
+const select = document.querySelector('select[name="accumulate"]') as HTMLSelectElement
+const animate = document.querySelector('#accumulate-demo-animate-translate')
+
+select?.addEventListener('change', () => {
+	animate?.setAttribute('accumulate', select.value)
+})
+</script>

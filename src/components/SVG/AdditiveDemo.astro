@@ -1,0 +1,47 @@
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<rect x="10" y="10" width="10" height="10" class="fill-primary">
+		<animateTransform
+			id="additive_demo_animate_scale"
+			attributeType="XML"
+			attributeName="transform"
+			type="scale"
+			begin="btn_additive.click"
+			from="1"
+			to="2"
+			dur="1s"
+			fill="freeze"
+			restart="whenNotActive"
+		/>
+		<animateTransform 
+			id="additive-demo-animate-translate"
+			attributeType="XML"
+			attributeName="transform"
+			type="translate"
+			begin="additive_demo_animate_scale.end"
+			from="0 0"
+			to="20 0"
+			dur="1s"
+			fill="freeze"
+			restart="whenNotActive"
+		/>
+	</rect>
+</svg>
+<form class="flex-center flex-col sm:flex-row mt-4 gap-4">
+	<label for="additive">
+		additive：
+		<select class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded" name="additive">
+			<option selected value="replace">replace</option>
+			<option value="sum">sum</option>
+		</select>
+	</label>
+	<button id="btn_additive" class="daisy-btn" type="button">开始动画</button>
+</form>
+
+<script>
+const select = document.querySelector('select[name="additive"]') as HTMLSelectElement
+const animate = document.querySelector('#additive-demo-animate-translate')
+
+select?.addEventListener('change', () => {
+	animate?.setAttribute('additive', select.value)
+})
+</script>
