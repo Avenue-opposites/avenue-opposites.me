@@ -1,0 +1,12 @@
+---
+import { SITE_TITLE } from '~/consts'
+
+---
+
+<div class="flex-1">
+	<h2 class="group font-caveat text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+		<a href="/">
+			<span class="hidden sm:inline-block">{SITE_TITLE}</span><span class="inline-block sm:hidden">{SITE_TITLE.at(0)}</span><span class="group-hover:text-accent">.com</span>
+		</a>
+	</h2>
+</div>
