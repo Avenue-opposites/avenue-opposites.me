@@ -8,6 +8,9 @@
   }
   #markdown details {
     @apply my-4 transition-all;
+    summary {
+      @apply cursor-pointer;
+    }
   }
 }
 
