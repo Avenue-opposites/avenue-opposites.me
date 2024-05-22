@@ -18,18 +18,19 @@ const {
 ---
 
 <a
-	class="daisy-card daisy-card-bordered overflow-hidden space-y-2 sm:space-y-4 shadow-md hover:shadow-secondary border sm:border-2 hover:border-primary"
+	class="daisy-card group overflow-hidden p-4"
 	{...props}
 >
+	<div class="absolute z-[-1] rounded-2xl inset-8 group-hover:inset-0 transition-all bg-base-300" />
 	{
 		heroImage && (
 			<figure>
-				<img class="s-full object-cover daisy-image-full" src={heroImage} alt="" />
+				<img class="s-full object-cover daisy-image-full rounded-2xl" src={heroImage} alt="" />
 			</figure>
 		)
 	}
 	<div
-		class="space-y-2 p-4"
+		class="space-y-2"
 	>
 		<h1 class="daisy-card-title flex-wrap lg:text-2xl">
       # {title}

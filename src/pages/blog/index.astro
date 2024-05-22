@@ -10,16 +10,20 @@ posts.sort(
 	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
 ---
-
+<style>
+  #posts .daisy-card::before {
+    background: radial-gradient(250px circle at var(--x, -1000px) var(--y,-1000px), oklch(var(--p)), transparent);
+  }
+</style>
 <BaseLayout>
 	<main class="w-full">
 		<section class="w-3/4 mx-auto">
-			<ul class="mt-6 grid gap-4 sm:grid-cols-2">
+			<ul id="posts" class="mt-6 grid gap-4 sm:grid-cols-2">
 				{
 					posts.map((post, i) => (
 						<li class:list={['container', { 'sm:col-span-2': i === 0 }]}>
 							<SlideEnter delay="60ms" stagger={i}>
-								<PostCard href={`/blog/${post.slug}`} {...post.data} />
+								<PostCard class="post" href={`/blog/${post.slug}`} {...post.data} />
 							</SlideEnter>
 						</li>
 					))
@@ -28,3 +32,19 @@ posts.sort(
 		</section>
 	</main>
 </BaseLayout>
+
+<script>
+const postContainer = document.getElementById('posts')
+const posts = postContainer?.querySelectorAll('.post')
+postContainer?.addEventListener('mousemove', event => {
+	if (!posts) return
+	for (const post of posts) {
+		const { clientX, clientY } = event
+		const rect = post.getBoundingClientRect()
+		const x = clientX - rect.left
+		const y = clientY - rect.top
+		;(post as HTMLDivElement).style.setProperty('--x', `${x}px`)
+		;(post as HTMLDivElement).style.setProperty('--y', `${y}px`)
+	}
+})
+</script>
