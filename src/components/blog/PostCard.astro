@@ -20,31 +20,29 @@ const { title, description, publishDate, heroImage, duration, tags, lang, class:
 	]}
 	{...props}
 >
-	<div class="bg-base-100 group-hover:bg-opacity-90 rounded-2xl relative z-[1]">
+	<div class="daisy-card-body bg-base-100 group-hover:bg-opacity-90 rounded-2xl relative z-[1]">
 		{
 			heroImage && 
 			(
-				<figure>
+				<figure class="rounded-xl">
 					<img class="daisy-image-full" src={heroImage} alt="" />
 				</figure>
 			)
 		}
-		<div class="daisy-card-body">
-			<h1 class="mt-2 daisy-card-title flex-wrap lg:text-2xl">
-				{title}
-				{lang.startsWith('zh') && <span class="daisy-badge items-stretch daisy-badge-neutral">中文</span>}
-			</h1>
-			<p class="text-neutral text-sm">
-				<FormattedDate date={publishDate} />
+		<h1 class="mt-2 daisy-card-title flex-wrap lg:text-2xl">
+			{title}
+			{lang.startsWith('zh') && <span class="daisy-badge items-stretch daisy-badge-neutral">中文</span>}
+		</h1>
+		<p class="text-neutral text-sm">
+			<FormattedDate date={publishDate} />
 				· {duration}
-			</p>
-			<p class="sm:text-lg multi-ellipsis-[3]">{description}</p>
-			{
-				tags &&
+		</p>
+		<p class="sm:text-lg multi-ellipsis-[3]">{description}</p>
+		{
+			tags &&
 				<div class="flex flex-wrap gap-2">
 					{tags.map((tag) => <span class="daisy-badge daisy-badge-outline daisy-badge-primary">{tag}</span>)}
 				</div>
-			}
-		</div>
+		}
 	</div>
 </a>
