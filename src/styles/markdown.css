@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  #markdown svg,
+	#markdown img,
+  #markdown math,
+  #markdown form {
+		--initial-delay: 60ms;
+		@apply animate-slide-out;
+		animation-delay: calc(var(--initial-delay) + var(--delay, 60ms) * var(--stagger, 0));
+	}
   #markdown code {
     @apply font-input-mono-bold;
   }
