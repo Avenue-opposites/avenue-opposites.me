@@ -145,4 +145,8 @@
 	.inline-flex-center {
 		@apply inline-flex justify-center items-center;
 	}
+
+	.input {
+		@apply pl-2 py-1 text-sm bg-base-300 rounded disabled:opacity-50 disabled:cursor-not-allowed;
+	}
 }
