@@ -1,0 +1,209 @@
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<filter id="convolve-matrix">
+		<feConvolveMatrix kernelMatrix="1 0 0 0 1 0 0 0 1" />
+	</filter>
+	<image
+		x="0" y="0" width="100" height="100"
+		href="/images/缠流子.jpeg"
+		filter="url(#convolve-matrix)"
+		preserveAspectRatio="xMidYMid slice"
+	/>
+</svg>
+<form id="fe-convolve-matrix" class="sm:w-2/3 mx-auto flex flex-col mt-4 gap-4">
+	<!-- order -->
+	<div class="flex flex-col gap-2">
+		<label class="flex items-center cursor-pointer" for="double-mode">
+			<span>（启用row和column模式)</span>
+			<input id="double-mode" class="daisy-checkbox" type="checkbox" name="double-mode">
+		</label>
+		<label class="flex items-center" for="order">
+			<span>order：</span>
+			<input id="order" class="input" min="0" max="5" type="number" name="order" value="3" />
+		</label>
+		<div class="double hidden">
+			<label class="inline-flex items-center" for="order-column">
+				orderColumn：
+				<input id="order-column" class="input" min="0" max="5" type="number" name="order-column" value="3" />
+			</label>
+			<label class="inline-flex items-center" for="order-row">
+				orderRow：
+				<input id="order-row" class="input" min="0" max="5" type="number" name="order-row" value="3" />
+			</label>
+		</div>
+	</div>
+	<!-- target -->
+	<div class="space-x-2">
+		<!-- targetX -->
+		<label class="inline-flex items-center"  for="target-x">
+			targetX：
+			<input id="target-x" class="input" min="0" type="number" name="targetX" value="0" />
+		</label>
+		<!-- targetY -->
+		<label class="inline-flex items-center"  for="target-y">
+			targetY：
+			<input id="target-y" class="input" min="0" type="number" name="targetY" value="0" />
+		</label>
+	</div>
+	<!-- kernelMatrix -->
+	<label for="kernel-matrix">
+		kernelMatrix：
+		<textarea
+			id="kernel-matrix"
+			class="pl-2 py-1 text-sm bg-base-300 rounded h-8"
+			name="kernelMatrix"
+			placeholder="请输入表格值，每个值用空格隔开"
+			set:text="1 1 1 1 1 1 1 1 1"
+		/>
+	</label>
+	<!-- divisor -->
+	<label class="flex items-center"  for="divisor">
+		divisor：
+		<input id="divisor" class="input" type="number" name="divisor" value="0" />
+	</label>
+	<!-- bias -->
+	<label class="flex items-center"  for="bias">
+		bias：
+		<input id="bias" class="input" step="0.01" type="number" name="bias" value="0" />
+	</label>
+	<!-- edgeMode -->
+	<label class="flex items-center"  for="edgeMode">
+		edgeMode：
+		<select id="edgeMode" class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded" name="edgeMode">
+			<option selected value="duplicate">duplicate</option>
+			<option value="wrap">wrap</option>
+			<option value="none">none</option>
+		</select>
+	</label>
+	<!-- preserveAlpha -->
+	<label class="flex items-center"  for="preserveAlpha">
+		preserveAlpha：
+		<input id="preserveAlpha" class="daisy-checkbox" type="checkbox" name="preserveAlpha" />
+	</label>
+</form>
+
+<script>
+const form = document.querySelector('#fe-convolve-matrix') as HTMLFormElement
+const doubleMode = form.querySelector('#double-mode') as HTMLInputElement
+const div = form.querySelector('.double') as HTMLDivElement
+const orderColumn = div.querySelector('#order-column') as HTMLInputElement
+const orderRow = div.querySelector('#order-row') as HTMLInputElement
+const order = form.querySelector('#order') as HTMLInputElement
+const feConvolveMatrix = document.querySelector('#convolve-matrix feConvolveMatrix') as SVGFEConvolveMatrixElement
+const targetX = form.querySelector('#target-x') as HTMLInputElement
+const targetY = form.querySelector('#target-y') as HTMLInputElement
+const kernelMatrix = form.querySelector('#kernel-matrix') as HTMLTextAreaElement
+const divisor = form.querySelector('#divisor') as HTMLInputElement
+const bias = form.querySelector('#bias') as HTMLInputElement
+const edgeMode = form.querySelector('#edgeMode') as HTMLSelectElement
+const preserveAlpha = form.querySelector('#preserveAlpha') as HTMLInputElement
+
+initTargetMaxAndValue()
+feConvolveMatrix.setAttribute('divisor', initDivisorValue()!)
+
+// 切换
+doubleMode.addEventListener('change', () => {
+	if(doubleMode.checked) {
+		order.parentElement?.classList.add('hidden')
+		div.classList.remove('hidden')	
+	}else {
+		order.parentElement?.classList.remove('hidden')
+		div.classList.add('hidden')
+	}
+	initTargetMaxAndValue()
+})
+
+// 设置order值
+order.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('order', order.value)
+})
+
+orderColumn.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('order', `${orderColumn.value} ${orderRow.value}`)
+})
+
+orderRow.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('order', `${orderColumn.value} ${orderRow.value}`)
+})
+
+// 设置target
+targetX.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('targetX', targetX.value)
+})
+
+targetY.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('targetY', targetY.value)
+})
+
+// kernelMatrix
+kernelMatrix.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('kernelMatrix', kernelMatrix.value)
+})
+
+// 设置divisor
+divisor.addEventListener('change', () => {
+	let value = divisor.value
+
+	if(value === '0') {
+		initDivisorValue()
+		value = getKernelMatrixTotal(kernelMatrix.value).toString()
+	}
+	
+	feConvolveMatrix.setAttribute('divisor', value)
+})
+
+// 设置bias
+bias.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('bias', bias.value)
+})
+
+// 设置edgeMode
+edgeMode.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('edgeMode', edgeMode.value)
+})
+
+// 设置preserveAlpha
+preserveAlpha.addEventListener('change', () => {
+	feConvolveMatrix.setAttribute('preserveAlpha', preserveAlpha.checked.toString())
+})
+
+/**
+ * @description 初始化divisor输入框的默认value属性
+*/
+function initDivisorValue() {
+	const value = kernelMatrix.value
+
+	if(!value) return
+	const total = getKernelMatrixTotal(value)
+	const v = total === 0 ? '1' : total.toString()
+	divisor.setAttribute('value', v)
+
+	return v
+}
+
+/**
+ * @description 计算kernelMatrix的总和
+*/
+function getKernelMatrixTotal(matrixStr: string) {
+	let total = 0
+	matrixStr.split(' ').forEach(n => {
+		total += parseInt(n)
+	})
+
+	return total
+}
+
+/**
+ * @description 初始化targetX和targetY输入框的默认max和value属性
+*/
+function initTargetMaxAndValue() {
+	const currentOrderColumn = doubleMode.checked ? orderColumn.value : order.value
+	const currentOrderRow = doubleMode.checked ? orderRow.value : order.value
+	// 设置默认target max满足 0 <= target < order
+	targetX.setAttribute('max', (+currentOrderColumn - 1).toString())
+	targetY.setAttribute('max', (+currentOrderRow - 1).toString())
+
+	// 设置默认target
+	targetX.setAttribute('value', Math.floor(+currentOrderColumn / 2).toString())
+	targetY.setAttribute('value', Math.floor(+currentOrderRow / 2).toString())
+}
+</script>

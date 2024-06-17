@@ -1,0 +1,109 @@
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<filter id="composite">
+		<feImage href="/images/wallpaper.png" preserveAspectRatio="xMidYMid slice" result="image" />
+		<feComposite in="SourceGraphic" in2="image" operator="over" />
+	</filter>
+	<image
+		href="/images/figma.png"
+		x="0" y="0" width="100" height="100"
+		filter="url(#composite)"
+	/>
+</svg>
+<form id="fe-composite" class="flex-center flex-col sm:flex-row mt-4 gap-4">
+	<label for="operator">
+		operator：
+		<select class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded" name="operator">
+			<option selected value="over">over</option>
+			<option value="in">in</option>
+			<option value="out">out</option>
+			<option value="atop">atop</option>
+			<option value="xor">xor</option>
+			<option value="arithmetic">arithmetic</option>
+		</select>
+	</label>
+	<div class="grid grid-cols-2 gap-4">
+		<label class="flex items-center" for="k1">
+      k1：
+			<input
+				class="pl-2 py-1 text-sm bg-base-300 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+				name="k1"
+				type="number"
+				step="0.01"
+				min="0"
+				max="1"
+				value="0.5"
+				disabled
+			/>
+		</label>
+		<label class="flex items-center" for="k2">
+      k2：
+			<input
+				class="pl-2 py-1 text-sm bg-base-300 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+				name="k2"
+				type="number"
+				step="0.01"
+				min="0"
+				max="1"
+				value="0.5"
+				disabled
+			/>
+		</label>
+		<label class="flex items-center" for="k3">
+      k3：
+			<input
+				class="pl-2 py-1 text-sm bg-base-300 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+				name="k3"
+				type="number"
+				step="0.01"
+				min="0"
+				max="1"
+				value="0.5"
+				disabled
+			/>
+		</label>
+		<label class="flex items-center" for="k4">
+      k4：
+			<input
+				class="pl-2 py-1 text-sm bg-base-300 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+				name="k4"
+				type="number"
+				step="0.01"
+				min="0"
+				max="1"
+				value="0.5"
+				disabled
+			/>
+		</label>
+	</div>
+</form>
+
+<script>
+const select = document.querySelector('#fe-composite select[name="operator"]') as HTMLSelectElement
+const feComposite = document.querySelector('#composite feComposite') as SVGFECompositeElement
+const inputK = document.querySelectorAll<HTMLInputElement>('#fe-composite input[name^="k"]')
+
+for(const input of inputK) {
+	input.addEventListener('change', () => {
+		feComposite.setAttribute(input.name, input.value)
+	})
+}
+
+select.addEventListener('change', () => {
+	if (select.value === 'arithmetic') {
+		setDisable(false)
+		for(const input of inputK) {
+			feComposite.setAttribute(input.name, input.value)
+		}
+	}else {
+		setDisable(true)
+	}
+	feComposite.setAttribute('operator', select.value)
+})
+
+
+function setDisable(disabled: boolean) {
+	for (const input of inputK) {
+		input.disabled = disabled
+	}
+}
+</script>

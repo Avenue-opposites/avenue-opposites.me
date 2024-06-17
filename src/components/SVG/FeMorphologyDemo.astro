@@ -1,0 +1,48 @@
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<filter id="morphology">
+		<feMorphology />
+	</filter>
+	<image
+		x="0" y="0" width="100" height="100"
+		href="/images/流萤.png"
+		filter="url(#morphology)"
+		preserveAspectRatio="xMidYMid slice"
+	/>
+</svg>
+<form id="fe-morphology" class="flex-center flex-col sm:flex-row mt-4 gap-4">
+	<label for="morphology-operator">
+    operator：
+		<select id="morphology-operator" class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded" name="operator">
+			<option selected value="erode">erode</option>
+			<option value="dilate">dilate</option>  
+		</select>
+	</label>
+	<label for="morphology-radius">
+    radius：
+		<input
+			id="morphology-radius"
+			class="input"
+			type="number"
+			name="radius"
+			step="0.01"
+			min="0"
+			value="0"
+		/>
+	</label>
+</form>
+
+
+<script>
+const form = document.querySelector('#fe-morphology')!
+const feMorphology = document.querySelector('#morphology feMorphology') as SVGFEBlendElement
+const inputRadius = form.querySelector('#morphology-radius') as HTMLInputElement
+const operator = form.querySelector('#morphology-operator') as HTMLSelectElement
+
+inputRadius.addEventListener('change', () => {
+	feMorphology.setAttribute('radius', inputRadius.value)
+})
+
+operator.addEventListener('change', () => {
+	feMorphology.setAttribute('operator', operator.value)
+})  
+</script>

@@ -1,0 +1,110 @@
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<filter id="turbulence">
+		<feTurbulence
+			type="turbulence"
+			baseFrequency="0.125"
+			numOctaves="2"
+			result="turbulence"
+		/>
+		<feDisplacementMap in="SourceGraphic" scale="8" xChannelSelector="B" yChannelSelector="B"/>
+	</filter>
+	<image
+		x="0" y="0" width="100" height="100"
+		href="/images/明末行.png"
+		filter="url(#turbulence)"
+		preserveAspectRatio="xMidYMid slice"
+	/>
+</svg>
+<form id="fe-turbulence" class="flex-center flex-col mt-4 gap-4">
+	<label for="type">
+    type：
+		<select id="type" class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded" name="type">
+			<option selected value="turbulence">turbulence</option>
+			<option value="fractalNoise">fractalNoise</option>
+		</select>
+	</label>
+	<label for="baseFrequency">
+    baseFrequency：
+		<input
+			id="baseFrequency"
+			class="input"
+			type="number"
+			name="baseFrequency"
+			step="0.001"
+			min="0"
+			value="0.125"
+		/>
+	</label>
+	<label for="numOctaves">
+    numOctaves：
+		<input
+			id="numOctaves"
+			class="input"
+			type="number"
+			name="numOctaves"
+			min="0"
+			value="2"
+		/>
+	</label>
+	<label for="seed">
+    seed：
+		<input
+			id="seed"
+			class="input"
+			type="number"
+			name="seed"
+			value="0"
+		/>
+	</label>
+	<label for="stitchTiles">
+    stitchTiles：
+		<select
+			id="stitchTiles"
+			class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded"
+			name="stitchTiles"
+		>
+			<option selected value="noStitch">noStitch</option>
+			<option value="stitch">stitch</option>
+		</select>
+	</label>
+	<label for="feDisplacementMap">
+    查看噪声
+		<input class="daisy-checkbox" id="feDisplacementMap" type="checkbox" name="feDisplacementMap" />
+	</label>
+</form>
+
+<script>
+const form = document.querySelector('#fe-turbulence') as HTMLFormElement
+const feTurbulence = document.querySelector('#turbulence feTurbulence') as SVGFETurbulenceElement
+const feDisplacementMap = document.querySelector('#turbulence feDisplacementMap') as SVGFEDisplacementMapElement
+const type = form.querySelector('#type') as HTMLSelectElement
+const baseFrequency = form.querySelector('#baseFrequency') as HTMLInputElement
+const numOctaves = form.querySelector('#numOctaves') as HTMLInputElement
+const seed = form.querySelector('#seed') as HTMLInputElement
+const stitchTiles = form.querySelector('#stitchTiles') as HTMLSelectElement
+const checkbox = form.querySelector('#feDisplacementMap') as HTMLInputElement
+
+type.addEventListener('change', () => {
+	feTurbulence.setAttribute('type', type.value)
+})
+baseFrequency.addEventListener('change', () => {
+	feTurbulence.setAttribute('baseFrequency', baseFrequency.value)
+})
+numOctaves.addEventListener('change', () => {
+	feTurbulence.setAttribute('numOctaves', numOctaves.value)
+})
+seed.addEventListener('change', () => {
+	feTurbulence.setAttribute('seed', seed.value)
+})
+stitchTiles.addEventListener('change', () => {
+	feTurbulence.setAttribute('stitchTiles', stitchTiles.value)
+})
+
+checkbox.addEventListener('change', () => {
+	if(checkbox.checked) {
+		feDisplacementMap.setAttribute('in', '')
+	} else {
+		feDisplacementMap.setAttribute('in', 'SourceGraphic')
+	}
+})
+</script>

@@ -1,0 +1,82 @@
+<svg class="svg-markdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<filter id="displacement-map">
+		<feImage
+			href="/images/wallpaper.png" 
+			preserveAspectRatio="xMidYMid slice" 
+			result="image"
+		/>
+		<feDisplacementMap
+			in="SourceGraphic"
+			in2="image"
+			scale="0"
+			xChannelSelector="A"
+			yChannelSelector="A"
+		/>
+	</filter>
+	<image
+		x="0" y="0" width="100" height="100"
+		href="/images/阮梅.png"
+		filter="url(#displacement-map)"
+		preserveAspectRatio="xMidYMid slice"
+	/>
+</svg>
+<form id="fe-displacement-map" class="flex-center flex-col mt-4 gap-4">
+	<label for="displacement-map-scale">
+    scale：
+		<input
+			id="displacement-map-scale"
+			class="input"
+			type="number"
+			name="scale"
+			step="0.1"
+			min="0"
+			value="0"
+		/>
+	</label>
+	<label for="displacement-map-x-channel-selector">
+    xChannelSelector：
+		<select
+			id="displacement-map-x-channel-selector"
+			class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded"
+			name="xChannelSelector"
+		>
+			<option selected value="R">R</option>
+			<option value="G">G</option>
+			<option value="B">B</option>
+			<option selected value="A">A</option>
+		</select>
+	</label>
+	<label for="displacement-map-y-channel-selector">
+    yChannelSelector：
+		<select
+			id="displacement-map-y-channel-selector"
+			class="pl-2 pr-8 py-1 text-sm bg-base-300 rounded"
+			name="yChannelSelector"
+		>
+			<option value="R">R</option>
+			<option value="G">G</option>
+			<option value="B">B</option>
+			<option selected value="A">A</option>
+		</select>
+	</label>
+</form>
+
+<script>
+const feDisplacementMap = document.querySelector('#displacement-map feDisplacementMap') as SVGFEDisplacementMapElement
+const form = document.querySelector('#fe-displacement-map') as HTMLFormElement
+const scale = form.querySelector('#displacement-map-scale') as HTMLInputElement
+const xChannelSelector = form.querySelector('#displacement-map-x-channel-selector') as HTMLSelectElement
+const yChannelSelector = form.querySelector('#displacement-map-y-channel-selector') as HTMLSelectElement
+
+scale.addEventListener('change', () => {
+	feDisplacementMap.setAttribute('scale', scale.value)
+})
+
+xChannelSelector.addEventListener('change', () => {
+	feDisplacementMap.setAttribute('xChannelSelector', xChannelSelector.value)
+})
+
+yChannelSelector.addEventListener('change', () => {
+	feDisplacementMap.setAttribute('yChannelSelector', yChannelSelector.value)
+})
+</script>
