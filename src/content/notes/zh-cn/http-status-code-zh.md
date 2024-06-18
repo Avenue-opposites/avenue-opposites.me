@@ -3,7 +3,6 @@ title: HTTP状态码
 description: 一篇学习HTTP状态码的博客
 duration: 3分钟
 publishDate: 2023-11-17
-heroImage: /images/blog-placeholder-1.jpg
 tags: [HTTP, Status]
 lang: zh-CN
 ---

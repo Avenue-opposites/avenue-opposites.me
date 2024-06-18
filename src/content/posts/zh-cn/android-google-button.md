@@ -3,7 +3,6 @@ title: 制作一个谷歌按钮-安卓端
 description: 谷歌按钮-安卓端
 publishDate: 2024-01-23
 duration: 7分钟
-heroImage: /images/blog/google-button-blog.png
 authors: Avenue-opposites
 tags: [Android, Jetpack Compose]
 lang: zh-CN
