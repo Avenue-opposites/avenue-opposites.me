@@ -10,7 +10,7 @@ const { class: className, ...props } = Astro.props
 	<slot />
 	<div id="image-modal" class="fixed flex justify-center opacity-0 invisible transition-opacity items-center inset-0 z-50">
 		<div class="absolute inset-0 bg-black bg-opacity-75 backdrop-blur" />
-		<img id="image-modal-img" class="relative z-10 min-h-fit h-full object-contain" />
+		<img id="image-modal-img" class="relative cursor-pointer z-10 min-h-fit h-full object-contain" />
 	</div>
 </article>
 

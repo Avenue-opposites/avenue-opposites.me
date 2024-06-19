@@ -15,6 +15,7 @@ import remarkShiki from './plugins/remark-shiki'
 import rehypeToc from './plugins/rehype-toc'
 import { transformerMultipleLine } from './plugins/shiki-multiple-line'
 import rehypeSlideEnter from './plugins/rehype-slide-enter'
+import rehypeImgCursor from './plugins/rehype-img-cursor'
 
 // https://astro.build/config
 export default defineConfig({
@@ -62,7 +63,7 @@ export default defineConfig({
 				}
 			],
 		],
-		rehypePlugins: [rehypeToc, rehypeSlideEnter]
+		rehypePlugins: [rehypeToc, rehypeSlideEnter, rehypeImgCursor]
 	},
 	server: {
 		host: '0.0.0.0'
