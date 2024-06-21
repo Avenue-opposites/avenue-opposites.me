@@ -1,0 +1,73 @@
+---
+import chance from 'chance'
+import randomColor from 'randomcolor'
+const c = chance()
+---
+
+<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" class="w-full h-screen absolute -z-10 top-0 left-0 flex gap-2 justify-center flex-wrap">
+	<g>
+		<!-- {
+			Array.from({ length: c.integer({ min: 20, max: 50 }) }).map(() => (
+				<rect
+					class="bg-rect"
+					x={c.floating({ min: 1, max: 90, fixed: 2 })} 
+					y={c.floating({ min: 1, max: 90, fixed: 2 })} 
+					width={c.floating({ min: 1, max: 10, fixed: 2 })} 
+					height={c.floating({ min: 1, max: 10, fixed: 2 })} 
+					fill={randomColor()}
+					rx={c.floating({ min: 0, max: 10, fixed: 2 })}
+					ry={c.floating({ min: 0, max: 10, fixed: 2 })}
+				/>
+			))
+		} -->
+		{
+			Array.from({ length: c.integer({ min: 20, max: 50 }) }).map(() => (
+				<path
+					class="bg-path"
+					d={`M${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })}, C${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })}, ${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })}`}
+					stroke={randomColor()}
+					fill="none"
+					stroke-width={c.floating({ min: 0.1, max: 1, fixed: 2 })}
+				/>
+			))
+		}
+	</g>
+</svg>
+
+<script>
+import chance from 'chance'
+import gsap from 'gsap'
+
+document.addEventListener('astro:page-load', () => {
+	const c = chance()
+	// const bgRects = document.querySelectorAll('.bg-rect')
+
+	// bgRects.forEach(rect => {
+	// 	gsap.to(rect, {
+	// 		x: c.floating({ min: -100, max: 100, fixed: 2 }),
+	// 		y: c.floating({ min: -100, max: 100, fixed: 2 }),
+	// 		rotateX: c.integer({ min: 0, max: 360 }),
+	// 		rotateY: c.integer({ min: 0, max: 360 }),
+	// 		rotateZ: c.integer({ min: 0, max: 360 }),
+	// 		duration: c.floating({ min: 2, max: 10, fixed: 2 }),
+	// 		delay: c.floating({ min: 0, max: 5, fixed: 2 }),
+	// 		yoyo: true,
+	// 		repeat: -1,
+	// 		ease: 'bounce'
+	// 	})
+	// })
+
+	const bgPaths = document.querySelectorAll('.bg-path')
+	bgPaths.forEach(path => {
+		gsap.to(path, {
+			duration: c.floating({ min: 2, max: 10, fixed: 2 }),
+			delay: c.floating({ min: 0, max: 5, fixed: 2 }),
+			yoyo: true,
+			repeat: -1,
+			attr: {
+				d: `M${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })}, C${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })}, ${c.integer({ min: 0, max: 100 })} ${c.integer({ min: 0, max: 100 })}`
+			}
+		})
+	})
+})
+</script>

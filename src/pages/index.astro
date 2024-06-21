@@ -1,18 +1,10 @@
 ---
+import Hero from '~/components/Hero.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 ---
 
 <BaseLayout>
 	<main>
-		<div class="daisy-hero min-h-screen">
-			<div class="daisy-hero-content text-center">
-				<div class="max-w-md">
-					<h1 class="text-5xl font-bold">欢迎访问我的主页</h1>
-					<p class="py-6">我是一名前端开发者.</p>
-					<p class="py-6">这是我的个人网站，目前还在建设中.</p>
-					<button class="daisy-btn daisy-btn-primary">Get Started</button>
-				</div>
-			</div>
-		</div>
+		<Hero />
 	</main>
 </BaseLayout>

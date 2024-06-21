@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets'
+import { getEntry } from 'astro:content'
+import Background from './Background.astro'
+
+const { data: author } = await getEntry('authors', 'Avenue-opposites')
+const [firstName, lastName] = author.name.split(' ')
+---
+
+<div class="daisy-hero min-h-screen relative">
+	<Background />
+	<div class="daisy-hero-content text-center">
+		<div class="max-w-md space-y-4">
+      <!-- avatar -->
+      <div class="daisy-avatar">
+      	<div class="w-48 rounded-full">
+      		<Image 
+      			inferSize
+      			src={author.avatar!} 
+      			alt={`${author.name} avatar`} 
+      		/>
+      	</div>
+      </div>
+      <h1 class="text-5xl font-bold">
+      	{firstName}
+      	<span class=" bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">{lastName}</span>
+      </h1>
+      <p>欢迎来到我个人网站</p>
+		</div>
+	</div>
+</div>
