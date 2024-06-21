@@ -17,8 +17,7 @@ description: 我的简介
 [造梦西游](https://www.4399.com/flash/zmhj.htm)、
 [阴阳师](https://yys.163.com/)、
 [Fate/Grand Order](https://www.fate-go.com.tw/)
-以及一些[Steam](https://store.steampowered.com/)上的游戏。我现在正在玩[决战平安京](https://moba.163.com/)、
-[暗区突围](https://aqtw.qq.com/)。
+以及一些[Steam](https://store.steampowered.com/)上的游戏。我现在正在玩[决战平安京](https://moba.163.com/)。
 
 动漫的话，我比较喜欢看**战斗番**，比如[火影忍者](https://zh.wikipedia.org/wiki/%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85)、
 [犬夜叉](https://www.bilibili.com/bangumi/media/md28222083)、
