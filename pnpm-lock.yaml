@@ -41,9 +41,6 @@ dependencies:
   gsap:
     specifier: ^3.12.5
     version: 3.12.5
-  nprogress:
-    specifier: ^0.2.0
-    version: 0.2.0
   randomcolor:
     specifier: ^0.6.2
     version: 0.6.2
