@@ -19,7 +19,7 @@ import rehypeImgCursor from './plugins/rehype-img-cursor'
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://avenue-opposites.com',
+	site: 'https://pzj01.com',
 	integrations: [
 		mdx(),
 		sitemap(),

@@ -1,4 +1,4 @@
-# Avenue-opposites.me
+# pzj01.me
 
 ## 介绍
 这个是我的博客，使用 [Astro](https://astro.build/) 搭建的。
